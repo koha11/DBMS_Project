@@ -1,0 +1,584 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* Ma color */
+:root{
+  --primary-color: #f2ba1d;
+  --secondary-color: #08183a;
+  --text-color: black;
+  --desc-color : #bebebe;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Open Sans", sans-serif;
+}
+
+/*SETUP CLASSES*/
+.flex-box
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close
+{
+  display: none!important;
+}
+
+
+.add-config
+{
+  background-color: antiquewhite;
+}
+.update-config
+{
+  background-color: blue;
+}
+.delete-config
+{
+  background-color: red;
+}
+.find-config
+{
+  background-color: cadetblue;
+}
+
+/*MAIN CONTENT*/
+.main-content
+{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*CONTENT TABLES*/
+.content-table
+{
+  width: 100%;
+  min-height: 460px;
+  margin-top: 16px;
+  padding: 8px 16px;
+}
+
+.table-row
+{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 8px;
+  flex-direction: row;
+  border-bottom: 1px black solid;
+}
+
+.table-col
+{
+  padding: 8px 4px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  width: 100%;
+  text-align: left;
+}
+
+.table-title
+{
+  font-weight: 800;
+  font-size: 1.6rem;
+}
+
+/* TABLES CONFIGURE*/
+.table-config
+{
+  padding: 8px 4px;
+  border-radius: 10px;
+  width: 20%;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.table-config:hover
+{
+  opacity: 0.6;
+}
+
+#student-table-config
+{
+  background-color: rgba(50, 145, 169,1);
+  align-self: flex-end;
+}
+
+/*MODAL*/
+.config-modal-container
+{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.config-modal
+{
+  flex-direction: column;
+  min-height: fit-content;
+  width: 40%;
+  padding: 32px 16px;
+  position: relative;
+}
+
+.modal-header
+{
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: black;
+}
+
+.modal-body
+{
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+.modal-body > select
+{
+  padding: 8px 4px;
+  margin: 12px 0;
+}
+.modal-footer > .form-btn
+{
+  padding: 8px 4px;
+  margin: 12px 0;
+}
+
+.modal-nav
+{
+  width: 10%;
+  position: absolute;
+  top: 0;
+  left: -10%;
+  flex-direction: column;
+  text-align: center;
+}
+
+.modal-nav .nav-item
+{
+  width: 100%;
+  padding: 12px 4px;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.modal-nav .nav-item:not(.active):hover
+{
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+
+.modal-nav .nav-item.active
+{
+  border-top: 1px white solid;
+  border-left: 1px white solid;
+  border-bottom: 1px white solid;
+}
+
+/*FORM*/
+.config-form input,.config-form select,.config-form .input-field,.config-form label
+{
+  width: 100%;
+}
+
+.config-form input
+{
+  padding: 8px 4px;
+}
+
+.config-form label
+{
+  display: block;
+  font-size: 1.3rem;
+}
+
+
+/* FORM LOGIN*/
+.bg-image{
+  background: url("/ClientSQL/Image/bg-form.jpg") center no-repeat rgba(0, 0, 0, 0.6);
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+.form{
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  
+  box-shadow: #000000 -1px 0px 20px 4px;
+}
+.image-form{
+  width: 55%;
+  height: 100%;
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  
+}
+
+.form-login{
+  width: 45%;
+  height: 100%;
+  padding: 84px;
+  background-color: white;
+  border-top-right-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+.form-login-title{
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+.form-login-desc{
+  padding-top: 4px;
+  font-size: 1.3rem;
+  color: rgb(118, 113, 113);
+}
+.form-login-user{
+  padding-top: 76px;
+}
+.user-tittle{
+  font-size: 1.3rem;
+  color: var(--desc-color);
+}
+.username, .password{
+  margin-top: 4px;
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--desc-color);
+  outline: none;
+}
+.user-password{
+  margin-top: 24px;
+}
+.btn-form{
+  margin-top: 40px;
+  width: 100%;
+  height: 50px;
+  position: relative;
+}
+.submit{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  
+  padding: 16px 64px;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--primary-color);
+  font-size: 1.4rem;
+  font-weight: bold;
+  
+}
+.submit:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+
+/* View 1 */
+.view{
+  width: 100%;
+  height: 100vh;
+}
+/* Header view 1 */
+.header{
+  width: 100%;
+  height: 13%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.header-left{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.logo{
+  width: 16%;
+  height: 100%;
+  position: relative;
+}
+.img-logo{
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.name-group{
+  font-size: 1.7rem;
+  font-weight: bold;
+  width: 50%;
+  height: 100%;
+  
+  position: relative;
+}
+.name-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  color: var(--secondary-color);
+
+}
+.header-right{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  
+}
+.avatar-user{
+  margin-left: 25rem;
+  width: 20.3%;
+  height: 100%;
+  position: relative;
+}
+.img-avatar{
+  width: 40%;
+  height: 50%;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+}
+.name-user{
+  position: relative;
+  width: 23.3%;
+  height: 100%;
+}
+.name-user-text{
+  font-size: 1.7rem;
+  width: 100%;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--secondary-color);
+}
+
+
+.icon-arrow-down{
+  position: absolute;
+  top: 50%;
+  right: 25%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+}
+.icon-arrow-down:hover{
+  cursor: pointer;
+}
+.log-out:hover{
+  cursor: pointer; 
+}
+.arrow-up:hover{
+  cursor: pointer; 
+}
+/* Drop menu header */
+ul{
+  list-style: none;
+
+}
+.log-out{
+  width: 100%;
+  height: 12.5rem;
+  position: absolute;
+  top: 70%;
+  left: 40%;
+  background-color: var(--secondary-color);
+  border-radius: 1rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+ 
+}
+.log-out i{
+  font-size: 2.8rem;
+}
+.item-drop-menu{
+  margin-top: 1.7rem;
+  display: flex;
+  align-items: center;
+  color: white;
+  width: 100%;
+  height: 30%;
+}
+.item-drop-menu:hover{
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.icon-drop-menu{
+  padding-left: 2rem;
+}
+.text-log-out{
+  padding-left: 1.3rem;
+  font-size: 1.4rem;
+}
+.arrow-up{
+  border-left: 2rem solid transparent;
+	border-right: 2rem solid transparent;
+	border-bottom: 1.4rem solid var(--secondary-color);
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 10%;
+  height: 5%;
+}
+
+/* icon notification */
+.notifi{
+  width: 3%;
+  height: 100%;
+  
+  position: relative;
+}
+.icon-notifi{
+  font-size: 2.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--secondary-color);
+}
+
+/* Main view 1 */
+.main{
+  width: 100%;
+  height: 87%;
+}
+/* Sidebar */
+.sidebar{
+  width: 5%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  color: white;
+  transition: linear 0.3s;
+
+}
+/* Head sidebar: name and icon menu */
+.head-sidebar{
+  width: 100%;
+  height: 15%;
+  padding: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.name-sidebar{
+  width: 70%;
+  height: 70%;
+  font-size: 1.5rem;
+  position: relative;
+  border-radius: 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  font-weight: bold;
+
+}
+.name-account{
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: 2rem;
+}
+
+/* Content sidebar: Student Giaovien TKB Ketqua */
+
+/* Menu sidebar */
+.sidebar-menu{
+  width: 30%;
+  height: 100%;
+  position: relative;
+  margin-left: 1rem;
+}
+
+.icon-menu{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: linear 1s;
+
+}
+.icon-menu:hover{
+  cursor: pointer;
+}
+.icon-menu, .icon-sidebar{
+  color: white;
+  font-size: 3rem;
+}
+
+.content-sidebar{
+  width: 100%;
+  height: 70%;
+  margin-top: 5rem;
+}
+.list-sidebar{
+  width: 100%;
+  height: 17.5%;
+  display: flex;
+  align-items: center;
+}
+.about{
+  font-size: 1.5rem;
+  display: flex;
+  width: 100%;
+  height: 50%;
+  align-items: center;
+  padding-left: 2rem;
+}
+.about:hover, .about:hover .icon-sidebar{
+  background-color: var(--primary-color);
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+.name-sidebar-items{
+  padding-left: 1.5rem;
+  font-size: 1.5rem;
+}
+.sidebar-width{
+  width: 20%;
+}
