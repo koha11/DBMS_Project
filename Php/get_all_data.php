@@ -5,13 +5,25 @@
     "Database" => "DEMO_QLHS",
     "CharacterSet" => "UTF-8"
   );
+
   $conn = sqlsrv_connect('KOHA11\SQLEXPRESS', $conn_array);
+
   if ($conn === false)
     die(print_r(sqlsrv_errors(), true));
 
   $tableName = $_GET['table'];
  
-  $stmt_qu = sqlsrv_query($conn,"SELECT * FROM $tableName");
+  $sql_querry = "SELECT * FROM $tableName";
+  $orderName = $_GET['orderName'];
+  
+  if($orderName != " ")
+  {
+    $orderOption = $_GET['orderOption'];
+    $sql_querry = $sql_querry . " ORDER BY {$orderName} {$orderOption}";
+  }
+
+  $stmt_qu = sqlsrv_query($conn,$sql_querry);
+
   if($stmt_qu === false) {
     die( print_r(sqlsrv_errors(), true) );
   }

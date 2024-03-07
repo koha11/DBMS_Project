@@ -18,6 +18,14 @@ html {
   align-items: center;
 }
 
+.container
+{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 .close
 {
   display: none!important;
@@ -111,28 +119,22 @@ html {
 /*MODAL*/
 .config-modal-container
 {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.7);
   z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .config-modal
 {
   flex-direction: column;
-  min-height: fit-content;
-  width: 40%;
-  padding: 32px 16px;
+  width: 60%;
+  padding: 32px 24px;
   position: relative;
+  height: 80%;
+  justify-content: space-around;
 }
 
 .modal-header
 {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 12px;
   color: black;
@@ -142,17 +144,18 @@ html {
 {
   flex-direction: column;
   padding: 16px 0;
+  font-size: 1.6rem;
 }
 
 .modal-body > select
 {
-  padding: 8px 4px;
+  padding: 16px 8px;
   margin: 12px 0;
 }
+
 .modal-footer > .form-btn
 {
-  padding: 8px 4px;
-  margin: 12px 0;
+
 }
 
 .modal-nav
@@ -188,18 +191,75 @@ html {
 }
 
 /*FORM*/
-.config-form input,.config-form select,.config-form .input-field,.config-form label
+.config-form select,.config-form label
 {
-  width: 100%;
+  width: 50%;
 }
 
 .config-form input
 {
-  padding: 8px 4px;
+  padding: 16px 8px;
+  width: 100%;
+  font-size: 2rem;
 }
 
 .config-form label
 {
   display: block;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.config-form .input-field
+{
+  width: 50%;
+  margin: 8px 0;
+  padding: 0 12px;
+}
+
+.add-form
+{
+  flex-flow: wrap;
+}
+
+/*ALERT BOX*/
+.alert-container
+{
+  z-index: 3;
+}
+
+.alert-box
+{
+  min-height: 30%;
+  width: 30%;
+  background-color: azure;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.alert-message
+{
+  padding: 16px 0;
+  margin-top: 8px;
+  font-size: 2.2rem;
+}
+
+.alert-btn
+{
+  background-color: chocolate;
+}
+
+/*BUTTONS*/
+.btn
+{
+  padding: 12px 8px;
+  margin: 12px 0;
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+
+.btn:hover
+{
+  opacity: 0.7;
 }
