@@ -1,0 +1,205 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color: #333;
+  font-size: 62.5%;
+  font-family: "Open Sans", sans-serif;
+}
+
+/*SETUP CLASSES*/
+.flex-box
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close
+{
+  display: none!important;
+}
+
+
+.add-config
+{
+  background-color: antiquewhite;
+}
+.update-config
+{
+  background-color: blue;
+}
+.delete-config
+{
+  background-color: red;
+}
+.find-config
+{
+  background-color: cadetblue;
+}
+
+/*MAIN CONTENT*/
+.main-content
+{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*CONTENT TABLES*/
+.content-table
+{
+  width: 100%;
+  min-height: 460px;
+  margin-top: 16px;
+  padding: 8px 16px;
+}
+
+.table-row
+{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 8px;
+  flex-direction: row;
+  border-bottom: 1px black solid;
+}
+
+.table-col
+{
+  padding: 8px 4px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  width: 100%;
+  text-align: left;
+}
+
+.table-title
+{
+  font-weight: 800;
+  font-size: 1.6rem;
+}
+
+/* TABLES CONFIGURE*/
+.table-config
+{
+  padding: 8px 4px;
+  border-radius: 10px;
+  width: 20%;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.table-config:hover
+{
+  opacity: 0.6;
+}
+
+#student-table-config
+{
+  background-color: rgba(50, 145, 169,1);
+  align-self: flex-end;
+}
+
+/*MODAL*/
+.config-modal-container
+{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.config-modal
+{
+  flex-direction: column;
+  min-height: fit-content;
+  width: 40%;
+  padding: 32px 16px;
+  position: relative;
+}
+
+.modal-header
+{
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: black;
+}
+
+.modal-body
+{
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+.modal-body > select
+{
+  padding: 8px 4px;
+  margin: 12px 0;
+}
+.modal-footer > .form-btn
+{
+  padding: 8px 4px;
+  margin: 12px 0;
+}
+
+.modal-nav
+{
+  width: 10%;
+  position: absolute;
+  top: 0;
+  left: -10%;
+  flex-direction: column;
+  text-align: center;
+}
+
+.modal-nav .nav-item
+{
+  width: 100%;
+  padding: 12px 4px;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.modal-nav .nav-item:not(.active):hover
+{
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+
+.modal-nav .nav-item.active
+{
+  border-top: 1px white solid;
+  border-left: 1px white solid;
+  border-bottom: 1px white solid;
+}
+
+/*FORM*/
+.config-form input,.config-form select,.config-form .input-field,.config-form label
+{
+  width: 100%;
+}
+
+.config-form input
+{
+  padding: 8px 4px;
+}
+
+.config-form label
+{
+  display: block;
+  font-size: 1.3rem;
+}
