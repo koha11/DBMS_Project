@@ -4,7 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 const web = 
 {
   DataArr: [],
-  Table:  $('#content-table').dataset.table,
+  Table:  $('#content-table').dataset.table, //Xử lí cái này = cách sử dụng tên đường dẫn 
   ConfigState: "add-config",
   render: (option) =>
   {
@@ -40,6 +40,8 @@ const web =
       break;
       case "":
     }
+
+    $('.sidebar').style.height = $('.main-content').scrollHeight + 'px'
     
   },
   renderOptionLists: (colData) =>
@@ -209,6 +211,27 @@ const web =
       web.getData("HOCSINH");
     })
 
+    let menu = $('.icon-menu');
+    let sidebar = $('.sidebar');
+    let lists = $('.content-sidebar');
+    let name_sidebar = $('.name-sidebar');
+
+    // Thay đổi icon menu sidebar
+    sidebar.querySelector('.sidebar-menu i').addEventListener('click', function(e)
+    {
+      e.target.classList.toggle('fa-times');
+    })
+
+    menu.addEventListener('click', function() {
+
+      sidebar.classList.toggle('sidebar-width');
+      let delayTime = lists.classList.contains('close') ? 400 : 150;
+      setTimeout(()=>{
+        name_sidebar.classList.toggle('close');
+        lists.classList.toggle('close');
+      },delayTime);
+    })
+
   },
   start: () =>
   {
@@ -217,7 +240,53 @@ const web =
   }
 }
 
+const noneTables =
+{
+  handleEvents: () =>
+  {
+    let menu = $('.icon-menu');
+    let sidebar = $('.sidebar');
+    let lists = $('.content-sidebar');
+    let name_sidebar = $('.name-sidebar');
+
+    // Thay đổi icon menu sidebar
+    sidebar.querySelector('.sidebar-menu i').addEventListener('click', function(e)
+    {
+      e.target.classList.toggle('fa-times');
+    })
+
+    menu.addEventListener('click', function() {
+
+      sidebar.classList.toggle('sidebar-width');
+      let delayTime = lists.classList.contains('close') ? 400 : 150;
+      setTimeout(()=>{
+        name_sidebar.classList.toggle('close');
+        lists.classList.toggle('close');
+      },delayTime);
+    })
+
+    // click drop menu header
+    let drop_menu = $('.icon-arrow-down');
+    
+    let arrow_up = $('.arrow-up');
+    
+    let log_out = $('.log-out');
+
+    drop_menu.addEventListener('click', function() {
+      arrow_up.classList.toggle('close');
+      log_out.classList.toggle('close');
+    })
+    
+  },
+  start: () =>
+  {
+    noneTables.handleEvents();
+  } 
+}
+
+
 web.start();
+//noneTables.start();
 
 /*SH!T NOTES 
 
@@ -227,29 +296,3 @@ dataObj.MaLop = $("[name=add_MaLop]").value; // ADD
 --> FIELD MAHS, DÙNG OPTION ĐỂ SELECT CÁC HS ĐANG CÓ, TỪ ĐÓ SỬA CÁC GIÁ TRỊ CÒN LẠI
 */
 
-var menu = $('.icon-menu');
-var sidebar = $('.sidebar');
-var lists = $('.content-sidebar');
-var name_sidebar = $('.name-sidebar');
-console.log(lists)
-// Thay đổi icon menu sidebar
-let changeIcon = function(icon) {
-  icon.classList.toggle('fa-times');
-}
-menu.addEventListener('click', function() {
-  sidebar.classList.toggle('sidebar-width');
-  setTimeout(()=>{
-    name_sidebar.classList.toggle('close');
-    lists.classList.toggle('close');
-  },200)
-})
-// click drop menu header
-var drop_menu = $('.icon-arrow-down');
-
-var arrow_up = $('.arrow-up');
-
-var log_out = $('.log-out');
-drop_menu.addEventListener('click', function() {
-  arrow_up.classList.toggle('close');
-  log_out.classList.toggle('close');
-})
