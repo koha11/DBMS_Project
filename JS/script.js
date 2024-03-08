@@ -225,8 +225,31 @@ dataObj.MaLop = $("[name=add_MaLop]").value; // ADD
 -->CÓ THỂ DÙNG OPTIONS DỰA TRÊN BẢNG LOPHOC ĐỂ LẤY VALUE
 //UPDATE
 --> FIELD MAHS, DÙNG OPTION ĐỂ SELECT CÁC HS ĐANG CÓ, TỪ ĐÓ SỬA CÁC GIÁ TRỊ CÒN LẠI
-
-
-
-
 */
+
+var menu = $('.icon-menu');
+var sidebar = $('.sidebar');
+var lists = $('.content-sidebar');
+var name_sidebar = $('.name-sidebar');
+console.log(lists)
+// Thay đổi icon menu sidebar
+let changeIcon = function(icon) {
+  icon.classList.toggle('fa-times');
+}
+menu.addEventListener('click', function() {
+  sidebar.classList.toggle('sidebar-width');
+  setTimeout(()=>{
+    name_sidebar.classList.toggle('close');
+    lists.classList.toggle('close');
+  },200)
+})
+// click drop menu header
+var drop_menu = $('.icon-arrow-down');
+
+var arrow_up = $('.arrow-up');
+
+var log_out = $('.log-out');
+drop_menu.addEventListener('click', function() {
+  arrow_up.classList.toggle('close');
+  log_out.classList.toggle('close');
+})

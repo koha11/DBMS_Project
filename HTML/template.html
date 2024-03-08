@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/SQL/Css/style.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="view">
+        <!-- header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="/SQL/Image/avatar-template.jpg" alt="" class="img-logo">
+                </div>
+                <div class="name-group">
+                    <div class="name-text">
+                        Student Management System
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="avatar-user">
+                    <img src="/SQL/Image/avatar-template.jpg" alt="" class="img-avatar">
+                </div>
+                <div class="name-user">
+                    <div class="name-user-text">John Wick</div>
+                    <i class='icon-arrow-down bx bx-chevron-down'></i>
+                    <div class="arrow-up close"></div>
+                    <ul class="log-out close">
+                        <li class="item-drop-menu">
+                            <i class='icon-drop-menu bx bxs-info-circle'></i>
+                            <span class="text-log-out">
+                                Thông tin
+                            </span>
+                        </li>
+                        
+                        <li class="item-drop-menu item-drop-menu-last">
+                            <i class='icon-drop-menu bx bxs-log-out-circle'></i>
+                            <span class="text-log-out">
+                                Log out
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="notifi">
+                    <i class='icon-notifi bx bxs-bell' ></i>
+                </div>
+            </div>
+        </div>
+        <!-- main -->
+        <div class="main">
+            <!-- sidebar -->
+            <div class="sidebar">
+                <div class="head-sidebar">
+                    <div class="name-sidebar close">
+                        <span class="name-account">
+                            John Wick
+                        </span>
+                    </div>
+                    <div class="sidebar-menu">
+                        <i class="icon-menu fa-solid fa-bars" onclick="changeIcon(this)"></i>
+                    </div>
+                </div>
+                    <div class="content-sidebar close">
+                        <div class="list-sidebar">
+                            <span class="about">
+                                <i class='icon-sidebar bx bxs-group'></i>
+                                <span class="name-sidebar-items">
+                                    Student Management
+                                </span>
+
+                            </span>
+                        </div>
+                        <div class="list-sidebar">
+                            <div class="about">
+                                <i class='icon-sidebar bx bxs-user'></i>
+                                <span class="name-sidebar-items">Teacher</span>
+                            </div>
+                        </div>
+                        <div class="list-sidebar">
+                            <div class="about">
+                                <i class='icon-sidebar bx bxs-time' ></i>
+                                <span class="name-sidebar-items">Time</span>
+                            </div>
+                        </div>
+                        <div class="list-sidebar">
+                            <div class="about">
+                                <i class='icon-sidebar bx bx-bar-chart' ></i>
+                                <span class="name-sidebar-items">
+                                    Result
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <script src="/SQL/JS/script.js"></script>
+</body>
+</html>
