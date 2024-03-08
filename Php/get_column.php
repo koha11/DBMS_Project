@@ -12,15 +12,9 @@
     die(print_r(sqlsrv_errors(), true));
 
   $tableName = $_GET['table'];
+  $colName = $_GET['col'];
  
-  $sql_querry = "SELECT * FROM $tableName";
-  $orderName = $_GET['orderName'];
-  
-  if(!$orderName)
-  {
-    $orderOption = $_GET['orderOption'];
-    $sql_querry = $sql_querry . " ORDER BY {$orderName} {$orderOption}";
-  }
+  $sql_querry = "SELECT $colName FROM $tableName";
 
   $stmt_qu = sqlsrv_query($conn,$sql_querry);
 

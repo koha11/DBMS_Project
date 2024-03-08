@@ -3,104 +3,156 @@ const $$ = document.querySelectorAll.bind(document);
 
 const web = 
 {
-  dataArr: [],
+  DataArr: [],
+  Table:  $('#content-table').dataset.table,
+  ConfigState: "add-config",
   render: (option) =>
   {
     let htmls ="";
-    let dataArr = web.dataArr;
+    let DataArr = web.DataArr;
     
     switch(option)
     {
       case "HOCSINH": 
         htmls += `<div class="table-row">
-          <div class="content-table-head table-col table-title">Mã HS</div>
-          <div class="content-table-head table-col table-title">Họ Và Tên</div>
-          <div class="content-table-head table-col table-title">Mã Lớp</div>
-          <div class="content-table-head table-col table-title">Số Điện Thoại</div>
-          <div class="content-table-head table-col table-title">Email</div>
-          <div class="content-table-head table-col table-title">Mã Hóa Đơn</div>
-          <div class="content-table-head table-col table-title">Số Điện Thoại PH</div>
+          <div class="content-table-head table-col table-title fl-1">Mã HS</div>
+          <div class="content-table-head table-col table-title fl-3">Họ Và Tên</div>
+          <div class="content-table-head table-col table-title fl-1">Mã Lớp</div>
+          <div class="content-table-head table-col table-title fl-2">Số Điện Thoại</div>
+          <div class="content-table-head table-col table-title fl-3">Email</div>
+          <div class="content-table-head table-col table-title fl-1">Hóa Đơn</div>
+          <div class="content-table-head table-col table-title fl-2">Số Điện Thoại PH</div>
           </div>`;       
-        for(let x in dataArr)
+        for(let x in DataArr)
         {
           htmls += `<div class="table-row">
-            <div class="content-table-head table-col">${dataArr[x][0]}</div>
-            <div class="content-table-head table-col">${dataArr[x][1]}</div>
-            <div class="content-table-head table-col">${dataArr[x][2]}</div>
-            <div class="content-table-head table-col">${dataArr[x][3]}</div>
-            <div class="content-table-head table-col">${dataArr[x][4]}</div>
-            <div class="content-table-head table-col">${dataArr[x][5]}</div>
-            <div class="content-table-head table-col">${dataArr[x][6]}</div>
+            <div class="content-table-head table-col fl-1">${DataArr[x][0]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][1]}</div>
+            <div class="content-table-head table-col fl-1">${DataArr[x][2]}</div>
+            <div class="content-table-head table-col fl-2">${DataArr[x][3]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][4]}</div>
+            <div class="content-table-head table-col fl-1">${DataArr[x][5]}</div>
+            <div class="content-table-head table-col fl-2">${DataArr[x][6]}</div>
             </div>`;
         }
       
-        $('#student-table').innerHTML = htmls;
+        $('#content-table').innerHTML = htmls;
       break;
       case "":
     }
     
   },
+  renderOptionLists: (colData) =>
+  {
+    let htmls = "";
+    colData.forEach(item => {
+      htmls += `<option value="${item}"></option>`;
+    });
+
+    $('#mahs-list').innerHTML = htmls;
+  },
   getData: (tableName,name,option) =>
   {
     const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
-    xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac    
-      web.dataArr = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve
+    xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
+      web.DataArr = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve
       web.render(tableName);
     }
     xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&orderName=${name}&orderOption=${option}`); //trhop lay DL thi dung get
+    xmlhttp.send();
+  },
+  getCol: (tableName,colName) =>
+  {
+    const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
+    xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
+      let colData = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve      
+      web.renderOptionLists(colData);
+    }
+    xmlhttp.open("GET",`./Php/get_column.php?table=${tableName}&col=${colName}`); //trhop lay DL thi dung get
     xmlhttp.send();
   },
   // getRows: (tableName,name,option) => //type "" de ko order
   // {
   //   const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
   //   xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac    
-  //     web.dataArr = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve
+  //     web.DataArr = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve
   //     web.render(tableName);
   //   }
   //   xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&orderName=${name}&orderOption=${option}`); //trhop lay DL thi dung get
   //   xmlhttp.send();
   // },
-  addRow: (element) =>
-  {
-    let modal = element.closest(".config-modal");
+  addRow: () =>
+  {  
     let dataObj = {};
-    const xmlhttp = new XMLHttpRequest();
 
-    switch(modal.dataset.config)
+    switch(web.Table)
     {
-      case "add-config":
+      case "HOCSINH":
         dataObj.MaHS = $("[name=add_MaHS]").value;
         dataObj.TenHS = $("[name=add_TenHS]").value;
-        dataObj.MaLop = $("[name=add_MaLop]").value;
+        dataObj.MaLop = $("[name=add_MaLop]").value; //CÓ THỂ DÙNG OPTIONS DỰA TRÊN BẢNG LOPHOC ĐỂ LẤY VALUE
         dataObj.SDT = $("[name=add_SDTHS]").value;
         dataObj.Email = $("[name=add_EmailHS]").value;
         dataObj.SDTPH = $("[name=add_SDTPH]").value;
-
-        xmlhttp.open("POST", "./Php/add_student_row.php");
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
-          if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            $('.alert-container').classList.remove('close');  
-          }
-        }
-
-        xmlhttp.send(`DATA=${JSON.stringify(dataObj)}`);
         break;
-      }
-  },
 
+      }
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "./Php/add_student_row.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
+      if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        $('.alert-container').classList.remove('close');  
+      }
+    }
+
+    xmlhttp.send(`DATA=${JSON.stringify(dataObj)}`);
+  },
+  updateRow: () =>
+  {
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST","./Php/update_row.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
+      if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        $('.alert-container').classList.remove('close');  
+      }
+    }
+
+    let dataObj = {tableName:web.Table};
+    let inputs = $$(`form.${web.ConfigState} .input-field input`);
+    let i = 0;
+
+    while(inputs[i] != undefined)
+    {
+      dataObj[inputs[i].name] = inputs[i].value;
+      i++;
+    }
+    
+    xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
+  },
   handleEvents: () =>
   {
-    $("#config-student-btn").addEventListener("click", function(e)
+
+    $("#config-btn").addEventListener("click", function(e)
     {
       e.preventDefault();
-      web.addRow(e.target);
+      switch (web.ConfigState) {
+        case "add-config":
+          web.addRow(e.target);
+          break;
+        case "update-config":
+          web.updateRow();
+          break;
+        default:
+          break;
+      }     
     })
 
-    $('.select-list').addEventListener('click', function(e)
-    {        
-      $('[name=configInputLabel]').innerText = e.target.options[e.target.selectedIndex].text; //lay ra text cua option da chom
-    })
+    // $('.select-list').addEventListener('click', function(e)
+    // {        
+    //   $('[name=configInputLabel]').innerText = e.target.options[e.target.selectedIndex].text; //lay ra text cua option da chom
+    // })
 
     $('.config-modal-container').addEventListener('click', function(e)
     {
@@ -116,27 +168,38 @@ const web =
       })
     }
 
-    $('#student-table-config').addEventListener('click',function(e)
+    $('#table-config').addEventListener('click',function(e)
     {
-      $('.config-modal-container').classList.remove('close');
+      $('.config-modal-container').classList.remove('close');    
     })
 
     for(let item of $$('.modal-nav .nav-item'))
     {
       item.addEventListener('click',function(e)
       {
-        let item = e.target
-        let modal = item.closest('.config-modal');
+        let item = e.target;
+        let modal = $('.config-modal');
+        let form = $(`.config-form.${item.dataset.config}`);
+        let preForm = $(`.config-form:not(.close)`);
 
-        modal.classList.remove(modal.dataset.config);
+        modal.classList.remove(web.ConfigState);
         modal.classList.add(item.dataset.config);
+
+        preForm.classList.add('close');
+        form.classList.remove('close');
 
         $('.nav-item.active').classList.remove('active');
         item.classList.add('active');
 
-        modal.dataset.config = item.dataset.config;
+        web.ConfigState = item.dataset.config;
+        modal.dataset.config = web.ConfigState;
       })
     }
+
+    $('.nav-item.update-config').addEventListener('click',function(e)
+    {
+      web.getCol(web.Table,"MaHS");
+    })
 
     $('.alert-btn').addEventListener('click',function(e)
     {
@@ -148,9 +211,21 @@ const web =
   },
   start: () =>
   {
-    web.getData("HOCSINH","MaHS","DESC");
+    web.getData(web.Table," "," ");
     web.handleEvents();
   }
 }
 
 web.start();
+
+/*SH!T NOTES 
+
+dataObj.MaLop = $("[name=add_MaLop]").value; // ADD
+-->CÓ THỂ DÙNG OPTIONS DỰA TRÊN BẢNG LOPHOC ĐỂ LẤY VALUE
+//UPDATE
+--> FIELD MAHS, DÙNG OPTION ĐỂ SELECT CÁC HS ĐANG CÓ, TỪ ĐÓ SỬA CÁC GIÁ TRỊ CÒN LẠI
+
+
+
+
+*/
