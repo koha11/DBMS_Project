@@ -24,22 +24,28 @@
   {
     if($key != "tableName")
     {
+      $val = is_int($val) ? $val : "N'$val'";
+      
       if($id == " ")
         $id = $key . " = " . $val;
       else
+      {
         $update_string = $update_string . ($update_string == " " ? " " : ",") . " " . $key. " = " . $val; //Neu la col dau tien thi ko can them dau ,
+      }
+        
     }
   }
 
-  $query_update = "update $table set nocount on $update_string where $id";
+  $query_update = "update $table set $update_string where $id";
 
-  $stmt_qu = sqlsrv_query($connectdb,$query_update);
+  echo $table . " " . $update_string . " ..." . $id;
+  $stmt_qu = sqlsrv_query($conn,$query_update);
 
   if($stmt_qu === false) {
     die( print_r(sqlsrv_errors(), true) );
   }
 
-  echo $stmt_qu;
+  sqlsrv_execute($stmt_qu);
 
   sqlsrv_close($conn);
 ?>

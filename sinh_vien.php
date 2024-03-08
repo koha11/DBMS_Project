@@ -73,7 +73,7 @@
           
           <div class="input-field">
             <label for="u-tenhs" name="configInputLabel">Họ Và Tên</label>
-            <input id="u-tenhs" name="TenHS" type="text">
+            <input id="u-tenhs" name="Ten" type="text">
             <span class="message"></span>
           </div>      
 
@@ -85,13 +85,13 @@
 
           <div class="input-field">
             <label for="u-sdt" name="configInputLabel">Số Điện Thoại</label>
-            <input id="u-sdt" name="SDTHS" type="text">
+            <input id="u-sdt" name="SDT" type="text">
             <span class="message"></span>
           </div>
           
           <div class="input-field">
             <label for="u-email" name="configInputLabel">Email</label>
-            <input id="u-email" name="EmailHS" type="text">
+            <input id="u-email" name="Email" type="text">
             <span class="message"></span>
           </div>    
 
