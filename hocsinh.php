@@ -75,7 +75,6 @@
                             <span class="name-sidebar-items">
                                 Student Management
                             </span>
-
                         </span>
                     </div>
                     <div class="list-sidebar">
