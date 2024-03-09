@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="content-sidebar close">
-                    <div class="list-sidebar">
+                    <div class="list-sidebar active">
                         <span class="about">
                             <i class='icon-sidebar bx bxs-group'></i>
                             <span class="name-sidebar-items">
