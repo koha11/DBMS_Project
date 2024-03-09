@@ -14,7 +14,6 @@
 
   $data = json_decode($_POST["update"], true);
 
-  print_r($data);
   $table = $data['tableName'];
 
   $id = " ";

@@ -34,6 +34,8 @@ html {
   height: 100%;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
 }
 
 .close
@@ -169,8 +171,6 @@ html {
 .config-modal-container
 {
   z-index: 2;
-  top: 0;
-  left: 0;
 }
 
 .config-modal
@@ -272,6 +272,36 @@ html {
 {
   flex-flow: wrap;
 }
+
+.delete-form
+{
+  height: 60%;
+  width: 90%;
+  justify-content: flex-start;
+}
+
+.delete-form .input-field
+{
+  width: 100%;
+}
+
+.delete-form input
+{
+  font-size: unset;
+}
+
+.delete-form .infor-field
+{
+  flex-wrap: wrap;
+}
+
+.delete-form .infor-spot
+{
+  padding: 12px 4px;
+  width: 50%;
+  text-align: center;
+}
+
 
 /*ALERT BOX*/
 .alert-container

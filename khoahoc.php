@@ -69,19 +69,19 @@
                     </div>
                 </div>
                 <div class="content-sidebar close">
-                    <div class="list-sidebar">
-                        <a class="about" href="./hocsinh.php">
+                    <div class="list-sidebar active">
+                        <a class="about">
                             <i class='icon-sidebar bx bxs-group'></i>
                             <span class="name-sidebar-items">
                                 Student Management
                             </span>
                         </a>
                     </div>
-                    <div class="list-sidebar active">
-                        <div class="about">
+                    <div class="list-sidebar">
+                        <a class="about" href="./giaovien.php">
                             <i class='icon-sidebar bx bxs-user'></i>
                             <span class="name-sidebar-items">Teacher</span>
-                        </div>
+                        </a>
                     </div>
                     <div class="list-sidebar">
                         <a class="about" href="./tkb.php">
@@ -90,7 +90,7 @@
                         </a>
                     </div>
                     <div class="list-sidebar">
-                        <a class="about"  href="./ketqua.php">
+                        <a class="about" href="./ketqua.php">
                             <i class='icon-sidebar bx bx-bar-chart'></i>
                             <span class="name-sidebar-items">
                                 Result
@@ -104,7 +104,7 @@
                     CONFIGURE YOUR DATAS HERE!
                 </div>
 
-                <div id="content-table" class="content-table" data-table="giaovien">
+                <div id="content-table" class="content-table" data-table="KHOAHOC">
                 </div>
 
                 <div class="config-modal-container close container flex-box">
@@ -117,46 +117,35 @@
                         <form class="modal-body flex-box config-form add-form add-config" data-config="add-config">
 
                             <div class="input-field">
-                                <label for="a-mahs-hs" name="configInputLabel">Mã Học Sinh</label>
-                                <input id="a-mahs-hs" name="add_MaHS" type="text">
+                                <label for="a-makh-hs" name="configInputLabel">Mã Khóa Học</label>
+                                <input id="a-makh-hs" name="Ma_KH" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="a-tenhs-hs" name="configInputLabel">Họ Và Tên</label>
-                                <input id="a-tenhs-hs" name="add_TenHS" type="text">
+                                <label for="a-tenhs-hs" name="configInputLabel">Trình Độ Khóa Học</label>
+                                <input id="a-tenhs-hs" name="Level_KH" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="a-malop-hs" name="configInputLabel">Mã Lớp</label>
-                                <input id="a-malop-hs" name="add_MaLop" type="text">
+                                <label for="a-malop-hs" name="configInputLabel">Học Phí</label>
+                                <input id="a-malop-hs" name="HocPhi" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="a-sdt-hs" name="configInputLabel">Số Điện Thoại</label>
-                                <input id="a-sdt-hs" name="add_SDTHS" type="text">
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="input-field">
-                                <label for="a-email-hs" name="configInputLabel">Email</label>
-                                <input id="a-email-hs" name="add_EmailHS" type="text">
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="input-field">
-                                <label for="a-sdtph-hs" name="configInputLabel">Số Điện Thoại PH</label>
-                                <input id="a-sdtph-hs" name="add_SDTPH" type="text">
+                                <label for="a-sdt-hs" name="configInputLabel">Hình Thức</label>
+                                <input id="a-sdt-hs" name="HinhThuc" type="text">
                                 <span class="message"></span>
                             </div>
 
                         </form>
+
                         <form class="modal-body flex-box config-form update-form update-config close" data-config="update-config">
                             <div class="input-field">
                                 <label for="u-mahs" name="configInputLabel">Mã Học Sinh</label>
-                                <input id="u-mahs" list="mahs-list" name="MaHS">
+                                <input id="u-mahs" list="mahs-list" name="MaHS" class="select-input">
                                 <datalist id="mahs-list">
                                 </datalist>
                                 <span class="message"></span>
@@ -190,6 +179,36 @@
                                 <label for="u-sdtph" name="configInputLabel">Số Điện Thoại PH</label>
                                 <input id="u-sdtph" name="SDTPH" type="text">
                                 <span class="message"></span>
+                            </div>
+
+                        </form>
+
+                        <form class="modal-body flex-box config-form delete-form delete-config close" data-config="delete-config">
+
+                            <div class="input-field">
+                                <label for="d-mahs" name="configInputLabel">Mã Học Sinh</label>
+                                <input id="d-mahs" list="d-mahs-list" name="MaHS" class="select-input">
+                                <datalist id="d-mahs-list">
+                                </datalist>
+                                <span class="message"></span>
+                            </div>
+
+                            <div class="infor-field fl-6 flex-box">
+                            </div>
+
+                        </form>
+
+                        <form class="modal-body flex-box config-form find-form find-config close" data-config="find-config">
+
+                            <div class="input-field">
+                                <label for="d-mahs" name="configInputLabel">Mã Học Sinh</label>
+                                <input id="d-mahs" list="d-mahs-list" name="MaHS" class="select-input">
+                                <datalist id="d-mahs-list">
+                                </datalist>
+                                <span class="message"></span>
+                            </div>
+
+                            <div class="infor-field fl-6 flex-box">
                             </div>
 
                         </form>

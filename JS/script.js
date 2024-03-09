@@ -34,81 +34,110 @@ const web =
             <div class="content-table-head table-col fl-1">${DataArr[x][5]}</div>
             <div class="content-table-head table-col fl-2">${DataArr[x][6]}</div>
             </div>`;
-        }
-      
-        $('#content-table').innerHTML = htmls;
+        }      
       break;
-      case "":
+      case "KHOAHOC":
+
+        htmls += `<div class="table-row">
+          <div class="content-table-head table-col table-title fl-2">Mã KH</div>
+          <div class="content-table-head table-col table-title fl-3">Trình Độ KH</div>
+          <div class="content-table-head table-col table-title fl-3">Học Phí</div>
+          <div class="content-table-head table-col table-title fl-3">Hình Thức</div>
+        </div>`;
+
+        for(let x in DataArr)
+        {
+          htmls += `<div class="table-row">
+            <div class="content-table-head table-col fl-2">${DataArr[x][0]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][1]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][2]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][3]}</div>
+          </div>`;
+        }
+        break;
     }
 
+    $('#content-table').innerHTML = htmls;
     $('.sidebar').style.height = $('.main-content').scrollHeight + 'px'
-    
   },
-  renderOptionLists: (colData) =>
+  renderOptionLists: (colData,selector) =>
   {
     let htmls = "";
     colData.forEach(item => {
       htmls += `<option value="${item}"></option>`;
     });
 
-    $('#mahs-list').innerHTML = htmls;
+    selector.closest('.input-field').querySelector('datalist').innerHTML = htmls;
   },
-  getData: (tableName,name,option) =>
+  renderConfirmLists: (dataArr) =>
+  {
+    let htmls = "";
+
+    if(!dataArr)
+      htmls += `<div class="infor-spot"><b>undefined: </b>undefined</div>`
+    else
+      for(let data in dataArr)
+        htmls += `<div class="infor-spot"><b>${data}: </b>${dataArr[data]}</div>` 
+  
+    $('.delete-form .infor-field').innerHTML = htmls;
+
+  },
+  getData: (tableName,id="",val="",option="") =>
   {
     const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
     xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
       web.DataArr = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve
       web.render(tableName);
     }
-    xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&orderName=${name}&orderOption=${option}`); //trhop lay DL thi dung get
+    xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&id=${id}&val=${val}&option=${option}`); //trhop lay DL thi dung get
     xmlhttp.send();
   },
-  getCol: (tableName,colName) =>
+  getCol: (tableName,colName,selector) =>
   {
     const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
     xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
       let colData = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve      
-      web.renderOptionLists(colData);
+      web.renderOptionLists(colData,selector);
     }
     xmlhttp.open("GET",`./Php/get_column.php?table=${tableName}&col=${colName}`); //trhop lay DL thi dung get
     xmlhttp.send();
   },
-  // getRows: (tableName,name,option) => //type "" de ko order
-  // {
-  //   const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
-  //   xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac    
-  //     web.DataArr = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve
-  //     web.render(tableName);
-  //   }
-  //   xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&orderName=${name}&orderOption=${option}`); //trhop lay DL thi dung get
-  //   xmlhttp.send();
-  // },
+  getRow: (tableName,id,val,option) => //type "" de ko order
+  {
+    const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
+    xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
+      console.log(this.responseText);
+      web.renderConfirmLists(JSON.parse(this.responseText)[0]);
+    }
+    xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&id=${id}&val=${val}&option=${option}`); //trhop lay DL thi dung get
+    xmlhttp.send();
+  },
   addRow: () =>
   {  
     let dataObj = {};
+    
+    let inputs = $$('.add-form input');
 
-    switch(web.Table)
+    dataObj['tableName'] = web.Table
+
+    for(let input of inputs)
     {
-      case "HOCSINH":
-        dataObj.MaHS = $("[name=add_MaHS]").value;
-        dataObj.TenHS = $("[name=add_TenHS]").value;
-        dataObj.MaLop = $("[name=add_MaLop]").value; //CÓ THỂ DÙNG OPTIONS DỰA TRÊN BẢNG LOPHOC ĐỂ LẤY VALUE
-        dataObj.SDT = $("[name=add_SDTHS]").value;
-        dataObj.Email = $("[name=add_EmailHS]").value;
-        dataObj.SDTPH = $("[name=add_SDTPH]").value;
-        break;
+      dataObj[input.name] = input.value;
+    }
 
-      }
+    console.log(dataObj);
+        
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "./Php/add_student_row.php");
+    xmlhttp.open("POST", "./Php/add_row.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
       if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        console.log(this.responseText)
         $('.alert-container').classList.remove('close');  
       }
     }
 
-    xmlhttp.send(`DATA=${JSON.stringify(dataObj)}`);
+    xmlhttp.send(`add=${JSON.stringify(dataObj)}`);
   },
   updateRow: () =>
   {
@@ -117,7 +146,6 @@ const web =
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
       if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        console.log(this.responseText);
         $('.alert-container').classList.remove('close');  
       }
     }
@@ -134,6 +162,51 @@ const web =
     
     xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
   },
+  deleteRow: () =>
+  {
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST","./Php/delete_row.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
+      if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        $('.alert-container').classList.remove('close');  
+      }
+    }
+
+    let dataObj = {tableName:web.Table};
+
+    let input = $(`form.${web.ConfigState} .input-field input`);
+
+    dataObj[input.name] = input.value;
+    
+    xmlhttp.send(`delete=${JSON.stringify(dataObj)}`);
+  },
+  setConfigState: (selector) =>
+  {
+    let item = selector;
+    let modal = $('.config-modal');
+    let form = $(`.config-form.${item.dataset.config}`);
+    let preForm = $(`.config-form:not(.close)`);
+
+    modal.classList.remove(web.ConfigState);
+    modal.classList.add(item.dataset.config);
+
+    preForm.classList.add('close');
+    form.classList.remove('close');
+
+    $('.nav-item.active').classList.remove('active');
+    item.classList.add('active');
+
+    web.ConfigState = item.dataset.config;
+    modal.dataset.config = web.ConfigState;
+  },
+  resetInputValue: () =>
+  {
+    let inputs = $$('input');
+    for (const input of inputs) {
+      input.value = "";
+    }
+  },
   handleEvents: () =>
   {
 
@@ -147,20 +220,21 @@ const web =
         case "update-config":
           web.updateRow();
           break;
+        case "delete-config":
+          web.deleteRow();
+          break;
         default:
           break;
       }     
     })
 
-    // $('.select-list').addEventListener('click', function(e)
-    // {        
-    //   $('[name=configInputLabel]').innerText = e.target.options[e.target.selectedIndex].text; //lay ra text cua option da chom
-    // })
-
     $('.config-modal-container').addEventListener('click', function(e)
     {
       e.stopPropagation();
       e.target.classList.add('close');
+
+      web.setConfigState($('.nav-item.add-config'));
+      web.resetInputValue();
     })
 
     for(let modal of $$('.modal'))
@@ -180,35 +254,37 @@ const web =
     {
       item.addEventListener('click',function(e)
       {
-        let item = e.target;
-        let modal = $('.config-modal');
-        let form = $(`.config-form.${item.dataset.config}`);
-        let preForm = $(`.config-form:not(.close)`);
-
-        modal.classList.remove(web.ConfigState);
-        modal.classList.add(item.dataset.config);
-
-        preForm.classList.add('close');
-        form.classList.remove('close');
-
-        $('.nav-item.active').classList.remove('active');
-        item.classList.add('active');
-
-        web.ConfigState = item.dataset.config;
-        modal.dataset.config = web.ConfigState;
+        web.setConfigState(e.target);
+        web.resetInputValue();
       })
     }
 
-    $('.nav-item.update-config').addEventListener('click',function(e)
-    {
-      web.getCol(web.Table,"MaHS");
-    })
+    for (let input of $$('.select-input')) {
+      input.addEventListener('focus',function(e)
+      {
+        web.getCol(web.Table,input.name,input);
+      })
+    }
 
     $('.alert-btn').addEventListener('click',function(e)
     {
       $('.alert-container').classList.add('close');
       $('.config-modal-container:not(close)').classList.add('close');
-      web.getData("HOCSINH");
+      
+      web.setConfigState($('.nav-item.add-config'));
+      web.resetInputValue();
+
+      web.getData(web.Table);
+    })
+
+    //Hàm cb dùng để delay thời gian bắt event keyup (lấy trên mạng, ko hiểu bản chất)
+    
+    $('.delete-form input').addEventListener('keyup',function(e){
+
+      let id = e.target.name;
+      let val = e.target.value;
+
+      web.getRow(web.Table,id,val,"getRow");
     })
 
     let menu = $('.icon-menu');
@@ -235,7 +311,7 @@ const web =
   },
   start: () =>
   {
-    web.getData(web.Table," "," ");
+    web.getData(web.Table);
     web.handleEvents();
   }
 }
@@ -289,10 +365,6 @@ web.start();
 //noneTables.start();
 
 /*SH!T NOTES 
-
-dataObj.MaLop = $("[name=add_MaLop]").value; // ADD
--->CÓ THỂ DÙNG OPTIONS DỰA TRÊN BẢNG LOPHOC ĐỂ LẤY VALUE
-//UPDATE
---> FIELD MAHS, DÙNG OPTION ĐỂ SELECT CÁC HS ĐANG CÓ, TỪ ĐÓ SỬA CÁC GIÁ TRỊ CÒN LẠI
+  -Cái chức năng sắp xếp nên sắp xếp dựa trên dataArr[] chứ ko nên dựa trên câu truy vấn
 */
 
