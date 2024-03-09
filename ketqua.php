@@ -69,8 +69,8 @@
                     </div>
                 </div>
                 <div class="content-sidebar close">
-                    <div class="list-sidebar active">
-                        <a class="about">
+                    <div class="list-sidebar">
+                        <a class="about" href="./hocsinh.php">
                             <i class='icon-sidebar bx bxs-group'></i>
                             <span class="name-sidebar-items">
                                 Student Management
@@ -83,14 +83,14 @@
                             <span class="name-sidebar-items">Teacher</span>
                         </a>
                     </div>
-                    <div class="list-sidebar">
-                        <a class="about" href="./tkb.php">
+                    <div class="list-sidebar" href="./tkb.php">
+                        <a class="about">
                             <i class='icon-sidebar bx bxs-time'></i>
                             <span class="name-sidebar-items">Time</span>
                         </a>
                     </div>
-                    <div class="list-sidebar">
-                        <a class="about" href="./ketqua.php">
+                    <div class="list-sidebar active">
+                        <a class="about">
                             <i class='icon-sidebar bx bx-bar-chart'></i>
                             <span class="name-sidebar-items">
                                 Result

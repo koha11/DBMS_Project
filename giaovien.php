@@ -69,19 +69,19 @@
                     </div>
                 </div>
                 <div class="content-sidebar close">
-                    <div class="list-sidebar active">
-                        <a class="about">
+                    <div class="list-sidebar">
+                        <a class="about" href="./hocsinh.php">
                             <i class='icon-sidebar bx bxs-group'></i>
                             <span class="name-sidebar-items">
                                 Student Management
                             </span>
                         </a>
                     </div>
-                    <div class="list-sidebar">
-                        <a class="about" href="./giaovien.php">
+                    <div class="list-sidebar active">
+                        <div class="about">
                             <i class='icon-sidebar bx bxs-user'></i>
                             <span class="name-sidebar-items">Teacher</span>
-                        </a>
+                        </div>
                     </div>
                     <div class="list-sidebar">
                         <a class="about" href="./tkb.php">
@@ -90,7 +90,7 @@
                         </a>
                     </div>
                     <div class="list-sidebar">
-                        <a class="about" href="./ketqua.php">
+                        <a class="about"  href="./ketqua.php">
                             <i class='icon-sidebar bx bx-bar-chart'></i>
                             <span class="name-sidebar-items">
                                 Result
@@ -104,7 +104,7 @@
                     CONFIGURE YOUR DATAS HERE!
                 </div>
 
-                <div id="content-table" class="content-table" data-table="HOCSINH">
+                <div id="content-table" class="content-table" data-table="">
                 </div>
 
                 <div class="config-modal-container close container flex-box">

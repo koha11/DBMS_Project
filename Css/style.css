@@ -661,7 +661,6 @@ ul{
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 36px 0; 
 }
 
 .list-sidebar.active, .list-sidebar.active i
@@ -676,7 +675,8 @@ ul{
   width: 100%;
   height: 50%;
   align-items: center;
-  padding-left: 2rem;
+  text-decoration: none;
+  padding: 36px 8px;
 }
 
 .list-sidebar:not(.active):hover, .list-sidebar:hover i{
