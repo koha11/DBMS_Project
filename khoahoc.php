@@ -143,41 +143,29 @@
                         </form>
 
                         <form class="modal-body flex-box config-form update-form update-config close" data-config="update-config">
+
                             <div class="input-field">
-                                <label for="u-mahs" name="configInputLabel">Mã Học Sinh</label>
-                                <input id="u-mahs" list="mahs-list" name="MaHS" class="select-input">
-                                <datalist id="mahs-list">
-                                </datalist>
+                                <label for="a-makh-hs" name="configInputLabel">Mã Khóa Học</label>
+                                <input id="a-makh-hs" list="makh-list" name="Ma_KH" type="text" class="select-input">
+                                <datalist id="makh-list"></datalist>
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="u-tenhs" name="configInputLabel">Họ Và Tên</label>
-                                <input id="u-tenhs" name="Ten" type="text">
+                                <label for="a-tenhs-hs" name="configInputLabel">Trình Độ Khóa Học</label>
+                                <input id="a-tenhs-hs" name="Level_KH" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="u-malop" name="configInputLabel">Mã Lớp</label>
-                                <input id="u-malop" name="MaLop" type="text">
+                                <label for="a-malop-hs" name="configInputLabel">Học Phí</label>
+                                <input id="a-malop-hs" name="HocPhi" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="u-sdt" name="configInputLabel">Số Điện Thoại</label>
-                                <input id="u-sdt" name="SDT" type="text">
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="input-field">
-                                <label for="u-email" name="configInputLabel">Email</label>
-                                <input id="u-email" name="Email" type="text">
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="input-field">
-                                <label for="u-sdtph" name="configInputLabel">Số Điện Thoại PH</label>
-                                <input id="u-sdtph" name="SDTPH" type="text">
+                                <label for="a-sdt-hs" name="configInputLabel">Hình Thức</label>
+                                <input id="a-sdt-hs" name="HinhThuc" type="text">
                                 <span class="message"></span>
                             </div>
 

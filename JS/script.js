@@ -51,7 +51,7 @@ const web =
             <div class="content-table-head table-col fl-2">${DataArr[x][0]}</div>
             <div class="content-table-head table-col fl-3">${DataArr[x][1]}</div>
             <div class="content-table-head table-col fl-3">${DataArr[x][2]}</div>
-            <div class="content-table-head table-col fl-3">${DataArr[x][3]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][3] == 1 ? "Trực Tiếp": "Online"}</div>
           </div>`;
         }
         break;
@@ -263,6 +263,7 @@ const web =
       input.addEventListener('focus',function(e)
       {
         web.getCol(web.Table,input.name,input);
+        
       })
     }
 
