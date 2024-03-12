@@ -6,7 +6,7 @@
     "CharacterSet" => "UTF-8"
   );
 
-  $conn = sqlsrv_connect('KOHA11\SQLEXPRESS', $conn_array);
+  $conn = sqlsrv_connect('LAPTOP-3DSS3LFM\SQLEXPRESS', $conn_array);
 
   if ($conn === false)
     die(print_r(sqlsrv_errors(), true));

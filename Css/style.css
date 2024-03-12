@@ -13,11 +13,12 @@ html {
   --secondary-color: #08183a;
   --text-color: black;
   --desc-color : #bebebe;
+  --name-label-color: #526069;
 }
 
 html {
   font-size: 62.5%;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 /*SETUP CLASSES*/
@@ -46,19 +47,23 @@ html {
 
 .add-config
 {
-  background-color: antiquewhite;
+  background-color: white;
+  color: var(--secondary-color);
 }
 .update-config
 {
-  background-color: blue;
+  background-color: white;
+  color: var(--secondary-color);
 }
 .delete-config
 {
-  background-color: red;
+  background-color: white;
+  color: var(--secondary-color);
 }
 .find-config
 {
-  background-color: cadetblue;
+  background-color: white;
+  color: var(--secondary-color);
 }
 
 .fl-1
@@ -118,6 +123,7 @@ html {
   min-height: 460px;
   margin-top: 16px;
   padding: 8px 16px;
+ 
 }
 
 .table-row
@@ -126,9 +132,11 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 8px;
+  padding: 4px 8px;
   flex-direction: row;
-  border-bottom: 1px black solid;
+  /* border-bottom: 1px black solid; */
+  background-color: #e9eef1;
+  border-top: 1px solid var(--desc-color);
 }
 
 .table-col
@@ -152,13 +160,14 @@ html {
 {
   padding: 8px 4px;
   border-radius: 10px;
-  width: 20%;
+  width: 15%;
   text-align: center;
   cursor: pointer;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 500;
   margin-top: 12px;
-  background-color: rgba(50, 145, 169,1);
+  background-color: var(--primary-color);
+  color: white;
   align-self: flex-end;
 }
 
@@ -181,6 +190,7 @@ html {
   position: relative;
   height: 80%;
   justify-content: space-around;
+  
 }
 
 .modal-header
@@ -193,7 +203,7 @@ html {
 
 .modal-body
 {
-  flex-direction: column;
+  margin-top: 32px;
   padding: 16px 0;
   font-size: 1.6rem;
 }
@@ -206,20 +216,28 @@ html {
 
 .modal-nav
 {
-  width: 10%;
+  width: 60%;
   position: absolute;
-  top: 0;
-  left: -10%;
-  flex-direction: column;
+  top: 20%;
+  left: 20%;
+  display: flex;
   text-align: center;
 }
 
 .modal-nav .nav-item
 {
   width: 100%;
-  padding: 12px 4px;
+  padding: 8px 0;
   font-size: 1.4rem;
   font-weight: 500;
+  font-weight: bold;
+}
+
+.nav-item{
+  border-radius: 30px;
+}
+.nav-item:nth-child(2), .nav-item:nth-child(3), .nav-item:nth-child(4){
+  margin-left: 16px;
 }
 
 .modal-nav .nav-item:not(.active):hover
@@ -231,22 +249,27 @@ html {
 
 .modal-nav .nav-item.active
 {
-  border-top: 1px white solid;
-  border-left: 1px white solid;
-  border-bottom: 1px white solid;
+  border: 3px solid var(--primary-color);
 }
-
+/* ICON NAV */
+.icon-nav{
+  padding-right: 4px;
+}
 /*FORM*/
 .config-form select,.config-form label
 {
-  width: 50%;
+  width: 43%;
 }
 
 .config-form input
 {
-  padding: 16px 8px;
-  width: 100%;
+  padding: 2px 8px;
+  width: 70%;
   font-size: 2rem;
+  outline: none;
+  border: none;
+  border: 1px solid var(--desc-color);
+  border-radius: 5px
 }
 
 .config-form label
@@ -254,18 +277,23 @@ html {
   display: block;
   font-size: 1.5rem;
   margin-bottom: 4px;
+  font-weight: 550;
+  font-family: 'Poppins';
 }
 
 .config-form .input-field
 {
   width: 50%;
-  margin: 8px 0;
+  margin: 28px 0;
   padding: 0 12px;
+
 }
+/* FOOTER FORM */
 
 .add-form
 {
   flex-flow: wrap;
+  color: var(--name-label-color);
 }
 
 .update-form
@@ -276,7 +304,7 @@ html {
 .delete-form
 {
   height: 60%;
-  width: 90%;
+  width: 30%;
   justify-content: flex-start;
 }
 
@@ -301,7 +329,6 @@ html {
   width: 50%;
   text-align: center;
 }
-
 
 /*ALERT BOX*/
 .alert-container
@@ -330,20 +357,30 @@ html {
 {
   background-color: chocolate;
 }
+/* ICON FOOTER SAVE */
+.icon-footer{
+  padding-right: 4px;
+}
 
 /*BUTTONS*/
 .btn
 {
-  padding: 12px 8px;
+  padding: 8px 20px;
   margin: 12px 0;
   cursor: pointer;
-  font-size: 1.6rem;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.4rem;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
 }
 
 .btn:hover
 {
   opacity: 0.7;
 }
+
 
 /* FORM LOGIN*/
 .bg-image{
@@ -462,6 +499,7 @@ html {
   width: 16%;
   height: 100%;
   position: relative;
+  
 }
 .img-logo{
   width: 50%;
@@ -487,7 +525,7 @@ html {
   transform: translate(-50%, -50%);
   width: 100%;
   color: var(--secondary-color);
-  font-size: 1.7rem;
+  font-size: 1.6rem;
 
 }
 .header-right{
@@ -509,10 +547,8 @@ html {
   border-radius: 50%;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 70%;
   transform: translate(-50%, -50%);
-
-
 }
 .name-user{
   position: relative;
@@ -520,7 +556,7 @@ html {
   height: 100%;
 }
 .name-user-text{
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   width: 100%;
   font-weight: bold;
   position: absolute;
@@ -559,9 +595,9 @@ ul{
   position: absolute;
   top: 70%;
   left: 40%;
-  background-color: var(--secondary-color);
+  background-color: white;
   border-radius: 1rem;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.3) 2px 4px 11px 6px;
 
  
 }
@@ -572,12 +608,12 @@ ul{
   margin-top: 1.7rem;
   display: flex;
   align-items: center;
-  color: white;
+  color: black;
   width: 100%;
   height: 30%;
 }
 .item-drop-menu:hover{
-  background-color: var(--primary-color);
+  background-color: #F6F6F6;
   color: var(--secondary-color);
   cursor: pointer;
 }
@@ -586,13 +622,13 @@ ul{
   padding-left: 2rem;
 }
 .text-log-out{
-  padding-left: 1.3rem;
-  font-size: 1.4rem;
+  padding-left: 1rem;
+  font-size: 1.6rem;
 }
 .arrow-up{
   border-left: 2rem solid transparent;
 	border-right: 2rem solid transparent;
-	border-bottom: 1.4rem solid var(--secondary-color);
+	border-bottom: 1.4rem solid rgb(239, 232, 232);
   position: absolute;
   top: 55%;
   left: 50%;
@@ -622,14 +658,21 @@ ul{
   background-color: var(--secondary-color);
   color: white;
   transition:  linear 0.5s;
+  overflow: scroll;
 
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+.sidebar{
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
 }
 /* Head sidebar: name and icon menu */
 .head-sidebar{
   width: 100%;
-  height: 15%;
-  padding: 2rem;
-
+  
+  padding: 4rem 2rem 2rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -637,23 +680,15 @@ ul{
 }
 .name-sidebar{
   width: 70%;
-  height: 70%;
   font-size: 1.5rem;
-  position: relative;
   border-radius: 1rem;
   background-color: var(--primary-color);
   color: var(--secondary-color);
   font-weight: bold;
+  padding: 1rem;
 
 }
-.name-account{
-  width: 80%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-left: 2rem;
-}
+
 
 /* Content sidebar: Student Giaovien TKB Ketqua */
 
@@ -666,10 +701,6 @@ ul{
 }
 
 .icon-menu{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   transition: linear 1s;
 
 }
@@ -678,7 +709,7 @@ ul{
 }
 .icon-menu, .icon-sidebar{
   color: white;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .content-sidebar{
@@ -689,27 +720,33 @@ ul{
 
 .list-sidebar{
   width: 100%;
+
   display: flex;
   align-items: center;
+  margin-top: 24px;
 }
 
-.list-sidebar.active, .list-sidebar.active i
+.list-sidebar.active, .list-sidebar.active i, .list-sidebar.active .name-sidebar-items
 {
   background-color: var(--primary-color);
   color: var(--secondary-color);
 }
 
 .about{
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   display: flex;
   width: 100%;
   height: 50%;
   align-items: center;
   text-decoration: none;
-  padding: 36px 8px;
+  padding: 24px 8px;
 }
+/* .about:hover, .about:hover .name-sidebar-items{
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+} */
 
-.list-sidebar:not(.active):hover, .list-sidebar:hover i{
+.list-sidebar:not(.active):hover, .list-sidebar:hover i, .list-sidebar:hover .name-sidebar-items{
   background-color: var(--primary-color);
   cursor: pointer;
   color: var(--secondary-color);
@@ -717,9 +754,10 @@ ul{
 
 .name-sidebar-items{
   padding-left: 1.5rem;
-  font-size: 1.5rem;
+  color: white;
 }
 
 .sidebar-width{
   width: 20%;
 }
+
