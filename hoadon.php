@@ -104,7 +104,7 @@
           CONFIGURE YOUR DATAS HERE!
         </div>
 
-        <div id="content-table" class="content-table" data-table="LOP">
+        <div id="content-table" class="content-table" data-table="HOADON">
         </div>
 
         <div class="config-modal-container close container flex-box">
@@ -115,53 +115,45 @@
             </div>
 
             <form class="modal-body flex-box config-form add-form add-config" data-config="add-config">
+
               <div class="input-field">
-                <label for="a-makh-hs" name="configInputLabel">Mã Lớp</label>
-                <input id="a-makh-hs" name="Ma_Lop" type="text">
+                <label for="a-mahs-hs" name="configInputLabel">Mã Hóa Đơn</label>
+                <input id="a-mahs-hs" name="Ma_HoaDon" type="text">
                 <span class="message"></span>
               </div>
+
               <div class="input-field">
-                <label for="u-tenhs-hs" name="configInputLabel">Mã Khóa Học</label>
-                <input id="u-tenhs-hs" name="Ma_KH" list="makh-list" type="text" class="select-input" data-table="KHOAHOC">
-                <datalist id="makh-list"></datalist>
+                <label for="a-tenhs-hs" name="configInputLabel">Ngày Nộp</label>
+                <input id="a-tenhs-hs" name="Ngay_Nop" type="text">
                 <span class="message"></span>
               </div>
+
               <div class="input-field">
-                <label for="a-magv" name="configInputLabel">Mã Giáo Viên</label>
-                <input id="a-magv" name="Ma_GV" list="magv-list" type="text" class="select-input" data-table="GIAOVIEN">
-                <datalist id="magv-list"></datalist>
-                <span class="message"></span>
-              </div>
-              <div class="input-field">
-                <label for="a-sdt-hs" name="configInputLabel">Phòng Học</label>
-                <input id="a-sdt-hs" name="Lop_Hoc" type="text">
+                <label for="a-malop-hs" name="configInputLabel">Phương Thức</label>
+                <input id="a-malop-hs" name="PhuongThuc" list="malop-list" type="text" class="select-input" data-table="LOP">
+                <datalist id="malop-list"></datalist>
                 <span class="message"></span>
               </div>
 
             </form>
 
             <form class="modal-body flex-box config-form update-form update-config close" data-config="update-config">
-
-              <div class="input-field">
-                <label for="a-makh-hs" name="configInputLabel">Mã Lớp</label>
-                <input id="a-makh-hs" name="Ma_Lop" type="text" class="select-input">
-                <datalist></datalist>
+            <div class="input-field">
+                <label for="a-mahs-hs" name="configInputLabel">Mã Hóa Đơn</label>
+                <input id="a-mahs-hs" name="Ma_HoaDon" type="text">
                 <span class="message"></span>
               </div>
 
               <div class="input-field">
-                <label for="a-tenhs-hs" name="configInputLabel">Mã Khóa Học</label>
-                <input id="a-tenhs-hs" name="Ma_KH" type="text" class="select-input">               
+                <label for="a-tenhs-hs" name="configInputLabel">Ngày Nộp</label>
+                <input id="a-tenhs-hs" name="Ngay_Nop" type="text">
                 <span class="message"></span>
               </div>
+
               <div class="input-field">
-                <label for="a-malop-hs" name="configInputLabel">Mã Giáo Viên</label>
-                <input id="a-malop-hs" name="Ma_GV" type="text">
-                <span class="message"></span>
-              </div>
-              <div class="input-field">
-                <label for="a-sdt-hs" name="configInputLabel">Phòng Học</label>
-                <input id="a-sdt-hs" name="Lop_Hoc" type="text">
+                <label for="a-malop-hs" name="configInputLabel">Phương Thức</label>
+                <input id="a-malop-hs" name="PhuongThuc" list="malop-list" type="text" class="select-input" data-table="LOP">
+                <datalist id="malop-list"></datalist>
                 <span class="message"></span>
               </div>
 
@@ -171,7 +163,7 @@
 
               <div class="input-field">
                 <label for="d-mahs" name="configInputLabel">Mã Học Sinh</label>
-                <input id="d-mahs" list="d-mahs-list" name="MaHS" class="select-input">
+                <input id="d-mahs" list="d-mahs-list" name="Ma_HS" class="select-input">
                 <datalist id="d-mahs-list">
                 </datalist>
                 <span class="message"></span>

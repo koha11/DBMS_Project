@@ -2,7 +2,7 @@
   header("Content-Type: application/json; charset=UTF-8");
 
   $conn_array = array (
-    "Database" => "DEMO_QLHS",
+    "Database" => "DEMO_QLHS1",
     "CharacterSet" => "UTF-8"
   );
 

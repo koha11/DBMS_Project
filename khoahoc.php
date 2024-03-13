@@ -96,7 +96,7 @@
                                 Result
                             </span>
                         </a>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="main-content">

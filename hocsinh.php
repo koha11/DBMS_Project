@@ -130,7 +130,8 @@
 
                             <div class="input-field">
                                 <label for="a-malop-hs" name="configInputLabel">Mã Lớp</label>
-                                <input id="a-malop-hs" name="Ma_Lop" type="text">
+                                <input id="a-malop-hs" name="Ma_Lop" list="malop-list" type="text" class="select-input" data-table="LOP">
+                                <datalist id="malop-list"></datalist>
                                 <span class="message"></span>
                             </div>
 
@@ -157,7 +158,7 @@
                         <form class="modal-body flex-box config-form update-form update-config close" data-config="update-config">
                             <div class="input-field">
                                 <label for="u-mahs" name="configInputLabel">Mã Học Sinh</label>
-                                <input id="u-mahs" list="mahs-list" name="Ma_HS" class="select-input">
+                                <input id="u-mahs" list="mahs-list" name="Ma_HS" class="select-input" data-table="HOCSINH">
                                 <datalist id="mahs-list">
                                 </datalist>
                                 <span class="message"></span>
@@ -199,7 +200,7 @@
 
                             <div class="input-field">
                                 <label for="d-mahs" name="configInputLabel">Mã Học Sinh</label>
-                                <input id="d-mahs" list="d-mahs-list" name="Ma_HS" class="select-input">
+                                <input id="d-mahs" list="d-mahs-list" name="Ma_HS" class="select-input" data-table="HOCSINH">
                                 <datalist id="d-mahs-list">
                                 </datalist>
                                 <span class="message"></span>
@@ -214,7 +215,7 @@
 
                             <div class="input-field">
                                 <label for="d-mahs" name="configInputLabel">Mã Học Sinh</label>
-                                <input id="d-mahs" list="d-mahs-list" name="MaHS" class="select-input">
+                                <input id="d-mahs" list="d-mahs-list" name="MaHS" class="select-input" data-table="HOCSINH">
                                 <datalist id="d-mahs-list">
                                 </datalist>
                                 <span class="message"></span>

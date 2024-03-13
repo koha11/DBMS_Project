@@ -20,7 +20,7 @@ const web =
           <div class="content-table-head table-col table-title fl-1">Mã Lớp</div>
           <div class="content-table-head table-col table-title fl-2">Số Điện Thoại</div>
           <div class="content-table-head table-col table-title fl-3">Email</div>
-          <div class="content-table-head table-col table-title fl-1">Hóa Đơn</div>
+          <div class="content-table-head table-col table-title fl-2">Hóa Đơn</div>
           <div class="content-table-head table-col table-title fl-2">Số Điện Thoại PH</div>
           </div>`;       
         for(let x in DataArr)
@@ -31,7 +31,7 @@ const web =
             <div class="content-table-head table-col fl-1">${DataArr[x][2]}</div>
             <div class="content-table-head table-col fl-2">${DataArr[x][3]}</div>
             <div class="content-table-head table-col fl-3">${DataArr[x][4]}</div>
-            <div class="content-table-head table-col fl-1">${DataArr[x][5]}</div>
+            <div class="content-table-head table-col fl-2">${DataArr[x][5] ? "Đã Đóng" : "Chưa Đóng"}</div>
             <div class="content-table-head table-col fl-2">${DataArr[x][6]}</div>
             </div>`;
         }      
@@ -55,6 +55,50 @@ const web =
           </div>`;
         }
         break;
+
+      case "GIAOVIEN":
+
+        htmls += `<div class="table-row">
+          <div class="content-table-head table-col table-title fl-1">Mã GV</div>
+          <div class="content-table-head table-col table-title fl-2">Quốc Tịch</div>
+          <div class="content-table-head table-col table-title fl-3">Họ Và Tên</div>
+          <div class="content-table-head table-col table-title fl-2">Số Điện Thoại</div>
+          <div class="content-table-head table-col table-title fl-3">Email</div>
+          <div class="content-table-head table-col table-title fl-4">Địa Chỉ</div>
+        </div>`;  
+        
+        for(let x in DataArr)
+        {
+          htmls += `<div class="table-row">
+            <div class="content-table-head table-col fl-1">${DataArr[x][0]}</div>
+            <div class="content-table-head table-col fl-2">${DataArr[x][1]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][2]}</div>
+            <div class="content-table-head table-col fl-2">${DataArr[x][3]}</div>
+            <div class="content-table-head table-col fl-3">${DataArr[x][4]}</div>
+            <div class="content-table-head table-col fl-4">${DataArr[x][5]}</div>
+          </div>`;
+        }
+        break;
+
+        case "LOP":
+
+          htmls += `<div class="table-row">
+            <div class="content-table-head table-col table-title fl-2">Mã Lớp</div>
+            <div class="content-table-head table-col table-title fl-2">Mã Khóa Học</div>
+            <div class="content-table-head table-col table-title fl-2">Mã Giáo Viên</div>
+            <div class="content-table-head table-col table-title fl-2">Phòng Học</div>
+          </div>`;  
+
+          for(let x in DataArr)
+          {
+            htmls += `<div class="table-row">
+              <div class="content-table-head table-col fl-2">${DataArr[x][0]}</div>
+              <div class="content-table-head table-col fl-2">${DataArr[x][1]}</div>
+              <div class="content-table-head table-col fl-2">${DataArr[x][2]}</div>
+              <div class="content-table-head table-col fl-2">${DataArr[x][3]}</div>
+            </div>`;
+          }
+          break;
     }
 
     $('#content-table').innerHTML = htmls;
@@ -124,15 +168,12 @@ const web =
     {
       dataObj[input.name] = input.value;
     }
-
-    console.log(dataObj);
         
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "./Php/add_row.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
       if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        console.log(this.responseText)
         $('.alert-container').classList.remove('close');  
       }
     }
@@ -207,6 +248,7 @@ const web =
       input.value = "";
     }
   },
+  
   handleEvents: () =>
   {
 
@@ -262,21 +304,29 @@ const web =
     for (let input of $$('.select-input')) {
       input.addEventListener('focus',function(e)
       {
-        web.getCol(web.Table,input.name,input);
+        web.getCol(input.dataset.table,input.name,input);
         
       })
     }
 
-    $('.alert-btn').addEventListener('click',function(e)
+    for (let item of $$('.alert-btn,.alert-container'))
     {
-      $('.alert-container').classList.add('close');
-      $('.config-modal-container:not(close)').classList.add('close');
-      
-      web.setConfigState($('.nav-item.add-config'));
-      web.resetInputValue();
+      item.addEventListener('click',function(e){
+        $('.alert-container').classList.add('close');
+        $('.config-modal-container:not(close)').classList.add('close');
+        
+        web.setConfigState($('.nav-item.add-config'));
+        web.resetInputValue();
 
-      web.getData(web.Table);
+        web.getData(web.Table);
+      })
+    }
+
+    $('.alert-box').addEventListener('click',function(e)
+    {
+      e.stopPropagation();
     })
+
 
     //Hàm cb dùng để delay thời gian bắt event keyup (lấy trên mạng, ko hiểu bản chất)
     
