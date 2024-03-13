@@ -379,17 +379,19 @@ const noneTables =
     // Thay đổi icon menu sidebar
     sidebar.querySelector('.sidebar-menu i').addEventListener('click', function(e)
     {
-      e.target.classList.toggle('fa-times');
+      setTimeout(() => {
+        e.target.classList.toggle('fa-times');
+      }, 10000)
     })
 
     menu.addEventListener('click', function() {
 
       sidebar.classList.toggle('sidebar-width');
-      let delayTime = lists.classList.contains('close') ? 400 : 150;
+      let delayTime = lists.classList.contains('close') ? 200 : 250;
       setTimeout(()=>{
         name_sidebar.classList.toggle('close');
         lists.classList.toggle('close');
-      },delayTime);
+      }, delayTime);
     })
 
     // click drop menu header

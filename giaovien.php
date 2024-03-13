@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./Css/style.css?v=<? echo time(); ?>">
     <title>Home</title>
@@ -59,13 +60,13 @@
             <!-- sidebar -->
             <div class="sidebar">
                 <div class="head-sidebar">
-                    <div class="name-sidebar close">
+                    <div class="name-sidebar close flex-box">
                         <span class="name-account">
                             John Wick
                         </span>
                     </div>
                     <div class="sidebar-menu">
-                        <i class="icon-menu fa-solid fa-bars"></i>
+                        <i class="icon-menu flex-box fa-solid fa-bars"></i>
                     </div>
                 </div>
                 <div class="content-sidebar close">
@@ -96,12 +97,37 @@
                                 Result
                             </span>
                         </a>
-                    </div>
+                    </div> 
+                    <div class="list-sidebar">
+                        <a class="about" href="./khoahoc.php">
+                            <i class='icon-sidebar bx bxs-briefcase'></i>
+                            <span class="name-sidebar-items">
+                                Courses
+                            </span>
+                        </a>
+                    </div> 
+                    <div class="list-sidebar">
+                        <a class="about" href="./lop.php">
+                          
+                            <i class="icon-sidebar fa-solid fa-users"></i>
+                            <span class="name-sidebar-items">
+                                Class
+                            </span>
+                        </a>
+                    </div>  
+                    <div class="list-sidebar">
+                        <a class="about" href="./bill.php">
+                            <i class='icon-sidebar bx bxs-credit-card'></i>
+                            <span class="name-sidebar-items">
+                                Bill
+                            </span>
+                        </a>
+                    </div> 
                 </div>
             </div>
             <div class="main-content">
                 <div id="table-config" class="table-config">
-                    CONFIGURE YOUR DATAS HERE!
+                    Configure Data!
                 </div>
 
                 <div id="content-table" class="content-table" data-table="GIAOVIEN">
@@ -117,37 +143,37 @@
                         <form class="modal-body flex-box config-form add-form add-config" data-config="add-config">
 
                             <div class="input-field">
-                                <label for="a-mahs-hs" name="configInputLabel">Mã Giáo Viên</label>
+                                <label for="a-mahs-hs" name="configInputLabel">ID</label>
                                 <input id="a-mahs-hs" name="Ma_GV" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="a-tenhs-hs" name="configInputLabel">Họ Và Tên</label>
+                                <label for="a-tenhs-hs" name="configInputLabel">Student's Name</label>
                                 <input id="a-tenhs-hs" name="Ten_GV" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="a-malop-hs" name="configInputLabel">Quốc Tịch</label>
+                                <label for="a-malop-hs" name="configInputLabel">ID Class</label>
                                 <input id="a-malop-hs" name="QuocTich_GV" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="a-sdt-hs" name="configInputLabel">Số Điện Thoại</label>
+                                <label for="a-sdt-hs" name="configInputLabel">Teacher's Phone</label>
                                 <input id="a-sdt-hs" name="SDT_GV" type="text">
                                 <span class="message"></span>
                             </div>
 
-                            <div class="input-field">
+                            <div class="input-field flex-box">
                                 <label for="a-email-hs" name="configInputLabel">Email</label>
                                 <input id="a-email-hs" name="Email_GV" type="text">
                                 <span class="message"></span>
                             </div>
 
                             <div class="input-field">
-                                <label for="a-sdtph-hs" name="configInputLabel">Địa Chỉ</label>
+                                <label for="a-sdtph-hs" name="configInputLabel">Address</label>
                                 <input id="a-sdtph-hs" name="DiaChi_GV" type="text">
                                 <span class="message"></span>
                             </div>
@@ -197,7 +223,7 @@
                         <form class="modal-body flex-box config-form delete-form delete-config close" data-config="delete-config">
 
                             <div class="input-field">
-                                <label for="d-mahs" name="configInputLabel">Mã Học Sinh</label>
+                                <label for="d-mahs" name="configInputLabel">ID</label>
                                 <input id="d-mahs" list="d-mahs-list" name="MaHS" class="select-input">
                                 <datalist id="d-mahs-list">
                                 </datalist>
@@ -210,14 +236,17 @@
                         </form>
 
                         <div class="modal-footer">
-                            <button id="config-btn" class="form-btn btn" data-handle="">CLICK ME</button>
+                            <button id="config-btn" class="form-btn btn" data-handle="">
+                                <i class="icon-footer fa-solid fa-check"></i>
+                                Save
+                            </button>
                         </div>
 
                         <div class="modal-nav flex-box">
-                            <div class="nav-item add-config active" data-config="add-config">THÊM</div>
-                            <div class="nav-item update-config" data-config="update-config">SỬA</div>
-                            <div class="nav-item delete-config" data-config="delete-config">XÓA</div>
-                            <div class="nav-item find-config" data-config="find-config">TÌM</div>
+                            <div class="nav-item add-config active" data-config="add-config">ADD</div>
+                            <div class="nav-item update-config" data-config="update-config">EDIT</div>
+                            <div class="nav-item delete-config" data-config="delete-config">DELETE</div>
+                            <div class="nav-item find-config" data-config="find-config">SEARCH</div>
                         </div>
 
                     </div>
