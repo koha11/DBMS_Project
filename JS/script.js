@@ -1,19 +1,18 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const web = 
-{
+const web = {
   DataArr: [],
-  Table:  $('#content-table').dataset.table, //Xử lí cái này = cách sử dụng tên đường dẫn 
+  inputArr: {},
+  Table: $("#content-table").dataset.table, //Xử lí cái này = cách sử dụng tên đường dẫn
   ConfigState: "add-config",
-  render: (option) =>
-  {
-    let htmls ="";
+  IsValidate: true,
+  render: (option) => {
+    let htmls = "";
     let DataArr = web.DataArr;
-    
-    switch(option)
-    {
-      case "HOCSINH": 
+
+    switch (option) {
+      case "HOCSINH":
         htmls += `<div class="table-row">
           <div class="content-table-head table-col table-title fl-1">Mã HS</div>
           <div class="content-table-head table-col table-title fl-3">Họ Và Tên</div>
@@ -22,22 +21,34 @@ const web =
           <div class="content-table-head table-col table-title fl-3">Email</div>
           <div class="content-table-head table-col table-title fl-2">Hóa Đơn</div>
           <div class="content-table-head table-col table-title fl-2">Số Điện Thoại PH</div>
-          </div>`;       
-        for(let x in DataArr)
-        {
+          </div>`;
+        for (let x in DataArr) {
           htmls += `<div class="table-row">
-            <div class="content-table-head table-col fl-1">${DataArr[x][0]}</div>
-            <div class="content-table-head table-col fl-3">${DataArr[x][1]}</div>
-            <div class="content-table-head table-col fl-1">${DataArr[x][2]}</div>
-            <div class="content-table-head table-col fl-2">${DataArr[x][3]}</div>
-            <div class="content-table-head table-col fl-3">${DataArr[x][4]}</div>
-            <div class="content-table-head table-col fl-2">${DataArr[x][5] ? "Đã Đóng" : "Chưa Đóng"}</div>
-            <div class="content-table-head table-col fl-2">${DataArr[x][6]}</div>
+            <div class="content-table-head table-col fl-1">${
+              DataArr[x].Ma_HS
+            }</div>
+            <div class="content-table-head table-col fl-3">${
+              DataArr[x].Ten_HS
+            }</div>
+            <div class="content-table-head table-col fl-1">${
+              DataArr[x].Ma_Lop
+            }</div>
+            <div class="content-table-head table-col fl-2">${
+              DataArr[x].SDT_HS
+            }</div>
+            <div class="content-table-head table-col fl-3">${
+              DataArr[x].EMAIL_HS
+            }</div>
+            <div class="content-table-head table-col fl-2">${
+              DataArr[x].Ma_HoaDon ? "Đã Đóng" : "Chưa Đóng"
+            }</div>
+            <div class="content-table-head table-col fl-2">${
+              DataArr[x].SDT_PH
+            }</div>
             </div>`;
-        }      
-      break;
+        }
+        break;
       case "KHOAHOC":
-
         htmls += `<div class="table-row">
           <div class="content-table-head table-col table-title fl-2">Mã KH</div>
           <div class="content-table-head table-col table-title fl-3">Trình Độ KH</div>
@@ -45,19 +56,25 @@ const web =
           <div class="content-table-head table-col table-title fl-3">Hình Thức</div>
         </div>`;
 
-        for(let x in DataArr)
-        {
+        for (let x in DataArr) {
           htmls += `<div class="table-row">
-            <div class="content-table-head table-col fl-2">${DataArr[x][0]}</div>
-            <div class="content-table-head table-col fl-3">${DataArr[x][1]}</div>
-            <div class="content-table-head table-col fl-3">${DataArr[x][2]}</div>
-            <div class="content-table-head table-col fl-3">${DataArr[x][3] == 1 ? "Trực Tiếp": "Online"}</div>
+            <div class="content-table-head table-col fl-2">${
+              DataArr[x][0]
+            }</div>
+            <div class="content-table-head table-col fl-3">${
+              DataArr[x][1]
+            }</div>
+            <div class="content-table-head table-col fl-3">${
+              DataArr[x][2]
+            }</div>
+            <div class="content-table-head table-col fl-3">${
+              DataArr[x][3] == 1 ? "Trực Tiếp" : "Online"
+            }</div>
           </div>`;
         }
         break;
 
       case "GIAOVIEN":
-
         htmls += `<div class="table-row">
           <div class="content-table-head table-col table-title fl-1">Mã GV</div>
           <div class="content-table-head table-col table-title fl-2">Quốc Tịch</div>
@@ -65,10 +82,9 @@ const web =
           <div class="content-table-head table-col table-title fl-2">Số Điện Thoại</div>
           <div class="content-table-head table-col table-title fl-3">Email</div>
           <div class="content-table-head table-col table-title fl-4">Địa Chỉ</div>
-        </div>`;  
-        
-        for(let x in DataArr)
-        {
+        </div>`;
+
+        for (let x in DataArr) {
           htmls += `<div class="table-row">
             <div class="content-table-head table-col fl-1">${DataArr[x][0]}</div>
             <div class="content-table-head table-col fl-2">${DataArr[x][1]}</div>
@@ -80,339 +96,501 @@ const web =
         }
         break;
 
-        case "LOP":
-
-          htmls += `<div class="table-row">
+      case "LOP":
+        htmls += `<div class="table-row">
             <div class="content-table-head table-col table-title fl-2">Mã Lớp</div>
             <div class="content-table-head table-col table-title fl-2">Mã Khóa Học</div>
             <div class="content-table-head table-col table-title fl-2">Mã Giáo Viên</div>
             <div class="content-table-head table-col table-title fl-2">Phòng Học</div>
-          </div>`;  
+          </div>`;
 
-          for(let x in DataArr)
-          {
-            htmls += `<div class="table-row">
+        for (let x in DataArr) {
+          htmls += `<div class="table-row">
               <div class="content-table-head table-col fl-2">${DataArr[x][0]}</div>
               <div class="content-table-head table-col fl-2">${DataArr[x][1]}</div>
               <div class="content-table-head table-col fl-2">${DataArr[x][2]}</div>
               <div class="content-table-head table-col fl-2">${DataArr[x][3]}</div>
             </div>`;
-          }
-          break;
+        }
+        break;
     }
 
-    $('#content-table').innerHTML = htmls;
-    $('.sidebar').style.height = $('.main-content').scrollHeight + 'px'
+    $("#content-table").innerHTML = htmls;
+    $(".sidebar").style.height = $(".main-content").scrollHeight + "px";
   },
-  renderOptionLists: (colData,selector) =>
-  {
+  renderOptionLists: (colData, selector) => {
     let htmls = "";
-    colData.forEach(item => {
+    colData.forEach((item) => {
       htmls += `<option value="${item}"></option>`;
     });
 
-    selector.closest('.input-field').querySelector('datalist').innerHTML = htmls;
+    selector.closest(".input-field").querySelector("datalist").innerHTML =
+      htmls;
   },
-  renderConfirmLists: (dataArr) =>
-  {
+  renderConfirmLists: (dataArr) => {
     let htmls = "";
 
-    if(!dataArr)
-      htmls += `<div class="infor-spot"><b>undefined: </b>undefined</div>`
+    if (!dataArr)
+      htmls += `<div class="infor-spot"><b>undefined: </b>undefined</div>`;
     else
-      for(let data in dataArr)
-        htmls += `<div class="infor-spot"><b>${data}: </b>${dataArr[data]}</div>` 
-  
-    $('.delete-form .infor-field').innerHTML = htmls;
+      for (let data in dataArr)
+        htmls += `<div class="infor-spot"><b>${data}: </b>${dataArr[data]}</div>`;
 
+    $(".delete-form .infor-field").innerHTML = htmls;
   },
-  getData: (tableName,id="",val="",option="") =>
-  {
-    const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
-    xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
-      web.DataArr = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve
-      web.render(tableName);
-    }
-    xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&id=${id}&val=${val}&option=${option}`); //trhop lay DL thi dung get
-    xmlhttp.send();
+  getData: async (
+    tableName,
+    id = "",
+    val = "" //async function return Promise => dùng then() để xử lí
+  ) => {
+    let myPromise = new Promise(function (resolve) {
+      const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
+      xmlhttp.onload = function () {
+        //bat dong bo, onload se cham hon so voi cac code khac
+        resolve(JSON.parse(this.responseText));
+      };
+      xmlhttp.open(
+        "GET",
+        `./Php/get_all_data.php?table=${tableName}&id=${id}&val=${val}`
+      ); //trhop lay DL thi dung get
+      xmlhttp.send();
+    });
+
+    return await myPromise; //trả về Promise có result là mảng nhận đc từ database
   },
-  getCol: (tableName,colName,selector) =>
-  {
-    const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
-    xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
-      let colData = JSON.parse(this.responseText);  //responeText: JSON ma server tra ve      
-      web.renderOptionLists(colData,selector);
-    }
-    xmlhttp.open("GET",`./Php/get_column.php?table=${tableName}&col=${colName}`); //trhop lay DL thi dung get
-    xmlhttp.send();
-  },
-  getRow: (tableName,id,val,option) => //type "" de ko order
-  {
-    const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
-    xmlhttp.onload = function(){  //bat dong bo, onload se cham hon so voi cac code khac
-      console.log(this.responseText);
-      web.renderConfirmLists(JSON.parse(this.responseText)[0]);
-    }
-    xmlhttp.open("GET",`./Php/get_all_data.php?table=${tableName}&id=${id}&val=${val}&option=${option}`); //trhop lay DL thi dung get
-    xmlhttp.send();
-  },
-  addRow: () =>
-  {  
-    let dataObj = {};
+  getCol: async (tableName="", colName="") => {
     
-    let inputs = $$('.add-form input');
+    let myPromise = new Promise((resolve) => {
+      if(tableName == "" || colName == "")
+        resolve([[""]]); 
+      else
+      {
+        const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
 
-    dataObj['tableName'] = web.Table
+        xmlhttp.onload = function () {
+          //bat dong bo, onload se cham hon so voi cac code khac
+          resolve(JSON.parse(this.responseText)); //responeText: JSON ma server tra ve
+        };
 
-    for(let input of inputs)
-    {
-      dataObj[input.name] = input.value;
-    }
-        
+        xmlhttp.open(
+          "GET",
+          `./Php/get_column.php?table=${tableName}&col=${colName}`
+        ); //trhop lay DL thi dung get
+        xmlhttp.send();
+      }
+    });
+
+    return await myPromise;
+  },
+  addRow: () => {
+    let dataObj = web.inputArr;
+
+    dataObj.tableName = web.Table;
+
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "./Php/add_row.php");
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
-      if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        $('.alert-container').classList.remove('close');  
+    xmlhttp.setRequestHeader(
+      "Content-type",
+      "application/x-www-form-urlencoded"
+    );
+    xmlhttp.onreadystatechange = function () {
+      //Call a function when the state changes.
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        $(".alert-container").classList.remove("close");
       }
-    }
+    };
 
     xmlhttp.send(`add=${JSON.stringify(dataObj)}`);
   },
-  updateRow: () =>
-  {
+  updateRow: () => {
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST","./Php/update_row.php");
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
-      if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        $('.alert-container').classList.remove('close');  
+    xmlhttp.open("POST", "./Php/update_row.php");
+    xmlhttp.setRequestHeader(
+      "Content-type",
+      "application/x-www-form-urlencoded"
+    );
+    xmlhttp.onreadystatechange = function () {
+      //Call a function when the state changes.
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        $(".alert-container").classList.remove("close");
       }
-    }
+    };
 
-    let dataObj = {tableName:web.Table};
+    let dataObj = { tableName: web.Table };
     let inputs = $$(`form.${web.ConfigState} .input-field input`);
     let i = 0;
 
-    while(inputs[i] != undefined)
-    {
+    while (inputs[i] != undefined) {
       dataObj[inputs[i].name] = inputs[i].value;
       i++;
     }
-    
+
     xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
   },
-  deleteRow: () =>
-  {
+  deleteRow: () => {
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST","./Php/delete_row.php");
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
-      if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        $('.alert-container').classList.remove('close');  
+    xmlhttp.open("POST", "./Php/delete_row.php");
+    xmlhttp.setRequestHeader(
+      "Content-type",
+      "application/x-www-form-urlencoded"
+    );
+    xmlhttp.onreadystatechange = function () {
+      //Call a function when the state changes.
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        $(".alert-container").classList.remove("close");
       }
-    }
+    };
 
-    let dataObj = {tableName:web.Table};
+    let dataObj = { tableName: web.Table };
 
     let input = $(`form.${web.ConfigState} .input-field input`);
 
     dataObj[input.name] = input.value;
-    
+
     xmlhttp.send(`delete=${JSON.stringify(dataObj)}`);
   },
-  setConfigState: (selector) =>
-  {
+  setConfigState: (selector) => {
     let item = selector;
-    let modal = $('.config-modal');
+    let modal = $(".config-modal");
     let form = $(`.config-form.${item.dataset.config}`);
     let preForm = $(`.config-form:not(.close)`);
 
     modal.classList.remove(web.ConfigState);
     modal.classList.add(item.dataset.config);
 
-    preForm.classList.add('close');
-    form.classList.remove('close');
+    preForm.classList.add("close");
+    form.classList.remove("close");
 
-    $('.nav-item.active').classList.remove('active');
-    item.classList.add('active');
+    $(".nav-item.active").classList.remove("active");
+    item.classList.add("active");
 
     web.ConfigState = item.dataset.config;
     modal.dataset.config = web.ConfigState;
   },
-  resetInputValue: () =>
-  {
-    let inputs = $$('input');
+  resetInputValue: () => {
+    let inputs = $$("input");
     for (const input of inputs) {
       input.value = "";
     }
   },
-  
-  handleEvents: () =>
-  {
+  resetError: (input) => {
+    let inputField = input.closest(".input-field");
+    input.classList.remove("error");
+    inputField.querySelector("span.error").innerText = "";
+    inputField
+      .querySelector("span.message:not(.error)")
+      .classList.remove("close");
+  },
+  validate: (input, types) => {
+    types = types.split(",");
+    let inputField = input.closest(".input-field");
+    let isValidate = true;
+    let errorMsg = "";
+    let errorElm = inputField.querySelector("span.error");
+    input.value = input.value.trim();
 
-    $("#config-btn").addEventListener("click", function(e)
-    {
+    //Lý do để Promise bên ngoài là vì, hàm lấy cột trả về Promise nếu ko để mọi t/hop trong .then() thì sẽ xảy ra bất đồng bộ
+    web.getCol(input.dataset.table ? input.dataset.table : "", input.name).then((colData) => {
+      for (let type of types) {
+        switch (type) {
+          case "id":
+          {
+            for (let row of web.DataArr) {
+              if (input.value === row[input.name]) {
+                errorMsg = "Id đã tồn tại";
+                isValidate = false;
+                break;
+              }
+            }
+            break;
+          }          
+          case "subid":
+          {
+            errorMsg = "Sub ID không tồn tại";
+            isValidate = false;
+
+            for (let val of colData) {
+              if (input.value === val[0]) {
+                errorMsg = "";
+                isValidate = true;
+                break;
+              }
+            }
+            break;
+          }
+
+          case "phone":
+          {
+            let regex = /^(0|\+84)\d{9}$/
+            if(!input.value.match(regex))
+            {
+              errorMsg = "Số điện thoại không hợp lệ!";
+              isValidate = false;
+            }
+            break;
+          }
+          case "email":
+          {
+            let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            if(!input.value.toLowerCase().match(regex))
+            {
+              errorMsg = "Email không hợp lệ!";
+              isValidate = false;
+            }
+            break;
+          }
+          case "required":
+          {
+            if (input.value.trim() == "") {
+              errorMsg = "Dữ liệu này không được để trống";
+              isValidate = false;
+              break;
+            }
+            break;
+          }
+          case "noSpecialChar":
+          {
+            let specialChar = "!@#$%^&*()+=-[]\\';,./{}|\":<>?";
+            for (let ch of input.value) {
+              if (specialChar.indexOf(ch) != -1) {
+                errorMsg = "Không được phép nhập ký tự đặc biệt";
+                isValidate = false;
+                break;
+              }
+            }
+            break;
+          }
+          case "noNumber":
+          {
+            for (let ch of input.value) {
+              if (!isNaN(Number(ch)) && ch != " ") {
+                errorMsg = "Không được phép nhập ký tự số";
+                isValidate = false;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      if (!isValidate) {
+        inputField
+          .querySelector("span.message:not(.error)")
+          .classList.add("close");
+        input.classList.add("error");
+        errorElm.innerText = errorMsg;
+      } else web.resetError(input);
+
+      return isValidate;
+    });
+  },
+  getInputData: () => {
+    let dataObj = {};
+
+    let inputList = $$(`form.${web.ConfigState} .input-field input`); //danh sach input tuong ung voi config-state
+
+    for (let input of inputList) dataObj[input.name] = input.value.trim();
+
+    return dataObj;
+  },
+
+  handleEvents: () => {
+    //Bien dung chung
+    let inputList = $$(`form.${web.ConfigState} .input-field input`); //danh sach input tuong ung voi config-state
+
+    $("#config-btn").addEventListener("click", function (e) {
       e.preventDefault();
-      switch (web.ConfigState) {
-        case "add-config":
-          web.addRow(e.target);
-          break;
-        case "update-config":
-          web.updateRow();
-          break;
-        case "delete-config":
-          web.deleteRow();
-          break;
-        default:
-          break;
-      }     
-    })
 
-    $('.config-modal-container').addEventListener('click', function(e)
-    {
+      for (let input of inputList) {
+        if (input.value == "")
+          web.IsValidate &= web.validate(input, input.dataset.constraint);
+      }
+
+      web.inputArr = web.getInputData();
+
+      if (web.IsValidate)
+        switch (web.ConfigState) {
+          case "add-config":
+            web.addRow();
+            break;
+          case "update-config":
+            web.updateRow();
+            break;
+          case "delete-config":
+            web.deleteRow();
+            break;
+          default:
+            break;
+        }
+    });
+
+    $(".config-modal-container").addEventListener("click", function (e) {
       e.stopPropagation();
-      e.target.classList.add('close');
+      e.target.classList.add("close");
 
-      web.setConfigState($('.nav-item.add-config'));
+      for (let input of inputList) web.resetError(input);
+
+      web.setConfigState($(".nav-item.add-config"));
       web.resetInputValue();
-    })
+    });
 
-    for(let modal of $$('.modal'))
-    {
-      modal.addEventListener('click', function(e)
-      {
+    for (let modal of $$(".modal")) {
+      modal.addEventListener("click", function (e) {
         e.stopPropagation();
-      })
+      });
     }
 
-    $('#table-config').addEventListener('click',function(e)
-    {
-      $('.config-modal-container').classList.remove('close');    
-    })
+    $("#table-config").addEventListener("click", function (e) {
+      $(".config-modal-container").classList.remove("close");
+    });
 
-    for(let item of $$('.modal-nav .nav-item'))
-    {
-      item.addEventListener('click',function(e)
-      {
+    for (let item of $$(".modal-nav .nav-item")) {
+      item.addEventListener("click", function (e) {
         web.setConfigState(e.target);
         web.resetInputValue();
-      })
+      });
     }
 
-    for (let input of $$('.select-input')) {
-      input.addEventListener('focus',function(e)
-      {
-        web.getCol(input.dataset.table,input.name,input);
-        
-      })
+    for (let selectInput of $$(".select-input")) {
+      let colData = [];
+      selectInput.addEventListener("focus", function (e) {
+        //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
+        if (selectInput.dataset.table == web.Table) {
+          colData = web.DataArr.map((row) => {
+            return row[selectInput.name];
+          });
+
+          web.renderOptionLists(colData, selectInput);
+        } else {
+          web
+            .getCol(selectInput.dataset.table, selectInput.name)
+            .then((value) => {
+              web.renderOptionLists(value, selectInput);
+            });
+        }
+      });
     }
 
-    for (let item of $$('.alert-btn,.alert-container'))
-    {
-      item.addEventListener('click',function(e){
-        $('.alert-container').classList.add('close');
-        $('.config-modal-container:not(close)').classList.add('close');
-        
-        web.setConfigState($('.nav-item.add-config'));
-        web.resetInputValue();
+    for (let input of inputList) {
+      input.addEventListener(
+        "focusout",
+        function (
+          e //blur
+        ) {
+          web.IsValidate = web.validate(input, input.dataset.constraint);
+        }
+      );
 
-        web.getData(web.Table);
-      })
+      //khi đang tdoi du lieu trong input thì sẽ phải cài về như trc khi có lỗi
+      input.addEventListener(
+        "keydown",
+        function (
+          e //blur
+        ) {
+          web.resetError(input);
+        }
+      );
     }
 
-    $('.alert-box').addEventListener('click',function(e)
-    {
+    for (let item of $$(".alert-btn,.alert-container")) {
+      item.addEventListener("click", function (e) {
+        //get data and render data again
+        web.getData(web.Table).then((value) => {
+          web.DataArr = value;
+          web.render(web.Table);
+          $(".alert-container").classList.add("close");
+          $(".config-modal-container:not(close)").classList.add("close");
+          web.setConfigState($(".nav-item.add-config"));
+          web.resetInputValue();
+        });
+      });
+    }
+
+    $(".alert-box").addEventListener("click", function (e) {
       e.stopPropagation();
-    })
+    });
 
-
-    //Hàm cb dùng để delay thời gian bắt event keyup (lấy trên mạng, ko hiểu bản chất)
-    
-    $('.delete-form input').addEventListener('keyup',function(e){
-
+    $(".delete-form input").addEventListener("keyup", function (e) {
       let id = e.target.name;
       let val = e.target.value;
 
-      web.getRow(web.Table,id,val,"getRow");
-    })
+      //get 1 row data from Promise get data
+      web.getData(web.Table, id, val).then((value) => {
+        web.renderConfirmLists(value);
+      });
+    });
 
-    let menu = $('.icon-menu');
-    let sidebar = $('.sidebar');
-    let lists = $('.content-sidebar');
-    let name_sidebar = $('.name-sidebar');
-
-    // Thay đổi icon menu sidebar
-    sidebar.querySelector('.sidebar-menu i').addEventListener('click', function(e)
-    {
-      e.target.classList.toggle('fa-times');
-    })
-
-    menu.addEventListener('click', function() {
-
-      sidebar.classList.toggle('sidebar-width');
-      let delayTime = lists.classList.contains('close') ? 400 : 150;
-      setTimeout(()=>{
-        name_sidebar.classList.toggle('close');
-        lists.classList.toggle('close');
-      },delayTime);
-    })
-
-  },
-  start: () =>
-  {
-    web.getData(web.Table);
-    web.handleEvents();
-  }
-}
-
-const noneTables =
-{
-  handleEvents: () =>
-  {
-    let menu = $('.icon-menu');
-    let sidebar = $('.sidebar');
-    let lists = $('.content-sidebar');
-    let name_sidebar = $('.name-sidebar');
+    let menu = $(".icon-menu");
+    let sidebar = $(".sidebar");
+    let lists = $(".content-sidebar");
+    let name_sidebar = $(".name-sidebar");
 
     // Thay đổi icon menu sidebar
-    sidebar.querySelector('.sidebar-menu i').addEventListener('click', function(e)
-    {
+    sidebar
+      .querySelector(".sidebar-menu i")
+      .addEventListener("click", function (e) {
+        e.target.classList.toggle("fa-times");
+      });
+
+    menu.addEventListener("click", function () {
+      sidebar.classList.toggle("sidebar-width");
+      let delayTime = lists.classList.contains("close") ? 400 : 150;
       setTimeout(() => {
-        e.target.classList.toggle('fa-times');
-      }, 10000)
-    })
-
-    menu.addEventListener('click', function() {
-
-      sidebar.classList.toggle('sidebar-width');
-      let delayTime = lists.classList.contains('close') ? 200 : 250;
-      setTimeout(()=>{
-        name_sidebar.classList.toggle('close');
-        lists.classList.toggle('close');
+        name_sidebar.classList.toggle("close");
+        lists.classList.toggle("close");
       }, delayTime);
-    })
+    });
+  },
+  start: () => {
+    web.getData(web.Table).then((value) => {
+      web.DataArr = value;
+      web.render(web.Table);
+      web.handleEvents();
+    });
+  },
+};
+
+const noneTables = {
+  handleEvents: () => {
+    let menu = $(".icon-menu");
+    let sidebar = $(".sidebar");
+    let lists = $(".content-sidebar");
+    let name_sidebar = $(".name-sidebar");
+
+    // Thay đổi icon menu sidebar
+    sidebar
+      .querySelector(".sidebar-menu i")
+      .addEventListener("click", function (e) {
+        setTimeout(() => {
+          e.target.classList.toggle("fa-times");
+        }, 10000);
+      });
+
+    menu.addEventListener("click", function () {
+      sidebar.classList.toggle("sidebar-width");
+      let delayTime = lists.classList.contains("close") ? 200 : 250;
+      setTimeout(() => {
+        name_sidebar.classList.toggle("close");
+        lists.classList.toggle("close");
+      }, delayTime);
+    });
 
     // click drop menu header
-    let drop_menu = $('.icon-arrow-down');
-    
-    let arrow_up = $('.arrow-up');
-    
-    let log_out = $('.log-out');
+    let drop_menu = $(".icon-arrow-down");
 
-    drop_menu.addEventListener('click', function() {
-      arrow_up.classList.toggle('close');
-      log_out.classList.toggle('close');
-    })
-    
+    let arrow_up = $(".arrow-up");
+
+    let log_out = $(".log-out");
+
+    drop_menu.addEventListener("click", function () {
+      arrow_up.classList.toggle("close");
+      log_out.classList.toggle("close");
+    });
   },
-  start: () =>
-  {
+  start: () => {
     noneTables.handleEvents();
-  } 
-}
-
+  },
+};
 
 web.start();
 //noneTables.start();
@@ -420,4 +598,3 @@ web.start();
 /*SH!T NOTES 
   -Cái chức năng sắp xếp nên sắp xếp dựa trên dataArr[] chứ ko nên dựa trên câu truy vấn
 */
-

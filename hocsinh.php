@@ -58,8 +58,8 @@
         <!-- main -->
         <div class="main flex-box">
             <!-- sidebar -->
-            <div class="sidebar">
-                <div class="head-sidebar">
+            <div class="sidebar flex-box">
+                <div class="head-sidebar flex-box">
                     <div class="name-sidebar close flex-box">
                         John Wick
                     </div>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="list-sidebar">
                         <a class="about" href="./giaovien.php">
-                           
+
                             <i class="icon-sidebar fa-solid fa-chalkboard-user"></i>
                             <span class="name-sidebar-items">Teacher</span>
                         </a>
@@ -104,16 +104,16 @@
                                 Courses
                             </span>
                         </a>
-                    </div> 
+                    </div>
                     <div class="list-sidebar">
                         <a class="about" href="./lop.php">
-                          
+
                             <i class="icon-sidebar fa-solid fa-users"></i>
                             <span class="name-sidebar-items">
                                 Class
                             </span>
                         </a>
-                    </div>  
+                    </div>
                     <div class="list-sidebar">
                         <a class="about" href="./bill.php">
                             <i class='icon-sidebar bx bxs-credit-card'></i>
@@ -121,7 +121,7 @@
                                 Bill
                             </span>
                         </a>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="main-content">
@@ -139,49 +139,84 @@
                             Configure Table
                         </div>
 
+                        <div class="modal-nav flex-box">
+                            <div class="nav-item add-config active" data-config="add-config">
+                                ADD</div>
+                            <div class="nav-item update-config" data-config="update-config">
+                                EDIT</div>
+                            <div class="nav-item delete-config" data-config="delete-config">
+                                DELETE</div>
+                            <div class="nav-item find-config" data-config="find-config">
+                                SEARCH</div>
+                        </div>
+
                         <form class="modal-body flex-box config-form add-form add-config" data-config="add-config">
 
                             <div class="input-field flex-box">
-                                <label for="a-mahs-hs" name="configInputLabel">ID</label>
-                                <input id="a-mahs-hs" name="Ma_HS" type="text">
-                                <span class="message"></span>
+                                
+                                <div class="flex-box input-container">
+                                    <label for="a-mahs-hs" name="configInputLabel" class="fl-1">ID</label>
+                                    <input id="a-mahs-hs" name="Ma_HS" type="text" class="fl-2" data-constraint="id,required,noSpecialChar">
+                                </div>
+                                
+                                <span class="message ">Ví dụ: "SV0, SV1, ..."</span>
+                                <span class="message error"></span>
                             </div>
 
                             <div class="input-field flex-box">
-                                <label for="a-tenhs-hs" name="configInputLabel">Student's Name</label>
-                                <input id="a-tenhs-hs" name="Ten_HS" type="text">
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="input-field">
-                                <label for="a-malop-hs" name="configInputLabel">ID Class</label>
-                                <input id="a-malop-hs" name="Ma_Lop" list="malop-list" type="text" class="select-input" data-table="LOP">
-                                <datalist id="malop-list"></datalist>
-                                <span class="message"></span>
+                                <div class="input-container flex-box">
+                                    <label for="a-tenhs-hs" name="configInputLabel" class="fl-1">Student's Name</label>
+                                    <input id="a-tenhs-hs" name="Ten_HS" type="text" class="fl-2" data-constraint="required,noSpecialChar,noNumber">
+                                </div>
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
                             </div>
 
                             <div class="input-field flex-box">
-                                <label for="a-sdt-hs" name="configInputLabel">Student's Phone</label>
-                                <input id="a-sdt-hs" name="SDT_HS" type="text">
-                                <span class="message"></span>
+                                <div class="input-container flex-box">
+                                    <label for="a-malop-hs" name="configInputLabel" class="fl-1">ID Class</label>
+                                    <input id="a-malop-hs" name="Ma_Lop" list="malop-list" type="text" class="select-input fl-2" data-table="LOP" data-constraint="subid,required">
+                                    <datalist id="malop-list"></datalist>
+                                </div>
+                                
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
                             </div>
 
                             <div class="input-field flex-box">
-                                <label for="a-email-hs" name="configInputLabel">Email</label>
-                                <input id="a-email-hs" name="Email_HS" type="text">
-                                <span class="message"></span>
+                                <div class="input-container flex-box">
+                                    <label for="a-sdt-hs" name="configInputLabel" class="fl-1">Student's Phone</label>
+                                    <input id="a-sdt-hs" name="SDT_HS" type="text" class="fl-2" data-constraint="required,phone">
+                                </div>
+                                
+                                <span class="message">Ví dụ: 07xxxxxxxx, +847xxxxxxx</span>
+                                <span class="message error"></span>
                             </div>
 
                             <div class="input-field flex-box">
-                                <label for="a-sdtph-hs" name="configInputLabel">Parent's Phone</label>
-                                <input id="a-sdtph-hs" name="SDT_PH" type="text">
-                                <span class="message"></span>
+                                <div class="input-container flex-box">
+                                    <label for="a-email-hs" name="configInputLabel" class="fl-1">Email</label>
+                                    <input id="a-email-hs" name="Email_HS" type="text" class="fl-2" data-constraint="required,email">
+                                </div>
+                                
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
+                            </div>
+
+                            <div class="input-field flex-box">
+                                <div class="input-container flex-box">
+                                    <label for="a-sdtph-hs" name="configInputLabel" class="fl-1">Parent's Phone</label>
+                                    <input id="a-sdtph-hs" name="SDT_PH" type="text" data-constraint="required,phone">
+                                </div>
+                                
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
                             </div>
 
                         </form>
 
                         <form class="modal-body flex-box config-form update-form update-config close" data-config="update-config">
-                            <div class="input-field">
+                            <div class="input-field flex-box">
                                 <label for="u-mahs" name="configInputLabel">ID</label>
                                 <input id="u-mahs" list="mahs-list" name="Ma_HS" class="select-input" data-table="HOCSINH">
                                 <datalist id="mahs-list">
@@ -257,18 +292,6 @@
                                 Save
                             </button>
                         </div>
-
-                        <div class="modal-nav flex-box">
-                            <div class="nav-item add-config active" data-config="add-config">
-                             ADD</div>
-                            <div class="nav-item update-config" data-config="update-config">
-                             EDIT</div>
-                            <div class="nav-item delete-config" data-config="delete-config">
-                             DELETE</div>
-                            <div class="nav-item find-config" data-config="find-config">
-                             SEARCH</div>
-                        </div>
-
                     </div>
                 </div>
 

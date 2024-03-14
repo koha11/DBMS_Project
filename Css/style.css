@@ -186,7 +186,7 @@ html {
 {
   flex-direction: column;
   width: 60%;
-  padding: 32px 24px;
+  padding: 44px 24px;
   position: relative;
   height: 80%;
   justify-content: space-around;
@@ -199,13 +199,14 @@ html {
   font-weight: 600;
   margin-bottom: 12px;
   color: black;
+  padding: 16px 0;
 }
 
 .modal-body
 {
-  margin-top: 32px;
-  padding: 16px 0;
+  padding: 8px 0 16px 0;
   font-size: 1.6rem;
+  min-height: 70%;
 }
 
 .modal-body > select
@@ -217,10 +218,7 @@ html {
 .modal-nav
 {
   width: 60%;
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  display: flex;
+  padding: 16px 0;
   text-align: center;
 }
 
@@ -263,9 +261,9 @@ html {
 
 .config-form input
 {
-  padding: 2px 8px;
+  padding: 12px 8px;
   width: 70%;
-  font-size: 2rem;
+  font-size: 1.6rem;
   outline: none;
   border: none;
   border: 1px solid var(--desc-color);
@@ -276,19 +274,20 @@ html {
 {
   display: block;
   font-size: 1.5rem;
-  margin-bottom: 4px;
   font-weight: 550;
-  font-family: 'Poppins';
 }
 
 .config-form .input-field
 {
   width: 50%;
-  margin: 28px 0;
   padding: 0 12px;
-
+  flex-direction: column;
 }
-/* FOOTER FORM */
+
+.config-form .input-container
+{
+  width: 100%;
+}
 
 .add-form
 {
@@ -365,12 +364,12 @@ html {
 /*BUTTONS*/
 .btn
 {
-  padding: 8px 20px;
+  padding: 16px 24px;
   margin: 12px 0;
   cursor: pointer;
   border: none;
   border-radius: 15px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   background-color: var(--primary-color);
   color: white;
   font-weight: bold;
@@ -661,32 +660,31 @@ ul{
   overflow: scroll;
 
 }
+
 .sidebar::-webkit-scrollbar {
   display: none;
 }
+
 .sidebar{
   -ms-overflow-style: none;  
   scrollbar-width: none; 
+  justify-content: flex-start;
+  flex-direction: column;
 }
 /* Head sidebar: name and icon menu */
 .head-sidebar{
   width: 100%;
-  
-  padding: 4rem 2rem 2rem 2rem;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-
+  margin-top: 32px;
 }
+
 .name-sidebar{
-  width: 70%;
   font-size: 1.5rem;
   border-radius: 1rem;
   background-color: var(--primary-color);
   color: var(--secondary-color);
   font-weight: bold;
-  padding: 1rem;
-
+  padding: 12px 24px;
 }
 
 
@@ -694,10 +692,9 @@ ul{
 
 /* Menu sidebar */
 .sidebar-menu{
-  width: 30%;
   height: 100%;
   position: relative;
-  margin-left: 1rem;
+  padding: 8px 12px;
 }
 
 .icon-menu{
@@ -709,7 +706,7 @@ ul{
 }
 .icon-menu, .icon-sidebar{
   color: white;
-  font-size: 2.5rem;
+  font-size: 3rem;
 }
 
 .content-sidebar{
@@ -761,3 +758,19 @@ ul{
   width: 20%;
 }
 
+/*FORM MESSAGE*/
+
+.config-form .message
+{
+  margin: 8px 0;
+  width: 70%;
+  align-self: flex-end;
+  font-size: 1.2rem;
+  text-wrap: pretty;
+}
+
+.config-form .error
+{
+  color: red;
+  border-color: red;
+}
