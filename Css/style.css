@@ -116,6 +116,22 @@ html {
   align-items: start;
 }
 
+/* SEARCHING BAR */
+.tool-container {
+  justify-content: space-around;
+  padding: 12px 0;
+  margin-top: 16px;
+}
+
+.searching-bar {
+  width: 60%;
+}
+
+.searching-bar input, .searching-bar select,.searching-bar option {
+  padding: 8px 4px;
+  font-size: 1.6rem;
+}
+
 /*CONTENT TABLES*/
 .content-table
 {
@@ -158,14 +174,13 @@ html {
 /* TABLES CONFIGURE*/
 .table-config
 {
-  padding: 8px 4px;
+  padding: 16px 4px;
   border-radius: 10px;
   width: 15%;
   text-align: center;
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 500;
-  margin-top: 12px;
   background-color: var(--primary-color);
   color: white;
   align-self: flex-end;

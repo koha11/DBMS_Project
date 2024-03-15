@@ -125,9 +125,17 @@
                 </div>
             </div>
             <div class="main-content">
-                <div id="table-config" class="table-config">
-                    Configure Data!
+                <div class="tool-container flex-box">
+                    <div class="searching-bar flex-box">
+                        <select name="" id="" class="fl-2 searching-option">
+                        </select>
+                        <input name="" type="text" class="fl-4 searching-input">
+                    </div>
+                    <div id="table-config" class="table-config">
+                        Configure Data!
+                    </div>
                 </div>
+                
 
                 <div id="content-table" class="content-table" data-table="HOCSINH">
                 </div>
@@ -150,6 +158,7 @@
                                 SEARCH</div>
                         </div>
 
+                        <!-- ADD FORM -->
                         <form class="modal-body flex-box config-form add-form add-config" data-config="add-config">
 
                             <div class="input-field flex-box">
@@ -215,67 +224,78 @@
 
                         </form>
 
+                        <!-- UPDATE FORM -->
                         <form class="modal-body flex-box config-form update-form update-config close" data-config="update-config">
                             <div class="input-field flex-box">
-                                <label for="u-mahs" name="configInputLabel">ID</label>
-                                <input id="u-mahs" list="mahs-list" name="Ma_HS" class="select-input" data-table="HOCSINH">
-                                <datalist id="mahs-list">
-                                </datalist>
-                                <span class="message"></span>
+                                
+                                <div class="flex-box input-container">
+                                    <label for="a-mahs-hs" name="configInputLabel" class="fl-1">ID</label>
+                                    <input id="a-mahs-hs" name="Ma_HS" list="mahs-list" type="text" class="fl-2 select-input" data-constraint="id,required,noSpecialChar">
+                                    <datalist id="mahs-list"></datalist>
+                                </div>
+                                
+                                <span class="message ">Ví dụ: "SV0, SV1, ..."</span>
+                                <span class="message error"></span>
+                            </div>
+                            <div class="input-field flex-box">
+                                <div class="input-container flex-box">
+                                    <label for="u-tenhs-hs" name="configInputLabel" class="fl-1">Student's Name</label>
+                                    <input id="u-tenhs-hs" name="Ten_HS" type="text" class="fl-2" data-constraint="required,noSpecialChar,noNumber">
+                                </div>
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
+                            </div>
+
+
+                            <div class="input-field flex-box">
+                                <div class="input-container flex-box">
+                                    <label for="u-malop-hs" name="configInputLabel" class="fl-1">ID Class</label>
+                                    <input id="u-malop-hs" name="Ma_Lop" list="malop-list" type="text" class="select-input fl-2" data-table="LOP" data-constraint="subid,required">
+                                    <datalist id="malop-list"></datalist>
+                                </div>
+                                
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
                             </div>
 
                             <div class="input-field flex-box">
-                                <label for="u-tenhs" name="configInputLabel">Student's Name</label>
-                                <input id="u-tenhs" name="Ten_HS" type="text">
-                                <span class="message"></span>
+                                <div class="input-container flex-box">
+                                    <label for="u-sdt-hs" name="configInputLabel" class="fl-1">Student's Phone</label>
+                                    <input id="u-sdt-hs" name="SDT_HS" type="text" class="fl-2" data-constraint="required,phone">
+                                </div>
+                                
+                                <span class="message">Ví dụ: 07xxxxxxxx, +847xxxxxxx</span>
+                                <span class="message error"></span>
                             </div>
 
                             <div class="input-field flex-box">
-                                <label for="u-malop" name="configInputLabel">ID Class</label>
-                                <input id="u-malop" name="Ma_Lop" type="text">
-                                <span class="message"></span>
+                                <div class="input-container flex-box">
+                                    <label for="u-email-hs" name="configInputLabel" class="fl-1">Email</label>
+                                    <input id="u-email-hs" name="Email_HS" type="text" class="fl-2" data-constraint="required,email">
+                                </div>
+                                
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
                             </div>
 
                             <div class="input-field flex-box">
-                                <label for="u-sdt" name="configInputLabel">Student's Phone</label>
-                                <input id="u-sdt" name="SDT_HS" type="text">
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="input-field flex-box">
-                                <label for="u-email" name="configInputLabel">Email</label>
-                                <input id="u-email" name="Email_HS" type="text">
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="input-field flex-box">
-                                <label for="u-sdtph" name="configInputLabel">Parent's Phone</label>
-                                <input id="u-sdtph" name="SDT_PH" type="text">
-                                <span class="message"></span>
+                                <div class="input-container flex-box">
+                                    <label for="a-sdtph-hs" name="configInputLabel" class="fl-1">Parent's Phone</label>
+                                    <input id="a-sdtph-hs" name="SDT_PH" type="text" data-constraint="required,phone">
+                                </div>
+                                
+                                <span class="message">TESSSSTSTSST</span>
+                                <span class="message error"></span>
                             </div>
 
                         </form>
 
+                        <!-- DELETE FORM -->
                         <form class="modal-body flex-box config-form delete-form delete-config close" data-config="delete-config">
 
                             <div class="input-field">
                                 <label for="d-mahs" name="configInputLabel">ID</label>
                                 <input id="d-mahs" list="d-mahs-list" name="Ma_HS" class="select-input" data-table="HOCSINH">
-                                <datalist id="d-mahs-list">
-                                </datalist>
-                                <span class="message"></span>
-                            </div>
-
-                            <div class="infor-field fl-6 flex-box">
-                            </div>
-
-                        </form>
-
-                        <form class="modal-body flex-box config-form find-form find-config close" data-config="find-config">
-
-                            <div class="input-field">
-                                <label for="d-mahs" name="configInputLabel">ID</label>
-                                <input id="d-mahs" list="d-mahs-list" name="MaHS" class="select-input" data-table="HOCSINH">
                                 <datalist id="d-mahs-list">
                                 </datalist>
                                 <span class="message"></span>

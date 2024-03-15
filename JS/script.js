@@ -7,9 +7,8 @@ const web = {
   Table: $("#content-table").dataset.table, //Xử lí cái này = cách sử dụng tên đường dẫn
   ConfigState: "add-config",
   IsValidate: true,
-  render: (option) => {
+  render: (DataArr,option) => {
     let htmls = "";
-    let DataArr = web.DataArr;
 
     switch (option) {
       case "HOCSINH":
@@ -23,7 +22,9 @@ const web = {
           <div class="content-table-head table-col table-title fl-2">Số Điện Thoại PH</div>
           </div>`;
         for (let x in DataArr) {
-          htmls += `<div class="table-row">
+          if(DataArr[x] != undefined)
+          {
+            htmls += `<div class="table-row">
             <div class="content-table-head table-col fl-1">${
               DataArr[x].Ma_HS
             }</div>
@@ -46,6 +47,7 @@ const web = {
               DataArr[x].SDT_PH
             }</div>
             </div>`;
+          }
         }
         break;
       case "KHOAHOC":
@@ -115,7 +117,10 @@ const web = {
         break;
     }
 
+    //render nội dung bảng
     $("#content-table").innerHTML = htmls;
+
+    //set lại chiều cao của sidebar để fit với bảng
     $(".sidebar").style.height = $(".main-content").scrollHeight + "px";
   },
   renderOptionLists: (colData, selector) => {
@@ -137,6 +142,15 @@ const web = {
         htmls += `<div class="infor-spot"><b>${data}: </b>${dataArr[data]}</div>`;
 
     $(".delete-form .infor-field").innerHTML = htmls;
+  },
+  renderSearchingOptions: () => 
+  {
+    //render danh sách option của thanh tìm kiếm
+    let htmls = ""
+    for(let col in web.DataArr[0])
+      htmls += `<option value="${col}">${col}</option>`
+    $('.searching-option').innerHTML = htmls
+
   },
   getData: async (
     tableName,
@@ -212,18 +226,20 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        console.log(this.responseText)
         $(".alert-container").classList.remove("close");
       }
     };
 
-    let dataObj = { tableName: web.Table };
-    let inputs = $$(`form.${web.ConfigState} .input-field input`);
-    let i = 0;
+    let dataObj = web.getInputData();
 
-    while (inputs[i] != undefined) {
-      dataObj[inputs[i].name] = inputs[i].value;
-      i++;
+    for(let col in dataObj)
+    {
+      if(dataObj.col == "")
+        delete dataObj.col;
     }
+
+    dataObj.tableName = web.Table
 
     xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
   },
@@ -393,18 +409,43 @@ const web = {
 
     return dataObj;
   },
+  findData: () =>
+  {
+    let foundDataArr = web.DataArr
+    let option = $('.searching-option').value
+    let condition = $('.searching-input').value.toLowerCase()
+    
+    foundDataArr = foundDataArr.map((row) =>{
+      if(row[option].toLowerCase().startsWith(condition))
+      {
+        console.log(row)
+        return row
+      }
+ 
+    })
+    console.log(foundDataArr)
+    web.render(foundDataArr,web.Table)
+  },
 
   handleEvents: () => {
     //Bien dung chung
-    let inputList = $$(`form.${web.ConfigState} .input-field input`); //danh sach input tuong ung voi config-state
 
     $("#config-btn").addEventListener("click", function (e) {
+      let inputList = $$(`form.${web.ConfigState} .input-field input`); //danh sach input tuong ung voi config-state
       e.preventDefault();
+
+      let flag = 0
 
       for (let input of inputList) {
         if (input.value == "")
+        {
+          flag = 1;
           web.IsValidate &= web.validate(input, input.dataset.constraint);
+        }
       }
+
+      if(!(flag && web.IsValidate))
+        web.IsValidate = true;
 
       web.inputArr = web.getInputData();
 
@@ -414,6 +455,7 @@ const web = {
             web.addRow();
             break;
           case "update-config":
+            console.log("0")
             web.updateRow();
             break;
           case "delete-config":
@@ -428,6 +470,7 @@ const web = {
       e.stopPropagation();
       e.target.classList.add("close");
 
+      let inputList = $$(`form.${web.ConfigState} .input-field input`)
       for (let input of inputList) web.resetError(input);
 
       web.setConfigState($(".nav-item.add-config"));
@@ -446,6 +489,8 @@ const web = {
 
     for (let item of $$(".modal-nav .nav-item")) {
       item.addEventListener("click", function (e) {
+        let inputList = $$(`form.${web.ConfigState} .input-field input`)
+        for (let input of inputList) web.resetError(input);
         web.setConfigState(e.target);
         web.resetInputValue();
       });
@@ -455,11 +500,10 @@ const web = {
       let colData = [];
       selectInput.addEventListener("focus", function (e) {
         //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
-        if (selectInput.dataset.table == web.Table) {
+        if (selectInput.dataset.table == web.Table || selectInput.dataset.table == undefined) {
           colData = web.DataArr.map((row) => {
             return row[selectInput.name];
           });
-
           web.renderOptionLists(colData, selectInput);
         } else {
           web
@@ -471,13 +515,13 @@ const web = {
       });
     }
 
-    for (let input of inputList) {
+    for (let input of $$(`form.${web.ConfigState} .input-field input`)) {
       input.addEventListener(
         "focusout",
         function (
           e //blur
         ) {
-          web.IsValidate = web.validate(input, input.dataset.constraint);
+          web.IsValidate = web.validate(input,input.dataset.constraint);
         }
       );
 
@@ -505,6 +549,11 @@ const web = {
         });
       });
     }
+
+    $('.searching-input').addEventListener("keyup",function(e)
+    {
+      web.findData();
+    })
 
     $(".alert-box").addEventListener("click", function (e) {
       e.stopPropagation();
@@ -544,7 +593,8 @@ const web = {
   start: () => {
     web.getData(web.Table).then((value) => {
       web.DataArr = value;
-      web.render(web.Table);
+      web.render(web.DataArr,web.Table);
+      web.renderSearchingOptions();
       web.handleEvents();
     });
   },
