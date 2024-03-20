@@ -3,6 +3,7 @@ const $$ = document.querySelectorAll.bind(document);
 
 const web = {
   DataArr: [],
+  RenderArr: [],
   inputArr: {},
   Table: $("#content-table").dataset.table, //Xử lí cái này = cách sử dụng tên đường dẫn
   ConfigState: "add-config",
@@ -12,15 +13,64 @@ const web = {
 
     switch (option) {
       case "HOCSINH":
-        htmls += `<div class="table-row">
-          <div class="content-table-head table-col table-title fl-1">Mã HS</div>
-          <div class="content-table-head table-col table-title fl-3">Họ Và Tên</div>
-          <div class="content-table-head table-col table-title fl-1">Mã Lớp</div>
-          <div class="content-table-head table-col table-title fl-2">Số Điện Thoại</div>
-          <div class="content-table-head table-col table-title fl-3">Email</div>
-          <div class="content-table-head table-col table-title fl-2">Hóa Đơn</div>
-          <div class="content-table-head table-col table-title fl-2">Số Điện Thoại PH</div>
+
+        if(!web.RenderArr.length) // tránh render lại title
+        {
+          htmls += `<div class="table-row">
+          <div class="content-table-head table-col table-title fl-1 flex-box" name="Ma_HS">
+            <span class="fl-2">Mã HS</span>
+            <div class="order-option flex-box fl-1">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="Ten_HS">
+            <span class="fl-2">Họ Và Tên</span>
+            <div class="order-option flex-box fl-1">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-1 flex-box" name="Ma_Lop">
+            <span class="fl-2">Mã Lớp</span>
+            <div class="order-option flex-box fl-1">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="SDT_HS">
+            <span class="fl-2">Số Điện Thoại</span>
+            <div class="order-option flex-box fl-1">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-3 flex-box" name="EMAIL_HS">
+            <span class="fl-2">Email</span>
+            <div class="order-option flex-box fl-1">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="Ma_HoaDon">
+            <span class="fl-2">Hóa Đơn</span>
+            <div class="order-option flex-box fl-1">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="SDT_PH">
+            <span class="fl-2">Số Điện Thoại PH</span>
+            <div class="order-option flex-box fl-1">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
           </div>`;
+        }
+
+        htmls += `<div class="row-container">`
+
         for (let x in DataArr) {
           if(DataArr[x] != undefined)
           {
@@ -28,7 +78,7 @@ const web = {
             <div class="content-table-head table-col fl-1">${
               DataArr[x].Ma_HS
             }</div>
-            <div class="content-table-head table-col fl-3">${
+            <div class="content-table-head table-col fl-2">${
               DataArr[x].Ten_HS
             }</div>
             <div class="content-table-head table-col fl-1">${
@@ -49,6 +99,9 @@ const web = {
             </div>`;
           }
         }
+
+        htmls += `</div>`;
+
         break;
       case "KHOAHOC":
         htmls += `<div class="table-row">
@@ -117,8 +170,12 @@ const web = {
         break;
     }
 
+    let table = $("#content-table");
     //render nội dung bảng
-    $("#content-table").innerHTML = htmls;
+    if(!table.children[0]) //Nếu đây lần render đầu tiên
+      table.innerHTML = htmls; //render cả tiêu đề
+    else
+      table.children[1].innerHTML = htmls;
 
     //set lại chiều cao của sidebar để fit với bảng
     $(".sidebar").style.height = $(".main-content").scrollHeight + "px";
@@ -419,7 +476,38 @@ const web = {
       if(row[option].toLowerCase().startsWith(condition))
         return row
     })
-    web.render(foundDataArr,web.Table)
+    
+    web.RenderArr = foundDataArr;
+    web.render(web.RenderArr,web.Table);
+  },
+  sortData: (arr,col,option) =>
+  {
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = i; j < arr.length; j++) {
+        let temp_obj = {}
+        if(arr[i] != undefined && arr[j] != undefined)
+        {
+          if(option == "asc")
+          {
+            if(arr[i][col] > arr[j][col])
+              {
+                temp_obj = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp_obj;
+              }
+          }
+          else
+            if(arr[i][col] < arr[j][col])
+            {
+              temp_obj = arr[i];
+              arr[i] = arr[j];
+              arr[j] = temp_obj;
+            }
+        }
+      }
+    }
+
+    return arr;
   },
 
   handleEvents: () => {
@@ -564,6 +652,20 @@ const web = {
       });
     });
 
+    for(let item of $$(".order-option i"))
+    {
+      item.addEventListener('click',function(e)
+      {
+        for(let item of $$(".order-option i"))
+          item.classList.remove('active');
+
+        let col = item.closest('.table-title')
+
+        item.classList.add('active'); 
+        web.render(web.sortData(web.RenderArr,col.getAttribute('name'),item.dataset.order),web.Table);        
+      })
+    }
+
     let menu = $(".icon-menu");
     let sidebar = $(".sidebar");
     let lists = $(".content-sidebar");
@@ -589,6 +691,7 @@ const web = {
     web.getData(web.Table).then((value) => {
       web.DataArr = value;
       web.render(web.DataArr,web.Table);
+      web.RenderArr = web.DataArr;
       web.renderSearchingOptions();
       web.handleEvents();
     });

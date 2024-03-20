@@ -130,6 +130,7 @@
                         <select name="" id="" class="fl-2 searching-option">
                         </select>
                         <input name="" type="text" class="fl-4 searching-input">
+                        <i class='bx bx-search'></i>
                     </div>
                     <div id="table-config" class="table-config">
                         Configure Data!

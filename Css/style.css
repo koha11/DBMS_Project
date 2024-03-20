@@ -125,11 +125,44 @@ html {
 
 .searching-bar {
   width: 60%;
+  position: relative;
 }
 
 .searching-bar input, .searching-bar select,.searching-bar option {
   padding: 8px 4px;
   font-size: 1.6rem;
+}
+
+.searching-bar i
+{
+  position: absolute;
+  font-size: 2rem;
+  right: 0;
+  padding: 12px;
+}
+
+/* ORDER OPTIONS */
+.order-option
+{
+  flex-direction: column;
+  color: #bebebe;
+}
+
+.order-option i
+{
+  font-size: 1.8rem;
+  cursor: pointer;
+  margin: 2px 0;
+}
+
+.order-option i:hover
+{
+  opacity: 0.7;
+}
+
+.order-option i.active
+{
+  color: #000000;
 }
 
 /*CONTENT TABLES*/
@@ -157,7 +190,7 @@ html {
 
 .table-col
 {
-  padding: 8px 4px;
+  padding: 8px 8px;
   font-weight: 600;
   font-size: 1.4rem;
   width: 100%;
@@ -168,7 +201,11 @@ html {
 {
   font-weight: 800;
   font-size: 1.6rem;
-  cursor: pointer;
+}
+
+.table-title.flex-box
+{
+  justify-content: space-between;
 }
 
 /* TABLES CONFIGURE*/
