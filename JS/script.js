@@ -417,13 +417,8 @@ const web = {
     
     foundDataArr = foundDataArr.map((row) =>{
       if(row[option].toLowerCase().startsWith(condition))
-      {
-        console.log(row)
         return row
-      }
- 
     })
-    console.log(foundDataArr)
     web.render(foundDataArr,web.Table)
   },
 
