@@ -1,12 +1,8 @@
 <?php
+  include 'configure.php';
   header("Content-Type: application/json; charset=UTF-8");
 
-  $conn_array = array (
-    "Database" => "DEMO_QLHS1",
-    "CharacterSet" => "UTF-8"
-  );
-
-  $conn = sqlsrv_connect('KOHA11\SQLEXPRESS', $conn_array);
+  $conn = sqlsrv_connect($conn_user, $conn_array);
 
   if ($conn === false)
     die(print_r(sqlsrv_errors(), true));
@@ -33,6 +29,16 @@
   while($row = sqlsrv_fetch_array($stmt_qu,SQLSRV_FETCH_ASSOC))
   {
     array_push($outdata,$row);
+  }
+
+  if(!$outdata)
+  {
+    $sql_querry =  "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$tableName'";
+    $stmt_qu = sqlsrv_query($conn,$sql_querry);
+    while($row = sqlsrv_fetch_array($stmt_qu,SQLSRV_FETCH_ASSOC))
+      array_push($outdata,$row);
+    
+    
   }
 
   echo json_encode($outdata,JSON_INVALID_UTF8_SUBSTITUTE); //Bởi vì viết tiếng việt có dấu nên thêm cái flag phía sau để JSON ko bị lỗi

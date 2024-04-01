@@ -146,6 +146,7 @@ html {
 {
   flex-direction: column;
   color: #bebebe;
+  margin-left: 8px;
 }
 
 .order-option i
@@ -181,7 +182,7 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 8px;
+  padding: 12px 8px;
   flex-direction: row;
   /* border-bottom: 1px black solid; */
   background-color: #e9eef1;
@@ -190,7 +191,7 @@ html {
 
 .table-col
 {
-  padding: 8px 8px;
+  /* padding: 8px 8px; */
   font-weight: 600;
   font-size: 1.4rem;
   width: 100%;
@@ -205,7 +206,12 @@ html {
 
 .table-title.flex-box
 {
-  justify-content: space-between;
+  justify-content: left;
+  text-wrap: nowrap;
+}
+
+.content-table-head:not(.table-title) {
+  text-align: left;
 }
 
 /* TABLES CONFIGURE*/
@@ -238,9 +244,9 @@ html {
 {
   flex-direction: column;
   width: 60%;
-  padding: 44px 24px;
+  padding: 28px 24px;
   position: relative;
-  height: 80%;
+  height: 90%;
   justify-content: space-around;
   
 }
@@ -249,9 +255,7 @@ html {
 {
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 12px;
   color: black;
-  padding: 16px 0;
 }
 
 .modal-body
@@ -259,6 +263,7 @@ html {
   padding: 8px 0 16px 0;
   font-size: 1.6rem;
   min-height: 70%;
+  justify-content: left;
 }
 
 .modal-body > select
@@ -300,6 +305,11 @@ html {
 .modal-nav .nav-item.active
 {
   border: 3px solid var(--primary-color);
+}
+
+.modal-footer
+{
+  align-self: flex-end;
 }
 /* ICON NAV */
 .icon-nav{
@@ -417,7 +427,6 @@ html {
 .btn
 {
   padding: 16px 24px;
-  margin: 12px 0;
   cursor: pointer;
   border: none;
   border-radius: 15px;
@@ -430,6 +439,11 @@ html {
 .btn:hover
 {
   opacity: 0.7;
+}
+
+.btn#config-btn {
+  margin-right: 72px;
+  padding: 16px 48px;
 }
 
 

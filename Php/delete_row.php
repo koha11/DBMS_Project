@@ -1,12 +1,9 @@
 <?php
   header("Content-Type: application/json; charset=UTF-8");
 
-  $conn_array = array (
-    "Database" => "DEMO_QLHS",
-    "CharacterSet" => "UTF-8"
-  );
+  include 'configure.php';
 
-  $conn = sqlsrv_connect('KOHA11\SQLEXPRESS', $conn_array);
+  $conn = sqlsrv_connect($conn_user, $conn_array);
 
   if ($conn === false)
    die(print_r(sqlsrv_errors(), true));
