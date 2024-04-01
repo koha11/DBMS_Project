@@ -78,7 +78,7 @@
                         <i class="icon-sidebar fa-solid fa-chalkboard-user"></i>
                         <span class="name-sidebar-items">Teacher</span>
                     </div>
-                    <div class="list-sidebar" data-table="TIME_TABLE">
+                    <div class="list-sidebar" data-table="TIMETABLE">
                         <i class='icon-sidebar bx bxs-time'></i>
                         <span class="name-sidebar-items">Time</span>
                     </div>
