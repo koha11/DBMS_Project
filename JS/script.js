@@ -25,51 +25,51 @@ const web = {
         if (!web.IsTitleRendered) {
           // tránh render lại title
           web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
+          htmls += `<div class="table-row title-row">
           <div class="content-table-head table-col table-title fl-1 flex-box" name="STUDENT_ID">
-            <div class="">ID</div>
+            <div class="name-col">ID</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
           <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_NAME">
-            <div class="">Student Name</div>
+            <div class="name-col">Student Name</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
           <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_PHONE">
-            <div class="">Phone</div>
+            <div class="name-col">Phone</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
           <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_EMAIL">
-            <div class="">Email</div>
+            <div class="name-col">Email</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
           <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_ADDRESS">
-            <div class="">Address</div>
+            <div class="name-col">Address</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
           <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_GENDER">
-            <div class="">Gender</div>
+            <div class="name-col">Gender</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
           <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_DATE">
-            <div class="">Date</div>
+            <div class="name-col">Date</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -103,7 +103,7 @@ const web = {
         if (!web.IsTitleRendered) {
           // tránh render lại title
           web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
+          htmls += `<div class="table-row title-row">
           <div class="content-table-head table-col table-title fl-1 flex-box" name="COURSE_ID">
             <div class="">ID</div>
             <div class="order-option flex-box">
@@ -180,7 +180,7 @@ const web = {
         if (!web.IsTitleRendered) {
           // tránh render lại title
           web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
+          htmls += `<div class="table-row title-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="TEACHER_ID">
               <div class="">ID</div>
               <div class="order-option flex-box">
@@ -614,9 +614,9 @@ const web = {
 
       <div class="modal-nav flex-box">
         <div class="nav-item add-config active" data-config="add-config">
-            ADD</div>
+            Add Profile</div>
         <div class="nav-item update-config" data-config="update-config">
-            EDIT</div>
+            Edit Profile</div>
       </div>`;
 
     let addConfig = `<form class="modal-body flex-box config-form add-form add-config" data-config="add-config">`;
@@ -1459,7 +1459,7 @@ const web = {
 
     menu.addEventListener("click", function () {
       sidebar.classList.toggle("sidebar-width");
-      let delayTime = lists.classList.contains("close") ? 400 : 150;
+      let delayTime = lists.classList.contains("close") ? 200 : 120;
       setTimeout(() => {
         name_sidebar.classList.toggle("close");
         lists.classList.toggle("close");
@@ -1491,7 +1491,13 @@ const noneTables = {
     let sidebar = $(".sidebar");
     let lists = $(".content-sidebar");
     let name_sidebar = $(".name-sidebar");
-
+    let setting = $(".icon-arrow-down");
+    let formSetting = $(".log-out");
+    // Click setting log out
+    setting.addEventListener("click", function() {
+      formSetting.classList.toggle("close");
+    })
+   
     // Thay đổi icon menu sidebar
     sidebar
       .querySelector(".sidebar-menu i")
@@ -1510,17 +1516,7 @@ const noneTables = {
       }, delayTime);
     });
 
-    // click drop menu header
-    let drop_menu = $(".icon-arrow-down");
-
-    let arrow_up = $(".arrow-up");
-
-    let log_out = $(".log-out");
-
-    drop_menu.addEventListener("click", function () {
-      arrow_up.classList.toggle("close");
-      log_out.classList.toggle("close");
-    });
+  
   },
   start: () => {
     noneTables.handleEvents();
@@ -1528,7 +1524,7 @@ const noneTables = {
 };
 
 web.start();
-//noneTables.start();
+// noneTables.start();
 
 /*SH!T NOTES
  */

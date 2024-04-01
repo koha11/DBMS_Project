@@ -17,7 +17,7 @@
         <div class="header">
             <div class="header-left">
                 <div class="logo">
-                    <img src="./Assets/Image/avatar-template.jpg" alt="" class="img-logo">
+                    <img src="./Assets/Image/logo.png" alt="" class="img-logo">
                 </div>
                 <div class="name-group">
                     <div class="name-text">
@@ -30,28 +30,28 @@
                     <img src="./Assets/Image/avatar-template.jpg" alt="" class="img-avatar">
                 </div>
                 <div class="name-user">
-                    <div class="name-user-text">John Wick</div>
-                    <i class='icon-arrow-down bx bx-chevron-down'></i>
-                    <div class="arrow-up close"></div>
-                    <ul class="log-out close">
-                        <li class="item-drop-menu">
-                            <i class='icon-drop-menu bx bxs-info-circle'></i>
-                            <span class="text-log-out">
-                                Thông tin
-                            </span>
-                        </li>
-
-                        <li class="item-drop-menu item-drop-menu-last">
-                            <i class='icon-drop-menu bx bxs-log-out-circle'></i>
-                            <span class="text-log-out">
-                                Log out
-                            </span>
-                        </li>
-                    </ul>
+                    <div class="name-user-text">Hena Sola</div>
+                    <i class='icon-arrow-down bx bx-cog'>
+                        <div class="arrow-up close"></div>
+                        <ul class="log-out close">
+                            <li class="item-drop-menu">
+                                <i class='icon-drop-menu bx bxs-info-circle'></i>
+                                <span class="text-log-out">
+                                    Info
+                                </span>
+                            </li>
+                            <li class="item-drop-menu item-drop-menu-last">
+                                <i class='icon-drop-menu bx bx bx-log-out'></i>
+                                <a href = "index.php" class="text-log-out">
+                                    Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </i>
                 </div>
 
                 <div class="notifi">
-                    <i class='icon-notifi bx bxs-bell'></i>
+                    <i class='icon-notifi bx bx-bell'></i>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
                     <div class="list-sidebar active" data-table="STUDENT">
                         <i class='icon-sidebar bx bxs-group'></i>
                         <span class="name-sidebar-items">
-                            Student Management
+                            Student
                         </span>
                     </div>
                     <div class="list-sidebar" data-table="TEACHER">
@@ -115,19 +115,21 @@
                 </div>
             </div>
             <div class="main-content">
-                <div class="tool-container flex-box">
-                    <div class="searching-bar flex-box">
-                        <select name="" id="" class="fl-2 searching-option">
-                        </select>
-                        <input name="" type="text" class="fl-4 searching-input">
-                        <i class='bx bx-search'></i>
+                <div class="head-main-content">
+                    <div class="tool-container flex-box">
+                        <div class="searching-bar flex-box">
+                            <select name="" id="" class="fl-2 searching-option">
+                             </select>
+                            <input name = "" type="text" placeholder = "Search for something...." class="fl-4 searching-input">
+                            <i class='bx bx-search'></i>
+                        </div>
                     </div>
-                    <div id="table-config" class="table-config">
-                        Configure Data!
-                    </div>
+                        <div id="table-config" class="table-config">
+                            Configure Data!
+                        </div>
                 </div>
                 
-
+                <div class="overview">Table Overview</div>
                 <div id="content-table" class="content-table" data-table="STUDENT">
                 </div>
 

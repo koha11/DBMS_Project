@@ -13,7 +13,7 @@
         <!-- form -->
         <div class="form flex-box">
             <!-- image of left form-->
-            <img src="../Image/image-form.png" alt="" class="image-form">
+            <img src="../SQL/Assets/Image/image-form.png" alt="" class="image-form">
             <!-- login of right form -->
             <div class="form-login">
                 <div class="form-login-title">Welcome</div>
@@ -26,15 +26,12 @@
                     </div>
                     
                     <div class="user-password">
-
-                        <label for="pass" class="user-tittle">Password</label>
-                        
-                        <input type="text" name="pass" id="pass" class="password">
+                        <label for="pass" class="user-tittle">Password</label> 
+                        <input type="password" name="pass" id="pass" class="password">
                     </div>
                     
                     <div class="btn-form">
                         <button class="submit">Login</button>
-
                     </div>
                 </form>         
             </div>
