@@ -124,7 +124,7 @@
                             <i class='bx bx-search'></i>
                         </div>
                     </div>
-                        <div id="table-config" class="table-config">
+                        <div id="table-config" class="table-config" data-config="add">
                             Configure Data!
                         </div>
                 </div>

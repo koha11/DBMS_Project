@@ -55,28 +55,6 @@ html {
   display: none!important;
 }
 
-
-.add-config
-{
-  background-color: white;
-  color: var(--secondary-color);
-}
-.update-config
-{
-  background-color: white;
-  color: var(--secondary-color);
-}
-.delete-config
-{
-  background-color: white;
-  color: var(--secondary-color);
-}
-.find-config
-{
-  background-color: white;
-  color: var(--secondary-color);
-}
-
 .fl-1
 {
   flex: 1;
@@ -221,6 +199,7 @@ html {
   background-color: var(--main-color);
   border-radius: 25px;
   padding: 10px 40px;
+  position: relative;
 }
 .table-row
 {
@@ -246,7 +225,6 @@ html {
 }
 .table-col
 {
-  /* padding: 8px 8px; */
   font-weight: 500;
   font-size: 1.4rem;
   width: 100%;
@@ -290,6 +268,29 @@ html {
   transform: scale(1.1);
 }
 
+.config-btn-container {
+  position: absolute;
+  right: 0;
+}
+
+.config-btn-container i {
+  padding: 2px;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  color: white; 
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.config-btn-container i.bx-x{
+  background-color: red;
+}
+
+.config-btn-container i.bxs-edit-alt{
+  background-color: blue;
+}
+
+
 /*MODAL*/
 .config-modal-container
 {
@@ -304,8 +305,8 @@ html {
   position: relative;
   height: 95%;
   justify-content: space-around;
-  border-radius: 30px;
-  
+  border-radius: 30px;  
+  background-color: white;
 }
 
 .modal-header
@@ -329,39 +330,6 @@ html {
   margin: 12px 0;
 }
 
-.modal-nav
-{
-  width: 60%;
-  padding: 16px 0;
-  text-align: center;
-}
-
-.modal-nav .nav-item
-{
-  width: 25%;
-  padding: 8px 0;
-  font-size: 1.7rem;
-  font-weight: bold;
-}
-
-
-.nav-item:nth-child(2), .nav-item:nth-child(3), .nav-item:nth-child(4){
-  margin-left: 16px;
-}
-
-.modal-nav .nav-item:not(.active):hover
-{
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-
-.modal-nav .nav-item.active
-{
-  border-bottom: 3px solid var(--active-color);
-  color: var(--active-color);
-}
-
 .modal-footer
 {
   align-self: flex-end;
@@ -371,6 +339,13 @@ html {
   padding-right: 4px;
 }
 /*FORM*/
+
+.config-form
+{
+  flex-flow: wrap;
+  color: var(--name-label-color);
+}
+
 .config-form select,.config-form label
 {
   width: 43%;
@@ -405,48 +380,10 @@ html {
 {
   width: 100%;
 }
+
 .input-container label{
   font-weight: 400;
   color: black;
-}
-.add-form
-{
-  flex-flow: wrap;
-  color: var(--name-label-color);
-}
-
-.update-form
-{
-  flex-flow: wrap;
-}
-
-.delete-form
-{
-  height: 60%;
-  width: 30%;
-  justify-content: flex-start;
-}
-
-.delete-form .input-field
-{
-  width: 100%;
-}
-
-.delete-form input
-{
-  font-size: unset;
-}
-
-.delete-form .infor-field
-{
-  flex-wrap: wrap;
-}
-
-.delete-form .infor-spot
-{
-  padding: 12px 4px;
-  width: 50%;
-  text-align: center;
 }
 
 /*ALERT BOX*/
@@ -472,10 +409,24 @@ html {
   font-size: 2.2rem;
 }
 
-.alert-btn
+.alert-container .btn-container
 {
-  background-color: chocolate;
+  justify-content: space-evenly;
+  width: 100%;
 }
+
+.cancel-btn
+{
+  background-color: red !important;
+}
+
+.alert-container .btn 
+{
+  width: 30%;
+  padding: 16px 0!important;
+  text-align: center;
+}
+
 /* ICON FOOTER SAVE */
 .icon-footer{
   padding-right: 4px;
@@ -504,7 +455,6 @@ html {
   margin-right: 72px;
   padding: 10px 30px;
 }
-
 
 /* FORM LOGIN*/
 .bg-image{

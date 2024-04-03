@@ -9,7 +9,6 @@
   if ($conn === false)
    die(print_r(sqlsrv_errors(), true));
 
-
   $data = json_decode($_POST["update"], true);
 
   $table = $data['tableName'];

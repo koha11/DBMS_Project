@@ -4,9 +4,9 @@ const $$ = document.querySelectorAll.bind(document);
 const web = {
   DataArr: {}, // Mảng nhận các bản ghi lấy đc từ db
   RenderArr: [], // Mảng nhận các bản ghi đang được render ra màn hình
-  inputArr: {}, // Mảng chứa các cặp key và value hiện có trong input-modal
+  inputObj: {}, // Mảng chứa các cặp key và value hiện có trong input-modal
   Table: $("#content-table").dataset.table,
-  ConfigState: "add-config", // Trạng thái hiện tại của config modal
+  ConfigState: "add", // Trạng thái hiện tại của config modal
   IsValidate: true,
   IsTitleRendered: false,
   // Hàm render bảng (ndung chính của trang web)
@@ -26,78 +26,87 @@ const web = {
           // tránh render lại title
           web.IsTitleRendered = true; //Da render tieu de roi
           htmls += `<div class="table-row title-row">
-          <div class="content-table-head table-col table-title fl-1 flex-box" name="STUDENT_ID">
-            <div class="name-col">ID</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="STUDENT_ID">
+              <div class="name-col">ID</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
             </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_NAME">
-            <div class="name-col">Student Name</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_NAME">
+              <div class="name-col">Student Name</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
             </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_PHONE">
-            <div class="name-col">Phone</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_PHONE">
+              <div class="name-col">Phone</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
             </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_EMAIL">
-            <div class="name-col">Email</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_EMAIL">
+              <div class="name-col">Email</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
             </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_ADDRESS">
-            <div class="name-col">Address</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_ADDRESS">
+              <div class="name-col">Address</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
             </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_GENDER">
-            <div class="name-col">Gender</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_GENDER">
+              <div class="name-col">Gender</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
             </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_DATE">
-            <div class="name-col">Date</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_DATE">
+              <div class="name-col">Date</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
             </div>
-          </div>
           </div>`;
         }
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
+        DataArr.forEach((obj) => { 
           if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
+            obj != undefined &&
+            Object.values(obj)[0] != undefined
           )
+          {
+            let keyArr = Object.keys(obj)
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].STUDENT_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].ST_NAME}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].ST_PHONE}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].ST_EMAIL}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].ST_ADDRESS}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].ST_GENDER}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].ST_DATE}</div>
+              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-3" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt' data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
+          }
+        });
 
         htmls += `</div>`;
 
         break;
+          
 
       case "COURSE":
         if (!web.IsTitleRendered) {
@@ -585,18 +594,6 @@ const web = {
     selector.closest(".input-field").querySelector("datalist").innerHTML =
       htmls;
   },
-  // Hàm render ra 1 bản ghi dựa trên id và bảng được truyền vào
-  renderConfirmLists: (dataArr) => {
-    let htmls = "";
-
-    if (!dataArr)
-      htmls += `<div class="infor-spot"><b>undefined: </b>undefined</div>`;
-    else
-      for (let data in dataArr)
-        htmls += `<div class="infor-spot"><b>${data}: </b>${dataArr[data]}</div>`;
-
-    $(".delete-form .infor-field").innerHTML = htmls;
-  },
   //Hàm render ra những lựa chọn để có thể chọn khi tìm kiếm
   renderSearchingOptions: () => {
     //render danh sách option của thanh tìm kiếm
@@ -607,285 +604,287 @@ const web = {
   },
   renderInputForm: () => {
     let dataArr = web.DataArr[web.Table];
+
+    //Khởi tạo header cho modal
     let htmls = `
       <div class="modal-header">
-        Configure Table
-      </div>
-
-      <div class="modal-nav flex-box">
-        <div class="nav-item add-config active" data-config="add-config">
-            Add Profile</div>
-        <div class="nav-item update-config" data-config="update-config">
-            Edit Profile</div>
+        ${
+          web.ConfigState == "add"
+            ? "ADD ROW MODAL"
+            : "UPDATE ROW MODAL"
+        }
       </div>`;
 
-    let addConfig = `<form class="modal-body flex-box config-form add-form add-config" data-config="add-config">`;
-    let updateConfig = `<form class="modal-body flex-box config-form update-form update-config close" data-config="update-config">`;
-    let deleteConfig = `<form class="modal-body flex-box config-form delete-form delete-config close" data-config="delete-config">`;
-    if (dataArr[0]) {
-      for (let key in dataArr[0]) {
-        let message = "";
-        let title = "";
-        let constraint = "";
+    // Khởi tạo form add và update
+    let addConfig = `<form class="modal-body flex-box config-form" data-config="add">`;
+    let updateConfig = `<form class="modal-body flex-box config-form" data-config="update">`;
+    for (let key in dataArr[0]) {
+      let message = "";
+      let title = "";
+      let constraint = "";
 
-        //them constaints
-        if (key.includes("ID")) constraint = "id,required,noSpecialChar";
-        if (key.includes("NAME"))
-          constraint = "required,noSpecialChar,noNumber";
-        if (key.includes("PHONE")) constraint = "required,phone";
-        if (key.includes("EMAIL")) constraint = "required,email";
-        if (key.includes("DATE")) constraint = "required";
+      //them constaints
+      if (key.includes("ID")) constraint = "id,required,noSpecialChar";
+      if (key.includes("NAME")) constraint = "required,noSpecialChar,noNumber";
+      if (key.includes("PHONE")) constraint = "required,phone";
+      if (key.includes("EMAIL")) constraint = "required,email";
+      if (key.includes("DATE")) constraint = "required";
 
-        if (!constraint) constraint = "required";
+      if (!constraint) constraint = "required";
 
-        //them title voi msg
-        switch (web.Table) {
-          case "STUDENT":
-            {
-              if (key.includes("ID")) {
-                title = `Student ID`;
-                message = `Example: "ST0, ST1, ..."`;
-              }
-
-              if (key.includes("NAME")) {
-                title = `Student Name`;
-                message = `Example: "Trần Anh Khoa"`;
-              }
-
-              if (key.includes("PHONE")) {
-                title = `Student Phone`;
-                message = `Example: "0702455222, +8472455222"`;
-              }
-
-              if (key.includes("EMAIL")) {
-                title = `Student Email`;
-                message = `Example: "student@gmail.com"`;
-              }
-
-              if (key.includes("ADDRESS")) {
-                title = `Student Address`;
-                message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
-              }
-
-              if (key.includes("GENDER")) {
-                title = `Student Gender`;
-                message = `Example: "Nam, Nữ, Khác"`;
-              }
-
-              if (key.includes("DATE")) {
-                title = `Student Date`;
-                message = `Example: "dd/mm/yyyy"`;
-              }
+      //them title voi msg
+      switch (web.Table) {
+        case "STUDENT":
+          {
+            if (key.includes("ID")) {
+              title = `Student ID`;
+              message = `Example: "ST0, ST1, ..."`;
             }
-            break;
 
-          case "TEACHER":
-            {
-              if (key.includes("ID")) {
-                title = `Teacher ID`;
-                message = `Example: "ST0, ST1, ..."`;
-              }
-
-              if (key.includes("NAME")) {
-                title = `Teacher Name`;
-                message = `Example: "Trần Anh Khoa"`;
-              }
-
-              if (key.includes("NATION")) {
-                title = `Teacher Nation`;
-                message = `Example: "Vietnam"`;
-              }
-
-              if (key.includes("PHONE")) {
-                title = `Teacher Phone`;
-                message = `Example: "0702455222, +8472455222"`;
-              }
-
-              if (key.includes("EMAIL")) {
-                title = `Teacher Email`;
-                message = `Example: "Teacher@gmail.com"`;
-              }
-
-              if (key.includes("ADDRESS")) {
-                title = `Teacher Address`;
-                message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
-              }
-
-              if (key.includes("GENDER")) {
-                title = `Teacher Gender`;
-                message = `Example: "Nam, Nữ, Khác"`;
-              }
-
-              if (key.includes("DATE")) {
-                title = `Student Date`;
-                message = `Example: "dd/mm/yyyy"`;
-              }
-
-              if (key == "IELTS_OVERALL") {
-                title = `Ielts Overall`;
-                message = `Example: "8.5"`;
-              }
-
-              if (key == "...") {
-                title = `Student Date`;
-                message = `Example: "Undergraduate, master, ..."`;
-              }
+            if (key.includes("NAME")) {
+              title = `Student Name`;
+              message = `Example: "Trần Anh Khoa"`;
             }
-            break;
 
-          case "COURSE":
-            {
-              if (key.includes("ID")) {
-                title = `Course ID`;
-                message = `Example: "C0, C1, ..."`;
-              }
-
-              if (key.includes("NAME")) {
-                title = `Student Name`;
-                message = `Example: "Trần Anh Khoa"`;
-              }
-
-              if (key.includes("FEE")) {
-                title = `Student Nation`;
-                message = `Example: "Vietnam"`;
-              }
-
-              if (key.includes("TYPE")) {
-                title = `Student Phone`;
-                message = `Example: "0702455222, +8472455222"`;
-              }
-
-              if (key.includes("LEVEL")) {
-                title = `Student Email`;
-                message = `Example: "student@gmail.com"`;
-              }
-
-              if (key.includes("METHOD")) {
-                title = `Student Address`;
-                message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
-              }
+            if (key.includes("PHONE")) {
+              title = `Student Phone`;
+              message = `Example: "0702455222, +8472455222"`;
             }
-            break;
 
-          case "CLASS":
-            {
-              if (key.includes("CLASS_ID")) {
-                title = `Class ID`;
-                message = `Example: "CL0, CL1, ..."`;
-              }
-              if (key.includes("COURSE_ID")) {
-                title = `Course ID`;
-                message = `Example: "C0, C1, ..."`;
-              }
-              if (key.includes("TEACHER_ID")) {
-                title = `Teacher ID`;
-                message = `Example: "T1, T2, ..."`;
-              }
-              if (key.includes("CLASSROOM")) {
-                title = `Classroom`;
-                message = `Example: "P100, P201, ..."`;
-              }
+            if (key.includes("EMAIL")) {
+              title = `Student Email`;
+              message = `Example: "student@gmail.com"`;
             }
-            break;
 
-          case "TIMETABLE":
-            {
-              if (key.includes("CLASS_ID")) {
-                title = `Class ID`;
-                message = `Example: "CL0, CL1, ..."`;
-              }
-              if (key.includes("WEEKLYDAY")) {
-                title = `Weeklyday`;
-                message = `Example: "2, 3, ..."`;
-              }
-              if (key.includes("DAYPERIOD")) {
-                title = `Dayperiod`;
-                message = `Example: "1, 2, ..."`;
-              }
+            if (key.includes("ADDRESS")) {
+              title = `Student Address`;
+              message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
             }
-            break;
 
-          case "RESULT":
-            {
-              if (key.includes("CLASS_ID")) {
-                title = `Class ID`;
-                message = `Example: "CL0, CL1, ..."`;
-              }
-              if (key.includes("STUDENT_ID")) {
-                title = `Student ID`;
-                message = `Example: "2, 3, ..."`;
-              }
-              if (key.includes("SPEAKING")) {
-                title = `Speaking`;
-                message = `Example: "1, 2, ..."`;
-              }
-              if (key.includes("LISTENING")) {
-                title = `Listening`;
-                message = `Example: "1, 2, ..."`;
-              }
-              if (key.includes("READING")) {
-                title = `Reading`;
-                message = `Example: "1, 2, ..."`;
-              }
-              if (key.includes("WRITING")) {
-                title = `Writing`;
-                message = `Example: "1, 2, ..."`;
-              }
-              if (key.includes("OVERALL")) {
-                title = `Overall`;
-                message = `Example: "1, 2, ..."`;
-              }
+            if (key.includes("GENDER")) {
+              title = `Student Gender`;
+              message = `Example: "Nam, Nữ, Khác"`;
             }
-            break;
 
-          case "CLASS_DETAIL":
-            {
-              if (key.includes("CLASS_ID")) {
-                title = `Class ID`;
-                message = `Example: "CL0, CL1, ..."`;
-              }
-              if (key.includes("DATE_START")) {
-                title = `Date Start`;
-                message = `Example: "2, 3, ..."`;
-              }
-              if (key.includes("DATE_END")) {
-                title = `Date End`;
-                message = `Example: "1, 2, ..."`;
-              }
-              if (key.includes("LESSONS")) {
-                title = `Lessons`;
-                message = `Example: "1, 2, ..."`;
-              }
+            if (key.includes("DATE")) {
+              title = `Student Date`;
+              message = `Example: "dd/mm/yyyy"`;
             }
-            break;
+          }
+          break;
 
-          case "BILL":
-            {
-              if (key.includes("BILL_ID")) {
-                title = `Bill ID`;
-                message = `Example: "CL0, CL1, ..."`;
-              }
-              if (key.includes("STUDENT_ID")) {
-                title = `Student ID`;
-                message = `Example: "2, 3, ..."`;
-              }
-              if (key.includes("DATE_P")) {
-                title = `Date Payment`;
-                message = `Example: "1, 2, ..."`;
-              }
-              if (key.includes("METHOD_P")) {
-                title = `Method Payment`;
-                message = `Example: "1, 2, ..."`;
-              }
-              if (key.includes("PAYMENT")) {
-                title = `Payment`;
-                message = `Example: "1, 2, ..."`;
-              }
+        case "TEACHER":
+          {
+            if (key.includes("ID")) {
+              title = `Teacher ID`;
+              message = `Example: "ST0, ST1, ..."`;
             }
-            break;
-        }
 
-        addConfig += `<div class="input-field flex-box">                      
+            if (key.includes("NAME")) {
+              title = `Teacher Name`;
+              message = `Example: "Trần Anh Khoa"`;
+            }
+
+            if (key.includes("NATION")) {
+              title = `Teacher Nation`;
+              message = `Example: "Vietnam"`;
+            }
+
+            if (key.includes("PHONE")) {
+              title = `Teacher Phone`;
+              message = `Example: "0702455222, +8472455222"`;
+            }
+
+            if (key.includes("EMAIL")) {
+              title = `Teacher Email`;
+              message = `Example: "Teacher@gmail.com"`;
+            }
+
+            if (key.includes("ADDRESS")) {
+              title = `Teacher Address`;
+              message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
+            }
+
+            if (key.includes("GENDER")) {
+              title = `Teacher Gender`;
+              message = `Example: "Nam, Nữ, Khác"`;
+            }
+
+            if (key.includes("DATE")) {
+              title = `Student Date`;
+              message = `Example: "dd/mm/yyyy"`;
+            }
+
+            if (key.includes("DEGREE")) {
+              title = `Degree`;
+              message = `Example: "master"`;
+            }
+
+            if (key == "IELTS_OVERALL") {
+              title = `Ielts Overall`;
+              message = `Example: "8.5"`;
+            }
+
+            if (key == "...") {
+              title = `Student Date`;
+              message = `Example: "Undergraduate, master, ..."`;
+            }
+          }
+          break;
+
+        case "COURSE":
+          {
+            if (key.includes("ID")) {
+              title = `Course ID`;
+              message = `Example: "C0, C1, ..."`;
+            }
+
+            if (key.includes("NAME")) {
+              title = `Student Name`;
+              message = `Example: "Trần Anh Khoa"`;
+            }
+
+            if (key.includes("FEE")) {
+              title = `Student Nation`;
+              message = `Example: "Vietnam"`;
+            }
+
+            if (key.includes("TYPE")) {
+              title = `Student Phone`;
+              message = `Example: "0702455222, +8472455222"`;
+            }
+
+            if (key.includes("LEVEL")) {
+              title = `Student Email`;
+              message = `Example: "student@gmail.com"`;
+            }
+
+            if (key.includes("METHOD")) {
+              title = `Student Address`;
+              message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
+            }
+          }
+          break;
+
+        case "CLASS":
+          {
+            if (key.includes("CLASS_ID")) {
+              title = `Class ID`;
+              message = `Example: "CL0, CL1, ..."`;
+            }
+            if (key.includes("COURSE_ID")) {
+              title = `Course ID`;
+              message = `Example: "C0, C1, ..."`;
+            }
+            if (key.includes("TEACHER_ID")) {
+              title = `Teacher ID`;
+              message = `Example: "T1, T2, ..."`;
+            }
+            if (key.includes("CLASSROOM")) {
+              title = `Classroom`;
+              message = `Example: "P100, P201, ..."`;
+            }
+          }
+          break;
+
+        case "TIMETABLE":
+          {
+            if (key.includes("CLASS_ID")) {
+              title = `Class ID`;
+              message = `Example: "CL0, CL1, ..."`;
+            }
+            if (key.includes("WEEKLYDAY")) {
+              title = `Weeklyday`;
+              message = `Example: "2, 3, ..."`;
+            }
+            if (key.includes("DAYPERIOD")) {
+              title = `Dayperiod`;
+              message = `Example: "1, 2, ..."`;
+            }
+          }
+          break;
+
+        case "RESULT":
+          {
+            if (key.includes("CLASS_ID")) {
+              title = `Class ID`;
+              message = `Example: "CL0, CL1, ..."`;
+            }
+            if (key.includes("STUDENT_ID")) {
+              title = `Student ID`;
+              message = `Example: "2, 3, ..."`;
+            }
+            if (key.includes("SPEAKING")) {
+              title = `Speaking`;
+              message = `Example: "1, 2, ..."`;
+            }
+            if (key.includes("LISTENING")) {
+              title = `Listening`;
+              message = `Example: "1, 2, ..."`;
+            }
+            if (key.includes("READING")) {
+              title = `Reading`;
+              message = `Example: "1, 2, ..."`;
+            }
+            if (key.includes("WRITING")) {
+              title = `Writing`;
+              message = `Example: "1, 2, ..."`;
+            }
+            if (key.includes("OVERALL")) {
+              title = `Overall`;
+              message = `Example: "1, 2, ..."`;
+            }
+          }
+          break;
+
+        case "CLASS_DETAIL":
+          {
+            if (key.includes("CLASS_ID")) {
+              title = `Class ID`;
+              message = `Example: "CL0, CL1, ..."`;
+            }
+            if (key.includes("DATE_START")) {
+              title = `Date Start`;
+              message = `Example: "2, 3, ..."`;
+            }
+            if (key.includes("DATE_END")) {
+              title = `Date End`;
+              message = `Example: "1, 2, ..."`;
+            }
+            if (key.includes("LESSONS")) {
+              title = `Lessons`;
+              message = `Example: "1, 2, ..."`;
+            }
+          }
+          break;
+
+        case "BILL":
+          {
+            if (key.includes("BILL_ID")) {
+              title = `Bill ID`;
+              message = `Example: "CL0, CL1, ..."`;
+            }
+            if (key.includes("STUDENT_ID")) {
+              title = `Student ID`;
+              message = `Example: "2, 3, ..."`;
+            }
+            if (key.includes("DATE_P")) {
+              title = `Date Payment`;
+              message = `Example: "1, 2, ..."`;
+            }
+            if (key.includes("METHOD_P")) {
+              title = `Method Payment`;
+              message = `Example: "1, 2, ..."`;
+            }
+            if (key.includes("PAYMENT")) {
+              title = `Payment`;
+              message = `Example: "1, 2, ..."`;
+            }
+          }
+          break;
+      }
+
+      addConfig += `<div class="input-field flex-box">                      
             <div class="flex-box input-container">
               <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
               <input id="A-${key}" name="${key}" type="text" class="fl-2" data-constraint="${constraint}">
@@ -894,42 +893,72 @@ const web = {
             <span class="message error"></span>
           </div>`;
 
-        if (key.includes("ID"))
-          updateConfig += `<div class="input-field flex-box">                      
-              <div class="flex-box input-container">
-                <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-                <input id="U-${key}" name="${key}" list="U-${key}-List" type="text" class="fl-2" data-constraint="require,subid" class="select-input" data-table="HOCSINH">
-                <datalist id="U-${key}-List"></datalist>
-              </div>
-              <span class="message "message>Hãy chọn id hợp lệ</span>
-              <span class="message error"></span>
-            </div>`;
-        else
-          updateConfig += `<div class="input-field flex-box">                      
-              <div class="flex-box input-container">
-                <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-                <input id="U-${key}" name="${key}" type="text" class="fl-2" data-constraint="${constraint}">
-              </div>
-              <span class="message ">${message}</span>
-              <span class="message error"></span>
-            </div>`;
-      }
-      addConfig += `</form>`;
-      updateConfig += `</form>`;
+      if (key.includes("ID"))
+        updateConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="require,subid" class="select-input" data-table="HOCSINH" readonly>
+          </div>
+          <span class="message "message>Hãy chọn id hợp lệ</span>
+          <span class="message error"></span>
+        </div>`;
+      else
+        updateConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="${constraint}">
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
+    }
+    addConfig += `</form>`;
+    updateConfig += `</form>`;
 
+    if (web.ConfigState == "add")
       htmls =
         htmls +
         addConfig +
+        `<div class="modal-footer flex-box">
+          <button id="config-btn" class="form-btn btn" data-handle="">
+            <i class="icon-footer fa-solid fa-check"></i>
+              Save
+          </button>
+        </div>`;
+    else
+      htmls =
+        htmls +
         updateConfig +
         `<div class="modal-footer flex-box">
-        <button id="config-btn" class="form-btn btn" data-handle="">
-          <i class="icon-footer fa-solid fa-check"></i>
-            Save
-        </button>
-      </div>`;
-
-      $(".config-modal").innerHTML = htmls;
+          <button id="config-btn" class="form-btn btn" data-handle="">
+            <i class="icon-footer fa-solid fa-check"></i>
+              Save
+          </button>
+        </div>`;
+    $(".config-modal").innerHTML = htmls;
+    web.handleSubmitForm();
+  },
+  //Hàm render alert confirm box
+  renderConfirmAlert: () => {
+    let msg = "";
+    if (web.ConfigState == "add") {
+      msg = "Do you want to add row?";
+    } else if (web.ConfigState == "update") {
+      msg = "Do you want to update row?";
+    } else {
+      msg = "Do you want to delete row?";
     }
+
+    let htmls = `<div class="alert-box flex-box">
+      <div class="alert-message">${msg}</div>
+      <div class="btn-container flex-box">
+        <div class="alert-btn cancel-btn btn">CANCEL</div>
+        <div class="alert-btn confirm-btn btn">YES</div>
+      </div>
+    </div>`;
+    $(".alert-container").innerHTML = htmls;
+    $(".alert-container").classList.remove("close");
+    web.handleAlertChoose();
   },
   //Hàm lấy tất cả bản ghi của 1 bảng từ db
   getData: async (
@@ -978,7 +1007,7 @@ const web = {
   },
   // Hàm thêm bản ghi vào bảng
   addRow: () => {
-    let dataObj = web.inputArr;
+    let dataObj = web.inputObj;
 
     dataObj.tableName = web.Table;
 
@@ -991,10 +1020,16 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        $(".alert-container").classList.remove("close");
+        web.getData(web.Table).then((value) => {
+          web.DataArr[web.Table] = value;
+          web.render(web.DataArr[web.Table], web.Table);          
+          web.RenderArr = web.DataArr[web.Table];
+          $(".alert-container").classList.add("close");
+          $(".config-modal-container").classList.add("close");
+          web.resetInputValue();
+        });
       }
     };
-
     xmlhttp.send(`add=${JSON.stringify(dataObj)}`);
   },
   // Hàm cập nhật lại nội dung của bản ghi
@@ -1008,7 +1043,15 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        $(".alert-container").classList.remove("close");
+        //gọi lại dữ liệu và render lại
+        web.getData(web.Table).then((value) => {          
+          web.DataArr[web.Table] = value;
+          web.render(web.DataArr[web.Table], web.Table);
+          web.RenderArr = web.DataArr[web.Table];
+          $(".alert-container").classList.add("close");
+          $(".config-modal-container").classList.add("close");
+          web.resetInputValue();
+        });
       }
     };
 
@@ -1023,7 +1066,7 @@ const web = {
     xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
   },
   // Hàm xóa 1 bản ghi
-  deleteRow: () => {
+  deleteRow: (tableName, id, key) => {
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "./Php/delete_row.php");
     xmlhttp.setRequestHeader(
@@ -1033,40 +1076,14 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        $(".alert-container").classList.remove("close");
       }
     };
 
-    let dataObj = { tableName: web.Table };
+    let dataObj = { tableName: tableName };
 
-    let input = $(`form.${web.ConfigState} .input-field input`);
-
-    dataObj[input.name] = input.value;
+    dataObj[key] = id;
 
     xmlhttp.send(`delete=${JSON.stringify(dataObj)}`);
-  },
-  // Hàm handle chuyển đổi các form trong config modal
-  setConfigState: (selector) => {
-    let item = selector;
-    let modal = $(".config-modal");
-    let form = $(`.config-form.${item.dataset.config}`);
-    let preForm = $(`.config-form:not(.close)`);
-
-    // Thêm class của config mới cho modal
-    modal.classList.remove(web.ConfigState);
-    modal.classList.add(item.dataset.config);
-
-    //Đóng form cũ và mở form mới click vào
-    preForm.classList.add("close");
-    form.classList.remove("close");
-
-    // Thêm trạng thái active cho nav-bar
-    $(".nav-item.active").classList.remove("active");
-    item.classList.add("active");
-
-    // Set lại config mới cho web
-    web.ConfigState = item.dataset.config;
-    modal.dataset.config = web.ConfigState;
   },
   // Hàm reset giá trị của input
   resetInputValue: () => {
@@ -1103,10 +1120,9 @@ const web = {
           switch (type) {
             case "id": {
               for (let row of web.DataArr[web.Table]) {
-                if (
-                  Object.getOwnPropertyNames(row, keys)[0] != "COLUMN_NAME" &&
-                  input.value === row[input.name]
-                ) {
+                if (row[input.name] == undefined) break;
+
+                if (input.value === row[input.name]) {
                   errorMsg = "Id đã tồn tại";
                   isValidate = false;
                   break;
@@ -1191,7 +1207,7 @@ const web = {
   getInputData: () => {
     let dataObj = {};
 
-    let inputList = $$(`form.${web.ConfigState} .input-field input`); //danh sach input tuong ung voi config-state
+    let inputList = $$(`form.config-form .input-field input`); //danh sach input tuong ung voi config-state
 
     for (let input of inputList) dataObj[input.name] = input.value.trim();
 
@@ -1237,14 +1253,65 @@ const web = {
     return arr;
   },
 
-  handleEvents: () => {
-    //Bien dung chung
+  // Xử lí 2 nút chức năng trên mỗi dòng
+  handleConfigRow: () => {
+    let configBtns = $$(
+      ".config-btn-container .bx-x,.config-btn-container .bxs-edit-alt"
+    );
 
+    for (let btn of configBtns) {
+      btn.addEventListener("click", function (e) {
+        let row = btn.closest(".table-row");
+        let id = row.children[0].innerText; // Lấy ra ID
+
+        if (btn.dataset.config == "delete") {
+          //Neu click xoa
+          let key = Object.keys(web.DataArr[web.Table][0]).find((item) =>
+            item.includes("ID")
+          ); //lấy ra key name của ID
+          web.inputObj = {[key]:id};
+          web.renderConfirmAlert();
+          
+        } else {
+          for(let item of row.children)
+            web.inputObj[item.getAttribute('name')] = item.innerText 
+          // Đưa dữ liệu ban đầu (trước khi update) vào Input Obj để bên config modal có thể đưa
+          // những dữ liệu này hiển thị bên update modal
+
+          web.ConfigState = 'update';
+          web.renderInputForm();          
+          $('.config-modal-container').classList.remove('close')
+        }
+      });
+    }
+  },
+
+  // Xử lí 2 lựa chọn Cancel / Yes của alert box
+  handleAlertChoose: () => {
+    let cancel = $(".alert-box .cancel-btn");
+    let yes = $(".alert-box .confirm-btn");
+
+    cancel.addEventListener("click", function (e) {
+      $(".alert-container").classList.add("close");
+    });
+
+    yes.addEventListener("click", function (e) {
+      if (web.ConfigState == "add") web.addRow();
+      else if (web.ConfigState == "update") web.updateRow();
+      else
+      {
+        let key = Object.keys(web.inputObj)[0]
+        web.deleteRow(web.Table,web.inputObj.key,key);    
+      }    
+    });
+  },
+
+  // Xử lí submit form
+  handleSubmitForm: () => 
+  {
     $("#config-btn").addEventListener("click", function (e) {
-      let inputList = $$(`form.${web.ConfigState} .input-field input`); //danh sach input tuong ung voi config-state
+      let inputList = $$(`form .input-field input`); //danh sach input tuong ung voi config-state
       e.preventDefault();
-
-      let flag = 0;
 
       for (let input of inputList) {
         if (input.value == "") {
@@ -1254,33 +1321,44 @@ const web = {
         }
       }
 
-      //if (!(flag && web.IsValidate)) web.IsValidate = true;
-
-      web.inputArr = web.getInputData();
-      if (web.IsValidate)
-        switch (web.ConfigState) {
-          case "add-config":
-            web.addRow();
-            break;
-          case "update-config":
-            web.updateRow();
-            break;
-          case "delete-config":
-            web.deleteRow();
-            break;
-          default:
-            break;
-        }
+      web.inputObj = web.getInputData();
+      if (web.IsValidate) web.renderConfirmAlert();
     });
+  },
 
+  handleOrder: () =>
+  {
+    for (let item of $$(".order-option i")) {
+      item.addEventListener("click", function (e) {
+        for (let item of $$(".order-option i")) item.classList.remove("active");
+
+        let col = item.closest(".table-title");
+
+        item.classList.add("active");
+        web.render(
+          web.sortData(
+            web.RenderArr,
+            col.getAttribute("name"),
+            item.dataset.order
+          ),
+          web.Table
+        );
+      });
+    }
+  },
+
+  handleEvents: () => {
+    //Bien dung chung    
+
+    // Xử lí tắt modal
     $(".config-modal-container").addEventListener("click", function (e) {
       e.stopPropagation();
       e.target.classList.add("close");
 
-      let inputList = $$(`form.${web.ConfigState} .input-field input`);
+      let inputList = $$(`form .input-field input`);
       for (let input of inputList) web.resetError(input);
 
-      web.setConfigState($(".nav-item.add-config"));
+      //web.setConfigState($(".nav-item.add-config"));
       web.resetInputValue();
     });
 
@@ -1291,18 +1369,12 @@ const web = {
     }
 
     $("#table-config").addEventListener("click", function (e) {
+      web.ConfigState = 'add';
+      web.renderInputForm();
       $(".config-modal-container").classList.remove("close");
     });
 
-    for (let item of $$(".modal-nav .nav-item")) {
-      item.addEventListener("click", function (e) {
-        let inputList = $$(`form.${web.ConfigState} .input-field input`);
-        for (let input of inputList) web.resetError(input);
-        web.setConfigState(e.target);
-        web.resetInputValue();
-      });
-    }
-
+    // render danh sách những lựa chọn theo key để tìm kiếm
     for (let selectInput of $$(".select-input")) {
       let colData = [];
       selectInput.addEventListener("focus", function (e) {
@@ -1326,7 +1398,7 @@ const web = {
     }
 
     //Kiểm tra value ở input có valid hay ko
-    for (let input of $$(`form.${web.ConfigState} .input-field input`)) {
+    for (let input of $$(`form.config-form .input-field input`)) {
       input.addEventListener(
         "focusout",
         function (
@@ -1345,25 +1417,6 @@ const web = {
           web.resetError(input);
         }
       );
-    }
-
-    //Bấm tắt Modal thông báo đã thêm thành công
-    for (let item of $$(".alert-btn,.alert-container")) {
-      item.addEventListener("click", function (e) {
-        //get data and render data again
-        web.getData(web.Table).then((value) => {
-          web.DataArr[web.Table] = value;
-          web.render(web.DataArr[web.Table], web.Table);
-          web.RenderArr = web.DataArr[web.Table];
-          //tắt alert modal đi
-          $(".alert-container").classList.add("close");
-          $(".config-modal-container:not(close)").classList.add("close");
-
-          //set lại state cho modal
-          web.setConfigState($(".nav-item.add-config"));
-          web.resetInputValue();
-        });
-      });
     }
 
     //Xử lí tìm kiếm dữ liệu trên searching bar
@@ -1400,7 +1453,9 @@ const web = {
               web.render(web.DataArr[web.Table], web.Table);
               web.RenderArr = web.DataArr[web.Table];
               web.renderSearchingOptions();
-              web.renderInputForm();
+              //restart handle event
+              web.handleOrder();
+              web.handleConfigRow();
             });
           //do bat dong bo nen phai lap code
           else {
@@ -1411,39 +1466,13 @@ const web = {
             web.render(web.DataArr[web.Table], web.Table);
             web.RenderArr = web.DataArr[web.Table];
             web.renderSearchingOptions();
-            web.renderInputForm();
+            //restart handle event
+            web.handleOrder();
+            web.handleConfigRow();
           }
         }
       });
-    }
-
-    // $(".delete-form input").addEventListener("keyup", function (e) {
-    //   let id = e.target.name;
-    //   let val = e.target.value;
-
-    //   //get 1 row data from Promise get data
-    //   web.getData(web.Table, id, val).then((value) => {
-    //     web.renderConfirmLists(value);
-    //   });
-    // });
-
-    for (let item of $$(".order-option i")) {
-      item.addEventListener("click", function (e) {
-        for (let item of $$(".order-option i")) item.classList.remove("active");
-
-        let col = item.closest(".table-title");
-
-        item.classList.add("active");
-        web.render(
-          web.sortData(
-            web.RenderArr,
-            col.getAttribute("name"),
-            item.dataset.order
-          ),
-          web.Table
-        );
-      });
-    }
+    }    
 
     let menu = $(".icon-menu");
     let sidebar = $(".sidebar");
@@ -1477,10 +1506,13 @@ const web = {
       } else web.DataArr[web.Table] = value;
 
       web.render(web.DataArr[web.Table], web.Table);
-      web.RenderArr = [web.Table];
+      web.RenderArr = web.DataArr[web.Table];
       web.renderSearchingOptions();
-      web.renderInputForm();
+
+      //restart handle event
       web.handleEvents();
+      web.handleConfigRow();
+      web.handleOrder();
     });
   },
 };
@@ -1494,10 +1526,10 @@ const noneTables = {
     let setting = $(".icon-arrow-down");
     let formSetting = $(".log-out");
     // Click setting log out
-    setting.addEventListener("click", function() {
+    setting.addEventListener("click", function () {
       formSetting.classList.toggle("close");
-    })
-   
+    });
+
     // Thay đổi icon menu sidebar
     sidebar
       .querySelector(".sidebar-menu i")
@@ -1515,8 +1547,6 @@ const noneTables = {
         lists.classList.toggle("close");
       }, delayTime);
     });
-
-  
   },
   start: () => {
     noneTables.handleEvents();

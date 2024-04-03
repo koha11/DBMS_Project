@@ -4,5 +4,5 @@
     "CharacterSet" => "UTF-8"
   );
 
-  $conn_user = 'KZ25\SQLEXPRESS'
+  $conn_user = 'KOHA11\SQLEXPRESS'
 ?>
