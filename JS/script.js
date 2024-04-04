@@ -603,14 +603,37 @@ const web = {
     $(".sidebar").style.height = $(".main-content").scrollHeight + "px";
   },
   // Hàm render options list dựa trên bảng đang đc tham chiếu
-  renderOptionLists: (colData, selector) => {
-    let htmls = "";
-    colData.forEach((item) => {
-      htmls += `<option value="${item}"></option>`;
-    });
+  renderOptionLists: () => {
+    // render danh sách những lựa chọn theo key để tìm kiếm
+    for (let selectInput of $$(".select-input")) { //để hàm riêng đi: not done yet
+      selectInput.addEventListener("focus", function (e) {
+        let htmls = "";
+        let table = selectInput.dataset.table;
+        //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
+        if (web.DataArr[table]) 
+        {
+          web.DataArr[table].forEach((row) => {
+            htmls += `<option value="${row[selectInput.name]}"></option>`;
+          });
+          selectInput.closest(".input-field").querySelector("datalist").innerHTML = htmls;
+        } 
+        else 
+        {
+          web
+            .getData(table)
+            .then((value) => {   
+              web.handleChangeTable(value,table,false)       
+              web.DataArr[table].forEach((row) => {
+                htmls += `<option value="${row[selectInput.name]}"></option>`;
+              });
 
-    selector.closest(".input-field").querySelector("datalist").innerHTML =
-      htmls;
+              web.DataArr[table] = value;
+
+              selectInput.closest(".input-field").querySelector("datalist").innerHTML = htmls;
+            });
+        }
+      });
+    }    
   },
   //Hàm render ra những lựa chọn để có thể chọn khi tìm kiếm
   renderSearchingOptions: () => {
@@ -793,10 +816,12 @@ const web = {
             if (key.includes("COURSE_ID")) {
               title = `Course ID`;
               message = `Example: "C0, C1, ..."`;
+              constraint = "subid,required,noSpecialChar"
             }
             if (key.includes("TEACHER_ID")) {
               title = `Teacher ID`;
               message = `Example: "T1, T2, ..."`;
+              constraint = "subid,required,noSpecialChar"
             }
             if (key.includes("CLASSROOM")) {
               title = `Classroom`;
@@ -902,33 +927,59 @@ const web = {
           break;
       }
 
-      addConfig += `<div class="input-field flex-box">                      
-            <div class="flex-box input-container">
-              <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
-              <input id="A-${key}" name="${key}" type="text" class="fl-2" data-constraint="${constraint}">
-            </div>
-            <span class="message ">${message}</span>
-            <span class="message error"></span>
-          </div>`;
-
-      if (key.includes("ID"))
-        updateConfig += `<div class="input-field flex-box">                      
+      if(constraint.includes("subid")) //Thêm datalist
+      {
+        addConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
-            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="require,subid" class="select-input" data-table="HOCSINH" readonly>
-          </div>
-          <span class="message "message>Hãy chọn id hợp lệ</span>
-          <span class="message error"></span>
-        </div>`;
-      else
-        updateConfig += `<div class="input-field flex-box">                      
-          <div class="flex-box input-container">
-            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="${constraint}">
+            <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="A-${key}" name="${key}" list="list-${key}" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(0,key.length-3)}">
+            <datalist id="list-${key}"></datalist>
           </div>
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
+
+        updateConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="U-${key}" name="${key}" list="list-${key}" value="${web.inputObj[key]}" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(0,key.length-3)}">
+            <datalist id="list-${key}"></datalist>
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
+      }
+      else  //kco datalist
+      {
+        addConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="A-${key}" name="${key}" type="text" class="fl-2" data-constraint="${constraint}">
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
+
+        if (key.includes("ID")) //ID update thì set readonly
+          updateConfig += `<div class="input-field flex-box">                      
+            <div class="flex-box input-container">
+              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+              <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="" class="select-input" data-table="HOCSINH" readonly>
+            </div>
+            <span class="message "message>Hãy chọn id hợp lệ</span>
+            <span class="message error"></span>
+          </div>`;
+        else
+          updateConfig += `<div class="input-field flex-box">                      
+            <div class="flex-box input-container">
+              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+              <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="${constraint}">
+            </div>
+            <span class="message ">${message}</span>
+            <span class="message error"></span>
+          </div>`;
+      }
+          
     }
     addConfig += `</form>`;
     updateConfig += `</form>`;
@@ -955,7 +1006,10 @@ const web = {
         </div>`;
 
     $(".config-modal").innerHTML = htmls;
+    
     web.handleSubmitForm();
+    web.renderOptionLists();
+    web.handleValidInput();
   },
   //Hàm render alert confirm box
   renderConfirmAlert: () => {
@@ -990,7 +1044,16 @@ const web = {
       xmlhttp.onreadystatechange = function () {
         //bat dong bo, onload se cham hon so voi cac code khac
         if (this.readyState == 4 && this.status == 200)
-          resolve(JSON.parse(this.responseText));
+        {
+          let dataArr = JSON.parse(this.responseText);
+          dataArr.forEach((obj)=>{
+            for(let key in obj)
+              if(key.includes("DATE"))
+                obj[key] = obj[key].date.slice(0,10).split("-").reverse().join("-"); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
+          })
+
+          resolve(dataArr);
+        }          
       };
       xmlhttp.open(
         "GET",
@@ -1061,7 +1124,6 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        console.log(this.responseText)
         //gọi lại dữ liệu và render lại
         web.getData(web.Table).then((value) => {          
           web.handleChangeTable(value);
@@ -1361,7 +1423,7 @@ const web = {
         {
           item.classList.remove('active');
           //render lại theo mảng gốc ban đầu
-          web.render(web.DataArr[web.tableName],web.Table);
+          web.render(web.DataArr[web.Table],web.Table);
         }
         else 
         {
@@ -1383,28 +1445,64 @@ const web = {
     }
   },
 
-  //Xử lí việc lấy dữ liệu từ db khi chuyển bảng hoặc mới load trang
-  handleChangeTable: (value) =>
+  //Xử lí việc lấy dữ liệu từ db khi chuyển bảng hoặc mới load trang và xử lí bảng kco bản ghi
+  handleChangeTable: (value,table = web.Table,isRender = true) => // tham số t2 cho chọn render lại bảng hay ko, hay chỉ là xử lí mảng kco bản ghi nào
   {
     //Neu Bang chua co dong du lieu nao
     if (Object.getOwnPropertyNames(value[0])[0] == "COLUMN_NAME") {
       //Neu key cua dong tien la column_name => bang kco du lieu nao
       let obj = {};
       for (let item of value) obj[Object.values(item)[0]] = undefined;
-      web.DataArr[web.Table] = [obj];
-    } else web.DataArr[web.Table] = value;
+      web.DataArr[table] = [obj];
+    } else web.DataArr[table] = value;
 
-    web.render(web.DataArr[web.Table], web.Table);
-    web.RenderArr = web.DataArr[web.Table];
-    web.renderSearchingOptions();
+    if(isRender)
+    {
+      web.render(web.DataArr[web.Table], web.Table);
+      web.RenderArr = web.DataArr[web.Table];
+      web.renderSearchingOptions();
+    }
+  },  
+
+  handleValidInput: () =>
+  {
+    //Kiểm tra value ở input có valid hay ko --> tach ham`
+    for (let input of $$(`form.config-form .input-field input`)) {
+      input.addEventListener(
+        "focusout",
+        function (
+          e //blur
+        ) {
+          web.IsValidate = web.validate(input, input.dataset.constraint);
+        }
+      );
+
+      //khi đang tdoi du lieu trong input thì sẽ phải cài về như trc khi có lỗi
+      input.addEventListener(
+        "keydown",
+        function (
+          e //blur
+        ) {
+          web.resetError(input);
+        }
+      );
+
+      input.addEventListener(
+        "focusin",
+        function (
+          e //blur
+        ) {
+          web.resetError(input);
+        }
+      );
+    }
+
   },
 
   restartHandleEvents: () =>
   {
-    if(!web.IsTitleRendered)
-      web.handleOrder();
     web.handleConfigRow();
-    web.handleSubmitForm();
+    
   },
 
   handleEvents: () => {
@@ -1434,52 +1532,7 @@ const web = {
       web.renderInputForm();
       $(".config-modal-container").classList.remove("close");
     });
-
-    // render danh sách những lựa chọn theo key để tìm kiếm
-    for (let selectInput of $$(".select-input")) {
-      let colData = [];
-      selectInput.addEventListener("focus", function (e) {
-        //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
-        if (
-          selectInput.dataset.table == web.Table ||
-          selectInput.dataset.table == undefined
-        ) {
-          colData = web.DataArr[web.Table].map((row) => {
-            return row[selectInput.name];
-          });
-          web.renderOptionLists(colData, selectInput);
-        } else {
-          web
-            .getCol(selectInput.dataset.table, selectInput.name)
-            .then((value) => {
-              web.renderOptionLists(value, selectInput);
-            });
-        }
-      });
-    }
-
-    //Kiểm tra value ở input có valid hay ko
-    for (let input of $$(`form.config-form .input-field input`)) {
-      input.addEventListener(
-        "focusout",
-        function (
-          e //blur
-        ) {
-          web.IsValidate = web.validate(input, input.dataset.constraint);
-        }
-      );
-
-      //khi đang tdoi du lieu trong input thì sẽ phải cài về như trc khi có lỗi
-      input.addEventListener(
-        "keydown",
-        function (
-          e //blur
-        ) {
-          web.resetError(input);
-        }
-      );
-    }
-
+    
     //Xử lí tìm kiếm dữ liệu trên searching bar
     $(".searching-input").addEventListener("keyup", function (e) {
       web.findData();

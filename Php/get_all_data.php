@@ -11,7 +11,10 @@
   $id = $_GET['id'];
   $val = $_GET['val'];
 
-  $sql_querry = "SELECT * FROM $tableName";
+  $sql_querry = "
+    SELECT *
+    FROM $tableName
+  ";
 
   
   if($id != "")
