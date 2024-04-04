@@ -12,19 +12,19 @@ const web = {
   // Hàm render bảng (ndung chính của trang web)
   render: (DataArr, option) => {
     let htmls = "";
-    let flag = false;
-
+    let flag = web.IsTitleRendered;    
+    
     if (web.Table != $("#content-table").dataset.table) {
       $("#content-table").dataset.table = web.Table;
-      flag = true;
+      flag = false;
       web.IsTitleRendered = false; //reset lai trang thai da render title hay chua
     }
 
     switch (option) {
       case "STUDENT":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
+          flag = true;
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
           htmls += `<div class="table-row title-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="STUDENT_ID">
               <div class="name-col">ID</div>
@@ -40,15 +40,15 @@ const web = {
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_PHONE">
-              <div class="name-col">Phone</div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_GENDER">
+              <div class="name-col">Gender</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_EMAIL">
-              <div class="name-col">Email</div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_PHONE">
+              <div class="name-col">Phone</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -61,8 +61,8 @@ const web = {
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_GENDER">
-              <div class="name-col">Gender</div>
+            <div class="content-table-head table-col table-title fl-3 flex-box" name="ST_EMAIL">
+              <div class="name-col">Email</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -107,7 +107,6 @@ const web = {
 
         break;
           
-
       case "COURSE":
         if (!web.IsTitleRendered) {
           // tránh render lại title
@@ -186,9 +185,9 @@ const web = {
         break;
 
       case "TEACHER":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row title-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="TEACHER_ID">
               <div class="">ID</div>
@@ -206,6 +205,20 @@ const web = {
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_NATION">
               <div class="">Nation</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_GENDER">
+              <div class="">Gender</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_DATE">
+            <div class="">Date</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -232,20 +245,7 @@ const web = {
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_GENDER">
-              <div class="">Gender</div>
-              <div class="order-option flex-box">
-                <i class='bx bxs-up-arrow' data-order='asc'></i>
-                <i class='bx bxs-down-arrow' data-order='desc'></i>
-              </div>
-            </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_DATE">
-              <div class="">Date</div>
-              <div class="order-option flex-box">
-                <i class='bx bxs-up-arrow' data-order='asc'></i>
-                <i class='bx bxs-down-arrow' data-order='desc'></i>
-              </div>
-            </div>
+
             <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_DEGREE">
               <div class="">Degree</div>
               <div class="order-option flex-box">
@@ -263,24 +263,35 @@ const web = {
           </div>`;
         }
 
-        for (let x in DataArr) {
+        htmls += `<div class="row-container">`;
+
+        DataArr.forEach((obj) => { 
           if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
+            obj != undefined &&
+            Object.values(obj)[0] != undefined
           )
+          {
+            let keyArr = Object.keys(obj)
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].TEACHER_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].TR_NAME}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].TR_NATION}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].TR_PHONE}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].TR_EMAIL}</div>
-              <div class="content-table-head table-col fl-4">${DataArr[x].TR_ADDRESS}</div>
-              <div class="content-table-head table-col fl-4">${DataArr[x].TR_GENDER}</div>
-              <div class="content-table-head table-col fl-4">${DataArr[x].TR_DATE}</div>
-              <div class="content-table-head table-col fl-4">${DataArr[x].TR_DEGREE}</div>
-              <div class="content-table-head table-col fl-4">${DataArr[x].IELTS_OVERALL}</div>
+              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-3" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-4" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-4" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="content-table-head table-col fl-4" name="${keyArr[7]}">${obj[keyArr[7]]}</div>
+              <div class="content-table-head table-col fl-4" name="${keyArr[8]}">${obj[keyArr[8]]}</div>
+              <div class="content-table-head table-col fl-4" name="${keyArr[9]}">${obj[keyArr[9]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt' data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-        }
+          }
+        });
+        htmls += `</div>`;
+
         break;
 
       case "CLASS":
@@ -574,13 +585,20 @@ const web = {
     }
 
     let table = $("#content-table");
+
     //render nội dung bảng
-    if (!table.children[0] || flag)
-      // 3 THop: chua render title(!table.children[0]) || render rồi (flag=false) || chuyen sang bang moi (flag =true)
+    if (flag != web.IsTitleRendered) // Nếu flag == web.IsTitleRender thì tức là nó đã render rồi, còn ko thì đã chuyển bảng || chưa render    
       //Nếu đây lần render đầu tiên
       table.innerHTML = htmls; //render cả tiêu đề
     else table.children[1].innerHTML = htmls;
+    
+    //Mỗi lần render lại là phải restart 2 handle event order và configRow
+    if(flag != web.IsTitleRendered)
+      web.handleOrder();
 
+    web.handleConfigRow();
+
+    web.IsTitleRendered = flag // set lại trạng thái đã render title hay chưa
     //set lại chiều cao của sidebar để fit với bảng
     $(".sidebar").style.height = $(".main-content").scrollHeight + "px";
   },
@@ -935,6 +953,7 @@ const web = {
               Save
           </button>
         </div>`;
+
     $(".config-modal").innerHTML = htmls;
     web.handleSubmitForm();
   },
@@ -1021,12 +1040,11 @@ const web = {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         web.getData(web.Table).then((value) => {
-          web.DataArr[web.Table] = value;
-          web.render(web.DataArr[web.Table], web.Table);          
-          web.RenderArr = web.DataArr[web.Table];
-          $(".alert-container").classList.add("close");
-          $(".config-modal-container").classList.add("close");
+          web.handleChangeTable(value);
           web.resetInputValue();
+         
+          $(".alert-container").classList.add("close");
+          $(".config-modal-container").classList.add("close");          
         });
       }
     };
@@ -1043,14 +1061,15 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        console.log(this.responseText)
         //gọi lại dữ liệu và render lại
         web.getData(web.Table).then((value) => {          
-          web.DataArr[web.Table] = value;
-          web.render(web.DataArr[web.Table], web.Table);
-          web.RenderArr = web.DataArr[web.Table];
+          web.handleChangeTable(value);
+          web.resetInputValue();
+
+          // Đóng form và alert box
           $(".alert-container").classList.add("close");
           $(".config-modal-container").classList.add("close");
-          web.resetInputValue();
         });
       }
     };
@@ -1066,7 +1085,7 @@ const web = {
     xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
   },
   // Hàm xóa 1 bản ghi
-  deleteRow: (tableName, id, key) => {
+  deleteRow: (tableName = web.Table, id, key) => {
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "./Php/delete_row.php");
     xmlhttp.setRequestHeader(
@@ -1076,6 +1095,13 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        //gọi lại dữ liệu và render lại
+        web.getData(web.Table).then((value) => {          
+          //xử lí chuyển bảng
+          web.handleChangeTable(value);
+          //tắt alert box
+          $(".alert-container").classList.add("close");          
+        });
       }
     };
 
@@ -1270,6 +1296,7 @@ const web = {
             item.includes("ID")
           ); //lấy ra key name của ID
           web.inputObj = {[key]:id};
+          web.ConfigState = 'delete'
           web.renderConfirmAlert();
           
         } else {
@@ -1300,8 +1327,8 @@ const web = {
       else if (web.ConfigState == "update") web.updateRow();
       else
       {
-        let key = Object.keys(web.inputObj)[0]
-        web.deleteRow(web.Table,web.inputObj.key,key);    
+        let key = Object.keys(web.inputObj)[0];        
+        web.deleteRow(web.Table,web.inputObj[key],key);    
       }    
     });
   },
@@ -1328,23 +1355,56 @@ const web = {
 
   handleOrder: () =>
   {
-    for (let item of $$(".order-option i")) {
+    for (let item of $$(".order-option i")) {      
       item.addEventListener("click", function (e) {
-        for (let item of $$(".order-option i")) item.classList.remove("active");
+        if(item.classList.contains('active')) //Nếu click order option đang active (hủy sort)
+        {
+          item.classList.remove('active');
+          //render lại theo mảng gốc ban đầu
+          web.render(web.DataArr[web.tableName],web.Table);
+        }
+        else 
+        {
+          for (let item of $$(".order-option i")) item.classList.remove("active");
 
-        let col = item.closest(".table-title");
+          let col = item.closest(".table-title");
 
-        item.classList.add("active");
-        web.render(
-          web.sortData(
-            web.RenderArr,
-            col.getAttribute("name"),
-            item.dataset.order
-          ),
-          web.Table
-        );
+          item.classList.add("active");
+          web.render(
+            web.sortData(
+              web.RenderArr,
+              col.getAttribute("name"),
+              item.dataset.order
+            ),
+            web.Table
+          );
+        }
       });
     }
+  },
+
+  //Xử lí việc lấy dữ liệu từ db khi chuyển bảng hoặc mới load trang
+  handleChangeTable: (value) =>
+  {
+    //Neu Bang chua co dong du lieu nao
+    if (Object.getOwnPropertyNames(value[0])[0] == "COLUMN_NAME") {
+      //Neu key cua dong tien la column_name => bang kco du lieu nao
+      let obj = {};
+      for (let item of value) obj[Object.values(item)[0]] = undefined;
+      web.DataArr[web.Table] = [obj];
+    } else web.DataArr[web.Table] = value;
+
+    web.render(web.DataArr[web.Table], web.Table);
+    web.RenderArr = web.DataArr[web.Table];
+    web.renderSearchingOptions();
+  },
+
+  restartHandleEvents: () =>
+  {
+    if(!web.IsTitleRendered)
+      web.handleOrder();
+    web.handleConfigRow();
+    web.handleSubmitForm();
   },
 
   handleEvents: () => {
@@ -1368,6 +1428,7 @@ const web = {
       });
     }
 
+    // Mở add modal
     $("#table-config").addEventListener("click", function (e) {
       web.ConfigState = 'add';
       web.renderInputForm();
@@ -1439,36 +1500,20 @@ const web = {
             //Nếu bảng này chưa đc gửi request bao giờ thì gửi request
             web.getData(web.Table).then((value) => {
               //Neu Bang chua co dong du lieu nao
-              if (Object.getOwnPropertyNames(value[0])[0] == "COLUMN_NAME") {
-                //Neu key cua dong tien la column_name => bang kco du lieu nao
-                let obj = {};
-                for (let item of value) obj[Object.values(item)[0]] = undefined;
-                web.DataArr[web.Table] = [obj];
-              } else web.DataArr[web.Table] = value;
+              web.handleChangeTable(value)
 
+              //Kích hoạt active cho table-nav vừa mới click
               $(".list-sidebar.active").classList.remove("active");
               item.classList.add("active");
-              //web.handleChangeTable();
-
-              web.render(web.DataArr[web.Table], web.Table);
-              web.RenderArr = web.DataArr[web.Table];
-              web.renderSearchingOptions();
-              //restart handle event
-              web.handleOrder();
-              web.handleConfigRow();
             });
           //do bat dong bo nen phai lap code
-          else {
+          else { // Bảng đã có -> Không cần gửi request lại
             $(".list-sidebar.active").classList.remove("active");
             item.classList.add("active");
-            //web.handleChangeTable();
 
             web.render(web.DataArr[web.Table], web.Table);
             web.RenderArr = web.DataArr[web.Table];
             web.renderSearchingOptions();
-            //restart handle event
-            web.handleOrder();
-            web.handleConfigRow();
           }
         }
       });
@@ -1497,22 +1542,8 @@ const web = {
   },
   start: () => {
     web.getData(web.Table).then((value) => {
-      //Neu Bang chua co dong du lieu nao
-      if (Object.getOwnPropertyNames(value[0])[0] == "COLUMN_NAME") {
-        //Neu key cua dong tien la column_name => bang kco du lieu nao
-        let obj = {};
-        for (let item of value) obj[Object.values(item)[0]] = undefined;
-        web.DataArr[web.Table] = [obj];
-      } else web.DataArr[web.Table] = value;
-
-      web.render(web.DataArr[web.Table], web.Table);
-      web.RenderArr = web.DataArr[web.Table];
-      web.renderSearchingOptions();
-
-      //restart handle event
+      web.handleChangeTable(value);
       web.handleEvents();
-      web.handleConfigRow();
-      web.handleOrder();
     });
   },
 };
