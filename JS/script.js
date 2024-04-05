@@ -118,9 +118,9 @@ const web = {
         break;
 
       case "COURSE":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row title-row">
           <div class="content-table-head table-col table-title fl-1 flex-box" name="COURSE_ID">
             <div class="">ID</div>
@@ -176,20 +176,27 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+        DataArr.forEach((obj) => 
+        {
+          if (obj != undefined && Object.values(obj)[0] != undefined)
+          {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].COURSE_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_NAME}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_LEVEL}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].COURSE_TYPE}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].COURSE_METHOD}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_LEVEL}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_FEE}</div>
+              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-3" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
+          }
+        })
+          
 
         htmls += `</div>`;
         break;
@@ -321,9 +328,9 @@ const web = {
         break;
 
       case "CLASS":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
               <div class="">ID</div>
@@ -358,25 +365,30 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+         DataArr.forEach((obj) => 
+        {
+          if (obj != undefined && Object.values(obj)[0] != undefined)
+          {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].TEACHER_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].CLASSROOM}</div>
+              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
 
       case "TIMETABLE":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row">
               <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
                 <div class="">ID</div>
@@ -404,24 +416,29 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+         DataArr.forEach((obj) => 
+        {
+          if (obj != undefined && Object.values(obj)[0] != undefined)
+          {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-                <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-                <div class="content-table-head table-col fl-2">${DataArr[x].WEEKLYDAY}</div>
-                <div class="content-table-head table-col fl-2">${DataArr[x].DAYPERIOD}</div>
-              </div>`;
-
+                <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+                <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+                <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+                <div class="config-btn-container">
+                  <i class='bx bxs-edit-alt'data-config="update"></i>
+                  <i class='bx bx-x' data-config="delete"></i>
+                </div>
+              </div>`
+            };
+        });
         htmls += `</div>`;
         break;
 
       case "RESULT":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
               <div class="">ID</div>
@@ -477,28 +494,33 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+         DataArr.forEach((obj) => 
+        {
+          if (obj != undefined && Object.values(obj)[0] != undefined)
+          {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].STUDENT_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].SPEAKING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].LISTENING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].READING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].WRITING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].OVERALL}</div>
+              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
 
       case "CLASS_DETAIL":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
               <div class="">ID</div>
@@ -533,25 +555,30 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+         DataArr.forEach((obj) => 
+        {
+          if (obj != undefined && Object.values(obj)[0] != undefined)
+          {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].DATE_START}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].DATE_END}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].LESSONS}</div>
+              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
 
       case "BILL":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="BILL_ID">
               <div class="">ID</div>
@@ -593,19 +620,24 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+         DataArr.forEach((obj) => 
+        {
+          if (obj != undefined && Object.values(obj)[0] != undefined)
+          {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].BILL_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].STUDENT_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].DATE_P}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].METHOD_P}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].PAYMENT}</div>
+              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
     }
@@ -806,28 +838,28 @@ const web = {
             }
 
             if (key.includes("NAME")) {
-              title = `Student Name`;
+              title = `Course Name`;
               message = `Example: "Trần Anh Khoa"`;
             }
 
             if (key.includes("FEE")) {
-              title = `Student Nation`;
-              message = `Example: "Vietnam"`;
+              title = `Course Fee`;
+              message = `Example: "10000000"`;
             }
 
             if (key.includes("TYPE")) {
-              title = `Student Phone`;
-              message = `Example: "0702455222, +8472455222"`;
+              title = `Course Type`;
+              message = `Example: "Junior"`;
             }
 
             if (key.includes("LEVEL")) {
-              title = `Student Email`;
-              message = `Example: "student@gmail.com"`;
+              title = `Course Level`;
+              message = `Example: "Basic"`;
             }
 
             if (key.includes("METHOD")) {
-              title = `Student Address`;
-              message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
+              title = `Course Method`;
+              message = `Example: "Online - Offline"`;
             }
           }
           break;
@@ -877,10 +909,13 @@ const web = {
             if (key.includes("CLASS_ID")) {
               title = `Class ID`;
               message = `Example: "CL0, CL1, ..."`;
+              constraint = "ids,subid,required,noSpecialChar";
+
             }
             if (key.includes("STUDENT_ID")) {
               title = `Student ID`;
               message = `Example: "2, 3, ..."`;
+              constraint = "ids,subid,required,noSpecialChar";
             }
             if (key.includes("SPEAKING")) {
               title = `Speaking`;
@@ -1250,14 +1285,46 @@ const web = {
           }
           break;
         }
+
+        case "ids": {
+          errorMsg = "";
+          isValidate = true;
+
+          let inputs = input.closest('.config-form').querySelectorAll('input[name*="_ID"]');
+          let obj = {}
+
+          for(let input of inputs)        
+            obj[input.name] = input.value;
+                    
+          for (let row of web.DataArr[web.Table]) {
+            if(row[input.name] == undefined) // Bang kco du lieu thi break
+              break;
+
+            let flag = false; // xac dinh trang thai ban dau la bi trung` PK
+
+            for (let key in obj)
+            {
+              console.log(row[key] + "+" + obj[key] + "+" + flag)
+              if (obj[key] !== row[key])               
+                flag = true; // ko bi trung` PK
+            }
+
+            if(!flag) // Neu bi trung` thi break
+            {
+              errorMsg = "Id da ton tai";
+              isValidate = false;              
+              break;
+            }
+          }          
+        }
+        break;
+
         case "subid": {
           errorMsg = "Sub ID không tồn tại";
           isValidate = false;
 
           if(web.DataArr[input.dataset.table])
             for (let row of web.DataArr[input.dataset.table]) {
-              console.log(row[input.name])
-              console.log(input.value)
               if (row[input.name] != undefined && input.value === row[input.name]) {
                 errorMsg = "";
                 isValidate = true;
@@ -1313,6 +1380,9 @@ const web = {
           }
         }
       }
+
+      if(!isValidate) //neu sai roi thi ko can xet cac constraint khac nua
+        break;
     }
 
     if (!isValidate) {
@@ -1321,8 +1391,20 @@ const web = {
         .classList.add("close");
       input.classList.add("error");
       errorElm.innerText = errorMsg;
-    } else web.resetError(input);
+    } 
+    else
+    {
+      if(input.dataset.constraint.includes('ids'))
+      {
+        let inputs = input.closest('.config-form').querySelectorAll('input[name*="_ID"]');
+        for(let input of inputs)
+          web.resetError(input);
+      }
+      else
+        web.resetError(input);
+    }
 
+    console.log(isValidate)
     return isValidate;
   },
   // Hàm lấy value từ input đang tồn tại (tiền xử lí dữ liệu)
