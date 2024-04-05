@@ -12,8 +12,8 @@ const web = {
   // Hàm render bảng (ndung chính của trang web)
   render: (DataArr, option) => {
     let htmls = "";
-    let flag = web.IsTitleRendered;    
-    
+    let flag = web.IsTitleRendered;
+
     if (web.Table != $("#content-table").dataset.table) {
       $("#content-table").dataset.table = web.Table;
       flag = false;
@@ -80,21 +80,31 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        DataArr.forEach((obj) => { 
-          if (
-            obj != undefined &&
-            Object.values(obj)[0] != undefined
-          )
-          {
-            let keyArr = Object.keys(obj)
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[6]
+              }">${obj[keyArr[6]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt' data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -106,7 +116,7 @@ const web = {
         htmls += `</div>`;
 
         break;
-          
+
       case "COURSE":
         if (!web.IsTitleRendered) {
           // tránh render lại title
@@ -265,24 +275,40 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        DataArr.forEach((obj) => { 
-          if (
-            obj != undefined &&
-            Object.values(obj)[0] != undefined
-          )
-          {
-            let keyArr = Object.keys(obj)
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[7]}">${obj[keyArr[7]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[8]}">${obj[keyArr[8]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[9]}">${obj[keyArr[9]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-4" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-4" name="${
+                keyArr[6]
+              }">${obj[keyArr[6]]}</div>
+              <div class="content-table-head table-col fl-4" name="${
+                keyArr[7]
+              }">${obj[keyArr[7]]}</div>
+              <div class="content-table-head table-col fl-4" name="${
+                keyArr[8]
+              }">${obj[keyArr[8]]}</div>
+              <div class="content-table-head table-col fl-4" name="${
+                keyArr[9]
+              }">${obj[keyArr[9]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt' data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -587,53 +613,56 @@ const web = {
     let table = $("#content-table");
 
     //render nội dung bảng
-    if (flag != web.IsTitleRendered) // Nếu flag == web.IsTitleRender thì tức là nó đã render rồi, còn ko thì đã chuyển bảng || chưa render    
+    if (flag != web.IsTitleRendered)
+      // Nếu flag == web.IsTitleRender thì tức là nó đã render rồi, còn ko thì đã chuyển bảng || chưa render
       //Nếu đây lần render đầu tiên
       table.innerHTML = htmls; //render cả tiêu đề
     else table.children[1].innerHTML = htmls;
-    
+
     //Mỗi lần render lại là phải restart 2 handle event order và configRow
-    if(flag != web.IsTitleRendered)
-      web.handleOrder();
+    if (flag != web.IsTitleRendered) web.handleOrder();
 
     web.handleConfigRow();
 
-    web.IsTitleRendered = flag // set lại trạng thái đã render title hay chưa
+    web.IsTitleRendered = flag; // set lại trạng thái đã render title hay chưa
     //set lại chiều cao của sidebar để fit với bảng
     $(".sidebar").style.height = $(".main-content").scrollHeight + "px";
   },
   // Hàm render options list dựa trên bảng đang đc tham chiếu
   renderOptionLists: () => {
     // render danh sách những lựa chọn theo key để tìm kiếm
-    for (let selectInput of $$(".select-input")) { //để hàm riêng đi: not done yet
+    for (let selectInput of $$(".select-input")) {
+      //để hàm riêng đi: not done yet
       selectInput.addEventListener("focus", function (e) {
         let htmls = "";
         let table = selectInput.dataset.table;
+
         //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
-        if (web.DataArr[table]) 
-        {
+        if (web.DataArr[table]) { // Bảng đã có dữ liệu thì ko cần gửi request cho db
           web.DataArr[table].forEach((row) => {
-            htmls += `<option value="${row[selectInput.name]}"></option>`;
+            if(row[selectInput.name] != undefined) // Nếu nó chưa có dữ nào thì đừng render
+              htmls += `<option value="${row[selectInput.name]}"></option>`;
           });
-          selectInput.closest(".input-field").querySelector("datalist").innerHTML = htmls;
-        } 
-        else 
-        {
-          web
-            .getData(table)
-            .then((value) => {   
-              web.handleChangeTable(value,table,false)       
-              web.DataArr[table].forEach((row) => {
+          selectInput
+            .closest(".input-field")
+            .querySelector("datalist").innerHTML = htmls;
+        } else {
+          web.getData(table).then((value) => {
+            web.handleChangeTable(value, table, false); // tiền xử lí dữ liệu nếu bảng kco hàng nào
+            web.DataArr[table].forEach((row) => {
+              if(row[selectInput.name] != undefined) // Nếu nó chưa có dữ nào thì đừng render
                 htmls += `<option value="${row[selectInput.name]}"></option>`;
-              });
-
-              web.DataArr[table] = value;
-
-              selectInput.closest(".input-field").querySelector("datalist").innerHTML = htmls;
             });
+
+            web.DataArr[table] = value;
+
+            selectInput
+              .closest(".input-field")
+              .querySelector("datalist").innerHTML = htmls;
+          });
         }
       });
-    }    
+    }
   },
   //Hàm render ra những lựa chọn để có thể chọn khi tìm kiếm
   renderSearchingOptions: () => {
@@ -649,11 +678,7 @@ const web = {
     //Khởi tạo header cho modal
     let htmls = `
       <div class="modal-header">
-        ${
-          web.ConfigState == "add"
-            ? "ADD ROW MODAL"
-            : "UPDATE ROW MODAL"
-        }
+        ${web.ConfigState == "add" ? "ADD ROW MODAL" : "UPDATE ROW MODAL"}
       </div>`;
 
     // Khởi tạo form add và update
@@ -663,8 +688,8 @@ const web = {
       let message = "";
       let title = "";
       let constraint = "";
-
-      //them constaints
+      
+      //them constraints 
       if (key.includes("ID")) constraint = "id,required,noSpecialChar";
       if (key.includes("NAME")) constraint = "required,noSpecialChar,noNumber";
       if (key.includes("PHONE")) constraint = "required,phone";
@@ -816,12 +841,12 @@ const web = {
             if (key.includes("COURSE_ID")) {
               title = `Course ID`;
               message = `Example: "C0, C1, ..."`;
-              constraint = "subid,required,noSpecialChar"
+              constraint = "subid,required,noSpecialChar";
             }
             if (key.includes("TEACHER_ID")) {
               title = `Teacher ID`;
               message = `Example: "T1, T2, ..."`;
-              constraint = "subid,required,noSpecialChar"
+              constraint = "subid,required,noSpecialChar";
             }
             if (key.includes("CLASSROOM")) {
               title = `Classroom`;
@@ -927,12 +952,15 @@ const web = {
           break;
       }
 
-      if(constraint.includes("subid")) //Thêm datalist
-      {
+      if (constraint.includes("subid")) {
+        //Thêm datalist
         addConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
             <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="A-${key}" name="${key}" list="list-${key}" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(0,key.length-3)}">
+            <input id="A-${key}" name="${key}" list="list-${key}" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
+          0,
+          key.length - 3
+        )}">
             <datalist id="list-${key}"></datalist>
           </div>
           <span class="message ">${message}</span>
@@ -942,15 +970,19 @@ const web = {
         updateConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
             <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="U-${key}" name="${key}" list="list-${key}" value="${web.inputObj[key]}" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(0,key.length-3)}">
+            <input id="U-${key}" name="${key}" list="list-${key}" value="${
+          web.inputObj[key]
+        }" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
+          0,
+          key.length - 3
+        )}">
             <datalist id="list-${key}"></datalist>
           </div>
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
-      }
-      else  //kco datalist
-      {
+      } //kco datalist
+      else {
         addConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
             <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
@@ -960,7 +992,8 @@ const web = {
           <span class="message error"></span>
         </div>`;
 
-        if (key.includes("ID")) //ID update thì set readonly
+        if (key.includes("ID"))
+          //ID update thì set readonly
           updateConfig += `<div class="input-field flex-box">                      
             <div class="flex-box input-container">
               <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
@@ -979,7 +1012,6 @@ const web = {
             <span class="message error"></span>
           </div>`;
       }
-          
     }
     addConfig += `</form>`;
     updateConfig += `</form>`;
@@ -1006,7 +1038,7 @@ const web = {
         </div>`;
 
     $(".config-modal").innerHTML = htmls;
-    
+
     web.handleSubmitForm();
     web.renderOptionLists();
     web.handleValidInput();
@@ -1043,17 +1075,20 @@ const web = {
       let xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
       xmlhttp.onreadystatechange = function () {
         //bat dong bo, onload se cham hon so voi cac code khac
-        if (this.readyState == 4 && this.status == 200)
-        {
+        if (this.readyState == 4 && this.status == 200) {
           let dataArr = JSON.parse(this.responseText);
-          dataArr.forEach((obj)=>{
-            for(let key in obj)
-              if(key.includes("DATE"))
-                obj[key] = obj[key].date.slice(0,10).split("-").reverse().join("-"); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
-          })
+          dataArr.forEach((obj) => {
+            for (let key in obj)
+              if (key.includes("DATE"))
+                obj[key] = obj[key].date
+                  .slice(0, 10)
+                  .split("-")
+                  .reverse()
+                  .join("-"); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
+          });
 
           resolve(dataArr);
-        }          
+        }
       };
       xmlhttp.open(
         "GET",
@@ -1105,9 +1140,9 @@ const web = {
         web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
           web.resetInputValue();
-         
+
           $(".alert-container").classList.add("close");
-          $(".config-modal-container").classList.add("close");          
+          $(".config-modal-container").classList.add("close");
         });
       }
     };
@@ -1125,7 +1160,7 @@ const web = {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         //gọi lại dữ liệu và render lại
-        web.getData(web.Table).then((value) => {          
+        web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
           web.resetInputValue();
 
@@ -1158,11 +1193,11 @@ const web = {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         //gọi lại dữ liệu và render lại
-        web.getData(web.Table).then((value) => {          
+        web.getData(web.Table).then((value) => {
           //xử lí chuyển bảng
           web.handleChangeTable(value);
           //tắt alert box
-          $(".alert-container").classList.add("close");          
+          $(".alert-container").classList.add("close");
         });
       }
     };
@@ -1198,98 +1233,97 @@ const web = {
     let isValidate = true;
     let errorMsg = "";
     let errorElm = inputField.querySelector("span.error");
-    input.value = input.value.trim();
+    input.value = input.value.trim();    
 
     //Lý do để Promise bên ngoài là vì, hàm lấy cột trả về Promise nếu ko để mọi t/hop trong .then() thì sẽ xảy ra bất đồng bộ
-    web
-      .getCol(input.dataset.table ? input.dataset.table : "", input.name)
-      .then((colData) => {
-        for (let type of types) {
-          switch (type) {
-            case "id": {
-              for (let row of web.DataArr[web.Table]) {
-                if (row[input.name] == undefined) break;
+    for (let type of types) {
+      switch (type) {
+        case "id": {
+          for (let row of web.DataArr[web.Table]) {
+            if (row[input.name] == undefined) break;
 
-                if (input.value === row[input.name]) {
-                  errorMsg = "Id đã tồn tại";
-                  isValidate = false;
-                  break;
-                }
-              }
-              break;
-            }
-            case "subid": {
-              errorMsg = "Sub ID không tồn tại";
+            if (input.value === row[input.name]) {
+              errorMsg = "Id đã tồn tại";
               isValidate = false;
+              break;
+            }
+          }
+          break;
+        }
+        case "subid": {
+          errorMsg = "Sub ID không tồn tại";
+          isValidate = false;
 
-              for (let val of colData) {
-                if (input.value === val[0]) {
-                  errorMsg = "";
-                  isValidate = true;
-                  break;
-                }
-              }
-              break;
-            }
-
-            case "phone": {
-              let regex = /^(0|\+84)\d{9}$/;
-              if (!input.value.match(regex)) {
-                errorMsg = "Số điện thoại không hợp lệ!";
-                isValidate = false;
-              }
-              break;
-            }
-            case "email": {
-              let regex =
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-              if (!input.value.toLowerCase().match(regex)) {
-                errorMsg = "Email không hợp lệ!";
-                isValidate = false;
-              }
-              break;
-            }
-            case "required": {
-              if (input.value.trim() == "") {
-                errorMsg = "Dữ liệu này không được để trống";
-                isValidate = false;
+          if(web.DataArr[input.dataset.table])
+            for (let row of web.DataArr[input.dataset.table]) {
+              console.log(row[input.name])
+              console.log(input.value)
+              if (row[input.name] != undefined && input.value === row[input.name]) {
+                errorMsg = "";
+                isValidate = true;
                 break;
               }
+           }
+          break;
+        }
+
+        case "phone": {
+          let regex = /^(0|\+84)\d{9}$/;
+          if (!input.value.match(regex)) {
+            errorMsg = "Số điện thoại không hợp lệ!";
+            isValidate = false;
+          }
+          break;
+        }
+        case "email": {
+          let regex =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!input.value.toLowerCase().match(regex)) {
+            errorMsg = "Email không hợp lệ!";
+            isValidate = false;
+          }
+          break;
+        }
+        case "required": {
+          if (input.value.trim() == "") {
+            errorMsg = "Dữ liệu này không được để trống";
+            isValidate = false;
+            break;
+          }
+          break;
+        }
+        case "noSpecialChar": {
+          let specialChar = "!@#$%^&*()+=-[]\\';,./{}|\":<>?";
+          for (let ch of input.value) {
+            if (specialChar.indexOf(ch) != -1) {
+              errorMsg = "Không được phép nhập ký tự đặc biệt";
+              isValidate = false;
               break;
             }
-            case "noSpecialChar": {
-              let specialChar = "!@#$%^&*()+=-[]\\';,./{}|\":<>?";
-              for (let ch of input.value) {
-                if (specialChar.indexOf(ch) != -1) {
-                  errorMsg = "Không được phép nhập ký tự đặc biệt";
-                  isValidate = false;
-                  break;
-                }
-              }
+          }
+          break;
+        }
+        case "noNumber": {
+          for (let ch of input.value) {
+            if (!isNaN(Number(ch)) && ch != " ") {
+              errorMsg = "Không được phép nhập ký tự số";
+              isValidate = false;
               break;
-            }
-            case "noNumber": {
-              for (let ch of input.value) {
-                if (!isNaN(Number(ch)) && ch != " ") {
-                  errorMsg = "Không được phép nhập ký tự số";
-                  isValidate = false;
-                  break;
-                }
-              }
             }
           }
         }
+      }
+    }
 
-        if (!isValidate) {
-          inputField
-            .querySelector("span.message:not(.error)")
-            .classList.add("close");
-          input.classList.add("error");
-          errorElm.innerText = errorMsg;
-        } else web.resetError(input);
+    if (!isValidate) {
+      inputField
+        .querySelector("span.message:not(.error)")
+        .classList.add("close");
+      input.classList.add("error");
+      errorElm.innerText = errorMsg;
+    } else web.resetError(input);
 
-        return isValidate;
-      });
+    return isValidate;
   },
   // Hàm lấy value từ input đang tồn tại (tiền xử lí dữ liệu)
   getInputData: () => {
@@ -1357,19 +1391,18 @@ const web = {
           let key = Object.keys(web.DataArr[web.Table][0]).find((item) =>
             item.includes("ID")
           ); //lấy ra key name của ID
-          web.inputObj = {[key]:id};
-          web.ConfigState = 'delete'
+          web.inputObj = { [key]: id };
+          web.ConfigState = "delete";
           web.renderConfirmAlert();
-          
         } else {
-          for(let item of row.children)
-            web.inputObj[item.getAttribute('name')] = item.innerText 
+          for (let item of row.children)
+            web.inputObj[item.getAttribute("name")] = item.innerText;
           // Đưa dữ liệu ban đầu (trước khi update) vào Input Obj để bên config modal có thể đưa
           // những dữ liệu này hiển thị bên update modal
 
-          web.ConfigState = 'update';
-          web.renderInputForm();          
-          $('.config-modal-container').classList.remove('close')
+          web.ConfigState = "update";
+          web.renderInputForm();
+          $(".config-modal-container").classList.remove("close");
         }
       });
     }
@@ -1387,17 +1420,15 @@ const web = {
     yes.addEventListener("click", function (e) {
       if (web.ConfigState == "add") web.addRow();
       else if (web.ConfigState == "update") web.updateRow();
-      else
-      {
-        let key = Object.keys(web.inputObj)[0];        
-        web.deleteRow(web.Table,web.inputObj[key],key);    
-      }    
+      else {
+        let key = Object.keys(web.inputObj)[0];
+        web.deleteRow(web.Table, web.inputObj[key], key);
+      }
     });
   },
 
   // Xử lí submit form
-  handleSubmitForm: () => 
-  {
+  handleSubmitForm: () => {
     $("#config-btn").addEventListener("click", function (e) {
       let inputList = $$(`form .input-field input`); //danh sach input tuong ung voi config-state
       e.preventDefault();
@@ -1415,19 +1446,17 @@ const web = {
     });
   },
 
-  handleOrder: () =>
-  {
-    for (let item of $$(".order-option i")) {      
+  handleOrder: () => {
+    for (let item of $$(".order-option i")) {
       item.addEventListener("click", function (e) {
-        if(item.classList.contains('active')) //Nếu click order option đang active (hủy sort)
-        {
-          item.classList.remove('active');
+        if (item.classList.contains("active")) {
+          //Nếu click order option đang active (hủy sort)
+          item.classList.remove("active");
           //render lại theo mảng gốc ban đầu
-          web.render(web.DataArr[web.Table],web.Table);
-        }
-        else 
-        {
-          for (let item of $$(".order-option i")) item.classList.remove("active");
+          web.render(web.DataArr[web.Table], web.Table);
+        } else {
+          for (let item of $$(".order-option i"))
+            item.classList.remove("active");
 
           let col = item.closest(".table-title");
 
@@ -1446,8 +1475,11 @@ const web = {
   },
 
   //Xử lí việc lấy dữ liệu từ db khi chuyển bảng hoặc mới load trang và xử lí bảng kco bản ghi
-  handleChangeTable: (value,table = web.Table,isRender = true) => // tham số t2 cho chọn render lại bảng hay ko, hay chỉ là xử lí mảng kco bản ghi nào
-  {
+  handleChangeTable: (
+    value,
+    table = web.Table,
+    isRender = true // tham số t2 cho chọn render lại bảng hay ko, hay chỉ là xử lí mảng kco bản ghi nào
+  ) => {
     //Neu Bang chua co dong du lieu nao
     if (Object.getOwnPropertyNames(value[0])[0] == "COLUMN_NAME") {
       //Neu key cua dong tien la column_name => bang kco du lieu nao
@@ -1456,16 +1488,14 @@ const web = {
       web.DataArr[table] = [obj];
     } else web.DataArr[table] = value;
 
-    if(isRender)
-    {
+    if (isRender) {
       web.render(web.DataArr[web.Table], web.Table);
       web.RenderArr = web.DataArr[web.Table];
       web.renderSearchingOptions();
     }
-  },  
+  },
 
-  handleValidInput: () =>
-  {
+  handleValidInput: () => {
     //Kiểm tra value ở input có valid hay ko --> tach ham`
     for (let input of $$(`form.config-form .input-field input`)) {
       input.addEventListener(
@@ -1496,17 +1526,14 @@ const web = {
         }
       );
     }
-
   },
 
-  restartHandleEvents: () =>
-  {
+  restartHandleEvents: () => {
     web.handleConfigRow();
-    
   },
 
   handleEvents: () => {
-    //Bien dung chung    
+    //Bien dung chung
 
     // Xử lí tắt modal
     $(".config-modal-container").addEventListener("click", function (e) {
@@ -1528,11 +1555,11 @@ const web = {
 
     // Mở add modal
     $("#table-config").addEventListener("click", function (e) {
-      web.ConfigState = 'add';
+      web.ConfigState = "add";
       web.renderInputForm();
       $(".config-modal-container").classList.remove("close");
     });
-    
+
     //Xử lí tìm kiếm dữ liệu trên searching bar
     $(".searching-input").addEventListener("keyup", function (e) {
       web.findData();
@@ -1553,14 +1580,15 @@ const web = {
             //Nếu bảng này chưa đc gửi request bao giờ thì gửi request
             web.getData(web.Table).then((value) => {
               //Neu Bang chua co dong du lieu nao
-              web.handleChangeTable(value)
+              web.handleChangeTable(value);
 
               //Kích hoạt active cho table-nav vừa mới click
               $(".list-sidebar.active").classList.remove("active");
               item.classList.add("active");
             });
           //do bat dong bo nen phai lap code
-          else { // Bảng đã có -> Không cần gửi request lại
+          else {
+            // Bảng đã có -> Không cần gửi request lại
             $(".list-sidebar.active").classList.remove("active");
             item.classList.add("active");
 
@@ -1570,7 +1598,7 @@ const web = {
           }
         }
       });
-    }    
+    }
 
     let menu = $(".icon-menu");
     let sidebar = $(".sidebar");
