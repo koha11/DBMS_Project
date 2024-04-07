@@ -22,7 +22,7 @@ const web = {
 
     switch (option) {
       case "STUDENT":
-        if (!flag) {
+        if (!flag) {          
           flag = true;
           // tránh render lại title
           htmls += `<div class="table-row title-row">
@@ -129,74 +129,75 @@ const web = {
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_NAME">
+          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_NAME">
             <div class="">Course Name</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_LEVEL">
-            <div class="">Level</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
-            </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_TYPE">
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_TYPE">
             <div class="">Type</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_METHOD">
-            <div class="">Method</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
-            </div>
-          </div>
           <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_LEVEL">
             <div class="">Level</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
+          </div>          
+          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_FEE">
+          <div class="">Fee</div>
+          <div class="order-option flex-box">
+            <i class='bx bxs-up-arrow' data-order='asc'></i>
+            <i class='bx bxs-down-arrow' data-order='desc'></i>
           </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_FEE">
-            <div class="">Fee</div>
+          </div>  
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_METHOD">
+            <div class="">Method</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          </div>`;
+        </div>`;
         }
 
         htmls += `<div class="row-container">`;
 
-        DataArr.forEach((obj) => 
-        {
-          if (obj != undefined && Object.values(obj)[0] != undefined)
-          {
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
             let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]? "Offline" : "Online"}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt'data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
               </div>
             </div>`;
           }
-        })
-          
+        });
 
         htmls += `</div>`;
         break;
@@ -220,14 +221,14 @@ const web = {
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_NATION">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="TR_NATION">
               <div class="">Nation</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_GENDER">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="TR_GENDER">
               <div class="">Gender</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -263,14 +264,14 @@ const web = {
               </div>
             </div>
 
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_DEGREE">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="TR_DEGREE">
               <div class="">Degree</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="IELTS_OVERALL">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="IELTS_OVERALL">
               <div class="">Ielts Overall</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -292,28 +293,28 @@ const web = {
               <div class="content-table-head table-col fl-2" name="${
                 keyArr[1]
               }">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-3" name="${
+              <div class="content-table-head table-col fl-1" name="${
                 keyArr[2]
               }">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${
+              <div class="content-table-head table-col fl-1" name="${
                 keyArr[3]
               }">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-3" name="${
+              <div class="content-table-head table-col fl-2" name="${
                 keyArr[4]
               }">${obj[keyArr[4]]}</div>
-              <div class="content-table-head table-col fl-4" name="${
+              <div class="content-table-head table-col fl-2" name="${
                 keyArr[5]
               }">${obj[keyArr[5]]}</div>
-              <div class="content-table-head table-col fl-4" name="${
+              <div class="content-table-head table-col fl-3" name="${
                 keyArr[6]
               }">${obj[keyArr[6]]}</div>
-              <div class="content-table-head table-col fl-4" name="${
+              <div class="content-table-head table-col fl-3" name="${
                 keyArr[7]
               }">${obj[keyArr[7]]}</div>
-              <div class="content-table-head table-col fl-4" name="${
+              <div class="content-table-head table-col fl-1" name="${
                 keyArr[8]
               }">${obj[keyArr[8]]}</div>
-              <div class="content-table-head table-col fl-4" name="${
+              <div class="content-table-head table-col fl-1" name="${
                 keyArr[9]
               }">${obj[keyArr[9]]}</div>
               <div class="config-btn-container">
@@ -331,8 +332,8 @@ const web = {
         if (!flag) {
           // tránh render lại title
           flag = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-            <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
+          htmls += `<div class="table-row title-row">
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
               <div class="">ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -365,16 +366,22 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-         DataArr.forEach((obj) => 
-        {
-          if (obj != undefined && Object.values(obj)[0] != undefined)
-          {
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
             let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt'data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -389,48 +396,73 @@ const web = {
         if (!flag) {
           // tránh render lại title
           flag = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-              <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
-                <div class="">ID</div>
-                <div class="order-option flex-box">
-                  <i class='bx bxs-up-arrow' data-order='asc'></i>
-                  <i class='bx bxs-down-arrow' data-order='desc'></i>
-                </div>
+          htmls += `<div class="table-row title-row">
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
+              <div class="">Class ID</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
-              <div class="content-table-head table-col table-title fl-2 flex-box" name="WEEKLYDAY">
-                <div class="">Weeklyday</div>
-                <div class="order-option flex-box">
-                  <i class='bx bxs-up-arrow' data-order='asc'></i>
-                  <i class='bx bxs-down-arrow' data-order='desc'></i>
-                </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_ID">
+              <div class="">Course ID</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
-              <div class="content-table-head table-col table-title fl-2 flex-box" name="DAYPERIOD">
-                <div class="">Dayperiod</div>
-                <div class="order-option flex-box">
-                  <i class='bx bxs-up-arrow' data-order='asc'></i>
-                  <i class='bx bxs-down-arrow' data-order='desc'></i>
-                </div>
-              </div>           
-            </div>`;
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="WEEKLYDAY">
+              <div class="">Weeklyday</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="DAYPERIOD">
+              <div class="">Dayperiod</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASSROOM">
+              <div class="">Classroom</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>           
+          </div>`;
         }
 
         htmls += `<div class="row-container">`;
 
-         DataArr.forEach((obj) => 
-        {
-          if (obj != undefined && Object.values(obj)[0] != undefined)
-          {
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
             let keyArr = Object.keys(obj);
+            console.log(keyArr)
             htmls += `<div class="table-row">
-                <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-                <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-                <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[0]
+                }">${obj[keyArr[0]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[1]
+                }">${obj[keyArr[1]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[2]
+                }">${obj[keyArr[2]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[0]
+                }">${obj[keyArr[3]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[0]
+                }">${obj[keyArr[4]]}</div>
                 <div class="config-btn-container">
                   <i class='bx bxs-edit-alt'data-config="update"></i>
                   <i class='bx bx-x' data-config="delete"></i>
                 </div>
-              </div>`
-            };
+              </div>`;
+          }
         });
         htmls += `</div>`;
         break;
@@ -439,16 +471,16 @@ const web = {
         if (!flag) {
           // tránh render lại title
           flag = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-            <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
-              <div class="">ID</div>
+          htmls += `<div class="table-row title-row">
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="STUDENT_ID">
+              <div class="">Student ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="STUDENT_ID">
-              <div class="">Student ID</div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
+              <div class="">Class ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -494,19 +526,31 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-         DataArr.forEach((obj) => 
-        {
-          if (obj != undefined && Object.values(obj)[0] != undefined)
-          {
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
             let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[6]
+              }">${obj[keyArr[6]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt'data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -521,8 +565,8 @@ const web = {
         if (!flag) {
           // tránh render lại title
           flag = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-            <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
+          htmls += `<div class="table-row title-row">
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
               <div class="">ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -530,21 +574,21 @@ const web = {
               </div>
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="DATE_START">
-              <div class="">Student ID</div>
+              <div class="">Date Start</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="DATE_END">
-              <div class="">Speaking</div>
+              <div class="">Date End</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="LESSONS">
-              <div class="">Listening</div>
+              <div class="">Lessons</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -555,16 +599,22 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-         DataArr.forEach((obj) => 
-        {
-          if (obj != undefined && Object.values(obj)[0] != undefined)
-          {
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
             let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt'data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -579,7 +629,7 @@ const web = {
         if (!flag) {
           // tránh render lại title
           flag = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
+          htmls += `<div class="table-row title-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="BILL_ID">
               <div class="">ID</div>
               <div class="order-option flex-box">
@@ -620,17 +670,25 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-         DataArr.forEach((obj) => 
-        {
-          if (obj != undefined && Object.values(obj)[0] != undefined)
-          {
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
             let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt'data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -670,9 +728,11 @@ const web = {
         let table = selectInput.dataset.table;
 
         //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
-        if (web.DataArr[table]) { // Bảng đã có dữ liệu thì ko cần gửi request cho db
+        if (web.DataArr[table]) {
+          // Bảng đã có dữ liệu thì ko cần gửi request cho db
           web.DataArr[table].forEach((row) => {
-            if(row[selectInput.name] != undefined) // Nếu nó chưa có dữ nào thì đừng render
+            if (row[selectInput.name] != undefined)
+              // Nếu nó chưa có dữ nào thì đừng render
               htmls += `<option value="${row[selectInput.name]}"></option>`;
           });
           selectInput
@@ -682,7 +742,8 @@ const web = {
           web.getData(table).then((value) => {
             web.handleChangeTable(value, table, false); // tiền xử lí dữ liệu nếu bảng kco hàng nào
             web.DataArr[table].forEach((row) => {
-              if(row[selectInput.name] != undefined) // Nếu nó chưa có dữ nào thì đừng render
+              if (row[selectInput.name] != undefined)
+                // Nếu nó chưa có dữ nào thì đừng render
                 htmls += `<option value="${row[selectInput.name]}"></option>`;
             });
 
@@ -720,9 +781,13 @@ const web = {
       let message = "";
       let title = "";
       let constraint = "";
-      
-      //them constraints 
-      if (key.includes("ID")) constraint = "id,required,noSpecialChar";
+
+      //them constraints
+      if (key.includes("ID")) {
+        if (key.slice(0, key.length - 3) != web.Table)
+          constraint = "subid,required,noSpecialChar";
+        else constraint = "id,required,noSpecialChar";
+      }
       if (key.includes("NAME")) constraint = "required,noSpecialChar,noNumber";
       if (key.includes("PHONE")) constraint = "required,phone";
       if (key.includes("EMAIL")) constraint = "required,email";
@@ -908,7 +973,6 @@ const web = {
               title = `Class ID`;
               message = `Example: "CL0, CL1, ..."`;
               constraint = "ids,subid,required,noSpecialChar";
-
             }
             if (key.includes("STUDENT_ID")) {
               title = `Student ID`;
@@ -984,6 +1048,9 @@ const web = {
           }
           break;
       }
+      
+      if(web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM")) //mấy cái col này ko thuộc bảng timetable
+        continue; 
 
       if (constraint.includes("subid")) {
         //Thêm datalist
@@ -1266,7 +1333,7 @@ const web = {
     let isValidate = true;
     let errorMsg = "";
     let errorElm = inputField.querySelector("span.error");
-    input.value = input.value.trim();    
+    input.value = input.value.trim();
 
     //Lý do để Promise bên ngoài là vì, hàm lấy cột trả về Promise nếu ko để mọi t/hop trong .then() thì sẽ xảy ra bất đồng bộ
     for (let type of types) {
@@ -1284,51 +1351,54 @@ const web = {
           break;
         }
 
-        case "ids": {
-          errorMsg = "";
-          isValidate = true;
+        case "ids":
+          {
+            errorMsg = "";
+            isValidate = true;
 
-          let inputs = input.closest('.config-form').querySelectorAll('input[name*="_ID"]');
-          let obj = {}
+            let inputs = input
+              .closest(".config-form")
+              .querySelectorAll('input[name*="_ID"]');
+            let obj = {};
 
-          for(let input of inputs)        
-            obj[input.name] = input.value;
-                    
-          for (let row of web.DataArr[web.Table]) {
-            if(row[input.name] == undefined) // Bang kco du lieu thi break
-              break;
+            for (let input of inputs) obj[input.name] = input.value;
 
-            let flag = false; // xac dinh trang thai ban dau la bi trung` PK
+            for (let row of web.DataArr[web.Table]) {
+              if (row[input.name] == undefined)
+                // Bang kco du lieu thi break
+                break;
 
-            for (let key in obj)
-            {
-              console.log(row[key] + "+" + obj[key] + "+" + flag)
-              if (obj[key] !== row[key])               
-                flag = true; // ko bi trung` PK
+              let flag = false; // xac dinh trang thai ban dau la bi trung` PK
+
+              for (let key in obj) {
+                if (obj[key] !== row[key]) flag = true; // ko bi trung` PK
+              }
+
+              if (!flag) {
+                // Neu bi trung` thi break
+                errorMsg = "Id da ton tai";
+                isValidate = false;
+                break;
+              }
             }
-
-            if(!flag) // Neu bi trung` thi break
-            {
-              errorMsg = "Id da ton tai";
-              isValidate = false;              
-              break;
-            }
-          }          
-        }
-        break;
+          }
+          break;
 
         case "subid": {
           errorMsg = "Sub ID không tồn tại";
           isValidate = false;
 
-          if(web.DataArr[input.dataset.table])
+          if (web.DataArr[input.dataset.table])
             for (let row of web.DataArr[input.dataset.table]) {
-              if (row[input.name] != undefined && input.value === row[input.name]) {
+              if (
+                row[input.name] != undefined &&
+                input.value === row[input.name]
+              ) {
                 errorMsg = "";
                 isValidate = true;
                 break;
               }
-           }
+            }
           break;
         }
 
@@ -1379,7 +1449,8 @@ const web = {
         }
       }
 
-      if(!isValidate) //neu sai roi thi ko can xet cac constraint khac nua
+      if (!isValidate)
+        //neu sai roi thi ko can xet cac constraint khac nua
         break;
     }
 
@@ -1389,20 +1460,15 @@ const web = {
         .classList.add("close");
       input.classList.add("error");
       errorElm.innerText = errorMsg;
-    } 
-    else
-    {
-      if(input.dataset.constraint.includes('ids'))
-      {
-        let inputs = input.closest('.config-form').querySelectorAll('input[name*="_ID"]');
-        for(let input of inputs)
-          web.resetError(input);
-      }
-      else
-        web.resetError(input);
+    } else {
+      if (input.dataset.constraint.includes("ids")) {
+        let inputs = input
+          .closest(".config-form")
+          .querySelectorAll('input[name*="_ID"]');
+        for (let input of inputs) web.resetError(input);
+      } else web.resetError(input);
     }
 
-    console.log(isValidate)
     return isValidate;
   },
   // Hàm lấy value từ input đang tồn tại (tiền xử lí dữ liệu)
