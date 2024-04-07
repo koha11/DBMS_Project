@@ -3,8 +3,11 @@
     "UID" => "admin123",
     "PWD" => "adm12345@",
     "Database" => "QLTTTA",
-    "CharacterSet" => "UTF-8"
+    "CharacterSet" => "UTF-8",
+    "LoginTimeout" => 30, 
+    "Encrypt" => 1, 
+    "TrustServerCertificate" => 0
   );
 
-  $conn_user = 'koha.database.windows.net'
+  $conn_user = 'tcp:koha.database.windows.net,1433'
 ?>
