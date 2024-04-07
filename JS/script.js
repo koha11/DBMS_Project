@@ -873,12 +873,10 @@ const web = {
             if (key.includes("COURSE_ID")) {
               title = `Course ID`;
               message = `Example: "C0, C1, ..."`;
-              constraint = "subid,required,noSpecialChar";
             }
             if (key.includes("TEACHER_ID")) {
               title = `Teacher ID`;
               message = `Example: "T1, T2, ..."`;
-              constraint = "subid,required,noSpecialChar";
             }
             if (key.includes("CLASSROOM")) {
               title = `Classroom`;
