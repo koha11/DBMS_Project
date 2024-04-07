@@ -1192,7 +1192,7 @@ const web = {
       };
       xmlhttp.open(
         "GET",
-        `./Php/get_all_data.php?table=${tableName}&id=${id}&val=${val}`
+        `./api/get_all_data.php?table=${tableName}&id=${id}&val=${val}`
       ); //trhop lay DL thi dung get
       xmlhttp.send();
     });
@@ -1214,7 +1214,7 @@ const web = {
 
         xmlhttp.open(
           "GET",
-          `./Php/get_column.php?table=${tableName}&col=${colName}`
+          `./api/get_column.php?table=${tableName}&col=${colName}`
         ); //trhop lay DL thi dung get
         xmlhttp.send();
       }
@@ -1229,7 +1229,7 @@ const web = {
     dataObj.tableName = web.Table;
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "./Php/add_row.php");
+    xmlhttp.open("POST", "./api/add_row.php");
     xmlhttp.setRequestHeader(
       "Content-type",
       "application/x-www-form-urlencoded"
@@ -1251,7 +1251,7 @@ const web = {
   // Hàm cập nhật lại nội dung của bản ghi
   updateRow: () => {
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "./Php/update_row.php");
+    xmlhttp.open("POST", "./api/update_row.php");
     xmlhttp.setRequestHeader(
       "Content-type",
       "application/x-www-form-urlencoded"
@@ -1284,7 +1284,7 @@ const web = {
   // Hàm xóa 1 bản ghi
   deleteRow: (tableName = web.Table, id, key) => {
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "./Php/delete_row.php");
+    xmlhttp.open("POST", "./api/delete_row.php");
     xmlhttp.setRequestHeader(
       "Content-type",
       "application/x-www-form-urlencoded"
