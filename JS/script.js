@@ -12,8 +12,8 @@ const web = {
   // Hàm render bảng (ndung chính của trang web)
   render: (DataArr, option) => {
     let htmls = "";
-    let flag = web.IsTitleRendered;    
-    
+    let flag = web.IsTitleRendered;
+
     if (web.Table != $("#content-table").dataset.table) {
       $("#content-table").dataset.table = web.Table;
       flag = false;
@@ -22,7 +22,7 @@ const web = {
 
     switch (option) {
       case "STUDENT":
-        if (!flag) {
+        if (!flag) {          
           flag = true;
           // tránh render lại title
           htmls += `<div class="table-row title-row">
@@ -80,21 +80,31 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        DataArr.forEach((obj) => { 
-          if (
-            obj != undefined &&
-            Object.values(obj)[0] != undefined
-          )
-          {
-            let keyArr = Object.keys(obj)
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[6]
+              }">${obj[keyArr[6]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt' data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -106,11 +116,11 @@ const web = {
         htmls += `</div>`;
 
         break;
-          
+
       case "COURSE":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
+          flag = true; //Da render tieu de roi
           htmls += `<div class="table-row title-row">
           <div class="content-table-head table-col table-title fl-1 flex-box" name="COURSE_ID">
             <div class="">ID</div>
@@ -119,67 +129,75 @@ const web = {
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_NAME">
+          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_NAME">
             <div class="">Course Name</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_LEVEL">
-            <div class="">Level</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
-            </div>
-          </div>
-          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_TYPE">
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_TYPE">
             <div class="">Type</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_METHOD">
-            <div class="">Method</div>
-            <div class="order-option flex-box">
-              <i class='bx bxs-up-arrow' data-order='asc'></i>
-              <i class='bx bxs-down-arrow' data-order='desc'></i>
-            </div>
-          </div>
           <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_LEVEL">
             <div class="">Level</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
+          </div>          
+          <div class="content-table-head table-col table-title fl-3 flex-box" name="COURSE_FEE">
+          <div class="">Fee</div>
+          <div class="order-option flex-box">
+            <i class='bx bxs-up-arrow' data-order='asc'></i>
+            <i class='bx bxs-down-arrow' data-order='desc'></i>
           </div>
-          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_FEE">
-            <div class="">Fee</div>
+          </div>  
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_METHOD">
+            <div class="">Method</div>
             <div class="order-option flex-box">
               <i class='bx bxs-up-arrow' data-order='asc'></i>
               <i class='bx bxs-down-arrow' data-order='desc'></i>
             </div>
           </div>
-          </div>`;
+        </div>`;
         }
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].COURSE_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_NAME}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_LEVEL}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].COURSE_TYPE}</div>
-              <div class="content-table-head table-col fl-3">${DataArr[x].COURSE_METHOD}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_LEVEL}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_FEE}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]? "Offline" : "Online"}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
+          }
+        });
 
         htmls += `</div>`;
         break;
@@ -203,14 +221,14 @@ const web = {
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_NATION">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="TR_NATION">
               <div class="">Nation</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_GENDER">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="TR_GENDER">
               <div class="">Gender</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -246,14 +264,14 @@ const web = {
               </div>
             </div>
 
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="TR_DEGREE">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="TR_DEGREE">
               <div class="">Degree</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="IELTS_OVERALL">
+            <div class="content-table-head table-col table-title fl-1 flex-box" name="IELTS_OVERALL">
               <div class="">Ielts Overall</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -265,24 +283,40 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        DataArr.forEach((obj) => { 
-          if (
-            obj != undefined &&
-            Object.values(obj)[0] != undefined
-          )
-          {
-            let keyArr = Object.keys(obj)
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1" name="${keyArr[0]}">${obj[keyArr[0]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[1]}">${obj[keyArr[1]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[2]}">${obj[keyArr[2]]}</div>
-              <div class="content-table-head table-col fl-2" name="${keyArr[3]}">${obj[keyArr[3]]}</div>
-              <div class="content-table-head table-col fl-3" name="${keyArr[4]}">${obj[keyArr[4]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[5]}">${obj[keyArr[5]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[6]}">${obj[keyArr[6]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[7]}">${obj[keyArr[7]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[8]}">${obj[keyArr[8]]}</div>
-              <div class="content-table-head table-col fl-4" name="${keyArr[9]}">${obj[keyArr[9]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[6]
+              }">${obj[keyArr[6]]}</div>
+              <div class="content-table-head table-col fl-3" name="${
+                keyArr[7]
+              }">${obj[keyArr[7]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[8]
+              }">${obj[keyArr[8]]}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[9]
+              }">${obj[keyArr[9]]}</div>
               <div class="config-btn-container">
                 <i class='bx bxs-edit-alt' data-config="update"></i>
                 <i class='bx bx-x' data-config="delete"></i>
@@ -295,11 +329,11 @@ const web = {
         break;
 
       case "CLASS":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-            <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
+          flag = true; //Da render tieu de roi
+          htmls += `<div class="table-row title-row">
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
               <div class="">ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -332,80 +366,121 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].COURSE_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].TEACHER_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].CLASSROOM}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
 
       case "TIMETABLE":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-              <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
-                <div class="">ID</div>
-                <div class="order-option flex-box">
-                  <i class='bx bxs-up-arrow' data-order='asc'></i>
-                  <i class='bx bxs-down-arrow' data-order='desc'></i>
-                </div>
-              </div>
-              <div class="content-table-head table-col table-title fl-2 flex-box" name="WEEKLYDAY">
-                <div class="">Weeklyday</div>
-                <div class="order-option flex-box">
-                  <i class='bx bxs-up-arrow' data-order='asc'></i>
-                  <i class='bx bxs-down-arrow' data-order='desc'></i>
-                </div>
-              </div>
-              <div class="content-table-head table-col table-title fl-2 flex-box" name="DAYPERIOD">
-                <div class="">Dayperiod</div>
-                <div class="order-option flex-box">
-                  <i class='bx bxs-up-arrow' data-order='asc'></i>
-                  <i class='bx bxs-down-arrow' data-order='desc'></i>
-                </div>
-              </div>           
-            </div>`;
-        }
-
-        htmls += `<div class="row-container">`;
-
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
-            htmls += `<div class="table-row">
-                <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-                <div class="content-table-head table-col fl-2">${DataArr[x].WEEKLYDAY}</div>
-                <div class="content-table-head table-col fl-2">${DataArr[x].DAYPERIOD}</div>
-              </div>`;
-
-        htmls += `</div>`;
-        break;
-
-      case "RESULT":
-        if (!web.IsTitleRendered) {
-          // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-            <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
-              <div class="">ID</div>
+          flag = true; //Da render tieu de roi
+          htmls += `<div class="table-row title-row">
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
+              <div class="">Class ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_ID">
+              <div class="">Course ID</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="WEEKLYDAY">
+              <div class="">Weeklyday</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="DAYPERIOD">
+              <div class="">Dayperiod</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASSROOM">
+              <div class="">Classroom</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>           
+          </div>`;
+        }
+
+        htmls += `<div class="row-container">`;
+
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
+            console.log(keyArr)
+            htmls += `<div class="table-row">
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[0]
+                }">${obj[keyArr[0]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[1]
+                }">${obj[keyArr[1]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[2]
+                }">${obj[keyArr[2]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[0]
+                }">${obj[keyArr[3]]}</div>
+                <div class="content-table-head table-col fl-2" name="${
+                  keyArr[0]
+                }">${obj[keyArr[4]]}</div>
+                <div class="config-btn-container">
+                  <i class='bx bxs-edit-alt'data-config="update"></i>
+                  <i class='bx bx-x' data-config="delete"></i>
+                </div>
+              </div>`;
+          }
+        });
+        htmls += `</div>`;
+        break;
+
+      case "RESULT":
+        if (!flag) {
+          // tránh render lại title
+          flag = true; //Da render tieu de roi
+          htmls += `<div class="table-row title-row">
             <div class="content-table-head table-col table-title fl-2 flex-box" name="STUDENT_ID">
               <div class="">Student ID</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
+              <div class="">Class ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -451,30 +526,47 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].STUDENT_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].SPEAKING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].LISTENING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].READING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].WRITING}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].OVERALL}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[5]
+              }">${obj[keyArr[5]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[6]
+              }">${obj[keyArr[6]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
 
       case "CLASS_DETAIL":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
-            <div class="content-table-head table-col table-title fl-1 flex-box" name="CLASS_ID">
+          flag = true; //Da render tieu de roi
+          htmls += `<div class="table-row title-row">
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
               <div class="">ID</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
@@ -482,21 +574,21 @@ const web = {
               </div>
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="DATE_START">
-              <div class="">Student ID</div>
+              <div class="">Date Start</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="DATE_END">
-              <div class="">Speaking</div>
+              <div class="">Date End</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="LESSONS">
-              <div class="">Listening</div>
+              <div class="">Lessons</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -507,26 +599,37 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].CLASS_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].DATE_START}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].DATE_END}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].LESSONS}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
 
       case "BILL":
-        if (!web.IsTitleRendered) {
+        if (!flag) {
           // tránh render lại title
-          web.IsTitleRendered = true; //Da render tieu de roi
-          htmls += `<div class="table-row">
+          flag = true; //Da render tieu de roi
+          htmls += `<div class="table-row title-row">
             <div class="content-table-head table-col table-title fl-1 flex-box" name="BILL_ID">
               <div class="">ID</div>
               <div class="order-option flex-box">
@@ -567,19 +670,32 @@ const web = {
 
         htmls += `<div class="row-container">`;
 
-        for (let x in DataArr)
-          if (
-            DataArr[x] != undefined &&
-            Object.values(DataArr[x])[0] != undefined
-          )
+        DataArr.forEach((obj) => {
+          if (obj != undefined && Object.values(obj)[0] != undefined) {
+            let keyArr = Object.keys(obj);
             htmls += `<div class="table-row">
-              <div class="content-table-head table-col fl-1">${DataArr[x].BILL_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].STUDENT_ID}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].DATE_P}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].METHOD_P}</div>
-              <div class="content-table-head table-col fl-2">${DataArr[x].PAYMENT}</div>
+              <div class="content-table-head table-col fl-1" name="${
+                keyArr[0]
+              }">${obj[keyArr[0]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[1]
+              }">${obj[keyArr[1]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[2]
+              }">${obj[keyArr[2]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[3]
+              }">${obj[keyArr[3]]}</div>
+              <div class="content-table-head table-col fl-2" name="${
+                keyArr[4]
+              }">${obj[keyArr[4]]}</div>
+              <div class="config-btn-container">
+                <i class='bx bxs-edit-alt'data-config="update"></i>
+                <i class='bx bx-x' data-config="delete"></i>
+              </div>
             </div>`;
-
+          }
+        });
         htmls += `</div>`;
         break;
     }
@@ -587,30 +703,59 @@ const web = {
     let table = $("#content-table");
 
     //render nội dung bảng
-    if (flag != web.IsTitleRendered) // Nếu flag == web.IsTitleRender thì tức là nó đã render rồi, còn ko thì đã chuyển bảng || chưa render    
+    if (flag != web.IsTitleRendered)
+      // Nếu flag == web.IsTitleRender thì tức là nó đã render rồi, còn ko thì đã chuyển bảng || chưa render
       //Nếu đây lần render đầu tiên
       table.innerHTML = htmls; //render cả tiêu đề
     else table.children[1].innerHTML = htmls;
-    
+
     //Mỗi lần render lại là phải restart 2 handle event order và configRow
-    if(flag != web.IsTitleRendered)
-      web.handleOrder();
+    if (flag != web.IsTitleRendered) web.handleOrder();
 
     web.handleConfigRow();
 
-    web.IsTitleRendered = flag // set lại trạng thái đã render title hay chưa
+    web.IsTitleRendered = flag; // set lại trạng thái đã render title hay chưa
     //set lại chiều cao của sidebar để fit với bảng
     $(".sidebar").style.height = $(".main-content").scrollHeight + "px";
   },
   // Hàm render options list dựa trên bảng đang đc tham chiếu
-  renderOptionLists: (colData, selector) => {
-    let htmls = "";
-    colData.forEach((item) => {
-      htmls += `<option value="${item}"></option>`;
-    });
+  renderOptionLists: () => {
+    // render danh sách những lựa chọn theo key để tìm kiếm
+    for (let selectInput of $$(".select-input")) {
+      //để hàm riêng đi: not done yet
+      selectInput.addEventListener("focus", function (e) {
+        let htmls = "";
+        let table = selectInput.dataset.table;
 
-    selector.closest(".input-field").querySelector("datalist").innerHTML =
-      htmls;
+        //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
+        if (web.DataArr[table]) {
+          // Bảng đã có dữ liệu thì ko cần gửi request cho db
+          web.DataArr[table].forEach((row) => {
+            if (row[selectInput.name] != undefined)
+              // Nếu nó chưa có dữ nào thì đừng render
+              htmls += `<option value="${row[selectInput.name]}"></option>`;
+          });
+          selectInput
+            .closest(".input-field")
+            .querySelector("datalist").innerHTML = htmls;
+        } else {
+          web.getData(table).then((value) => {
+            web.handleChangeTable(value, table, false); // tiền xử lí dữ liệu nếu bảng kco hàng nào
+            web.DataArr[table].forEach((row) => {
+              if (row[selectInput.name] != undefined)
+                // Nếu nó chưa có dữ nào thì đừng render
+                htmls += `<option value="${row[selectInput.name]}"></option>`;
+            });
+
+            web.DataArr[table] = value;
+
+            selectInput
+              .closest(".input-field")
+              .querySelector("datalist").innerHTML = htmls;
+          });
+        }
+      });
+    }
   },
   //Hàm render ra những lựa chọn để có thể chọn khi tìm kiếm
   renderSearchingOptions: () => {
@@ -626,11 +771,7 @@ const web = {
     //Khởi tạo header cho modal
     let htmls = `
       <div class="modal-header">
-        ${
-          web.ConfigState == "add"
-            ? "ADD ROW MODAL"
-            : "UPDATE ROW MODAL"
-        }
+        ${web.ConfigState == "add" ? "ADD ROW MODAL" : "UPDATE ROW MODAL"}
       </div>`;
 
     // Khởi tạo form add và update
@@ -641,8 +782,12 @@ const web = {
       let title = "";
       let constraint = "";
 
-      //them constaints
-      if (key.includes("ID")) constraint = "id,required,noSpecialChar";
+      //them constraints
+      if (key.includes("ID")) {
+        if (key.slice(0, key.length - 3) != web.Table)
+          constraint = "subid,required,noSpecialChar";
+        else constraint = "id,required,noSpecialChar";
+      }
       if (key.includes("NAME")) constraint = "required,noSpecialChar,noNumber";
       if (key.includes("PHONE")) constraint = "required,phone";
       if (key.includes("EMAIL")) constraint = "required,email";
@@ -758,28 +903,28 @@ const web = {
             }
 
             if (key.includes("NAME")) {
-              title = `Student Name`;
+              title = `Course Name`;
               message = `Example: "Trần Anh Khoa"`;
             }
 
             if (key.includes("FEE")) {
-              title = `Student Nation`;
-              message = `Example: "Vietnam"`;
+              title = `Course Fee`;
+              message = `Example: "10000000"`;
             }
 
             if (key.includes("TYPE")) {
-              title = `Student Phone`;
-              message = `Example: "0702455222, +8472455222"`;
+              title = `Course Type`;
+              message = `Example: "Junior"`;
             }
 
             if (key.includes("LEVEL")) {
-              title = `Student Email`;
-              message = `Example: "student@gmail.com"`;
+              title = `Course Level`;
+              message = `Example: "Basic"`;
             }
 
             if (key.includes("METHOD")) {
-              title = `Student Address`;
-              message = `Example: "01 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa"`;
+              title = `Course Method`;
+              message = `Example: "Online - Offline"`;
             }
           }
           break;
@@ -827,10 +972,12 @@ const web = {
             if (key.includes("CLASS_ID")) {
               title = `Class ID`;
               message = `Example: "CL0, CL1, ..."`;
+              constraint = "ids,subid,required,noSpecialChar";
             }
             if (key.includes("STUDENT_ID")) {
               title = `Student ID`;
               message = `Example: "2, 3, ..."`;
+              constraint = "ids,subid,required,noSpecialChar";
             }
             if (key.includes("SPEAKING")) {
               title = `Speaking`;
@@ -901,34 +1048,70 @@ const web = {
           }
           break;
       }
+      
+      if(web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM")) //mấy cái col này ko thuộc bảng timetable
+        continue; 
 
-      addConfig += `<div class="input-field flex-box">                      
-            <div class="flex-box input-container">
-              <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
-              <input id="A-${key}" name="${key}" type="text" class="fl-2" data-constraint="${constraint}">
-            </div>
-            <span class="message ">${message}</span>
-            <span class="message error"></span>
-          </div>`;
-
-      if (key.includes("ID"))
-        updateConfig += `<div class="input-field flex-box">                      
+      if (constraint.includes("subid")) {
+        //Thêm datalist
+        addConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
-            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="require,subid" class="select-input" data-table="HOCSINH" readonly>
-          </div>
-          <span class="message "message>Hãy chọn id hợp lệ</span>
-          <span class="message error"></span>
-        </div>`;
-      else
-        updateConfig += `<div class="input-field flex-box">                      
-          <div class="flex-box input-container">
-            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="${constraint}">
+            <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="A-${key}" name="${key}" list="list-${key}" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
+          0,
+          key.length - 3
+        )}">
+            <datalist id="list-${key}"></datalist>
           </div>
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
+
+        updateConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="U-${key}" name="${key}" list="list-${key}" value="${
+          web.inputObj[key]
+        }" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
+          0,
+          key.length - 3
+        )}">
+            <datalist id="list-${key}"></datalist>
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
+      } //kco datalist
+      else {
+        addConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="A-${key}" name="${key}" type="text" class="fl-2" data-constraint="${constraint}">
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
+
+        if (key.includes("ID"))
+          //ID update thì set readonly
+          updateConfig += `<div class="input-field flex-box">                      
+            <div class="flex-box input-container">
+              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+              <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="" class="select-input" data-table="HOCSINH" readonly>
+            </div>
+            <span class="message "message>Hãy chọn id hợp lệ</span>
+            <span class="message error"></span>
+          </div>`;
+        else
+          updateConfig += `<div class="input-field flex-box">                      
+            <div class="flex-box input-container">
+              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+              <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="${constraint}">
+            </div>
+            <span class="message ">${message}</span>
+            <span class="message error"></span>
+          </div>`;
+      }
     }
     addConfig += `</form>`;
     updateConfig += `</form>`;
@@ -955,7 +1138,10 @@ const web = {
         </div>`;
 
     $(".config-modal").innerHTML = htmls;
+
     web.handleSubmitForm();
+    web.renderOptionLists();
+    web.handleValidInput();
   },
   //Hàm render alert confirm box
   renderConfirmAlert: () => {
@@ -989,12 +1175,24 @@ const web = {
       let xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
       xmlhttp.onreadystatechange = function () {
         //bat dong bo, onload se cham hon so voi cac code khac
-        if (this.readyState == 4 && this.status == 200)
-          resolve(JSON.parse(this.responseText));
+        if (this.readyState == 4 && this.status == 200) {
+          let dataArr = JSON.parse(this.responseText);
+          dataArr.forEach((obj) => {
+            for (let key in obj)
+              if (key.includes("DATE"))
+                obj[key] = obj[key].date
+                  .slice(0, 10)
+                  .split("-")
+                  .reverse()
+                  .join("-"); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
+          });
+
+          resolve(dataArr);
+        }
       };
       xmlhttp.open(
         "GET",
-        `./Php/get_all_data.php?table=${tableName}&id=${id}&val=${val}`
+        `./api/get_all_data.php?table=${tableName}&id=${id}&val=${val}`
       ); //trhop lay DL thi dung get
       xmlhttp.send();
     });
@@ -1016,7 +1214,7 @@ const web = {
 
         xmlhttp.open(
           "GET",
-          `./Php/get_column.php?table=${tableName}&col=${colName}`
+          `./api/get_column.php?table=${tableName}&col=${colName}`
         ); //trhop lay DL thi dung get
         xmlhttp.send();
       }
@@ -1031,7 +1229,7 @@ const web = {
     dataObj.tableName = web.Table;
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "./Php/add_row.php");
+    xmlhttp.open("POST", "./api/add_row.php");
     xmlhttp.setRequestHeader(
       "Content-type",
       "application/x-www-form-urlencoded"
@@ -1042,9 +1240,9 @@ const web = {
         web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
           web.resetInputValue();
-         
+
           $(".alert-container").classList.add("close");
-          $(".config-modal-container").classList.add("close");          
+          $(".config-modal-container").classList.add("close");
         });
       }
     };
@@ -1053,7 +1251,7 @@ const web = {
   // Hàm cập nhật lại nội dung của bản ghi
   updateRow: () => {
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "./Php/update_row.php");
+    xmlhttp.open("POST", "./api/update_row.php");
     xmlhttp.setRequestHeader(
       "Content-type",
       "application/x-www-form-urlencoded"
@@ -1061,9 +1259,8 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        console.log(this.responseText)
         //gọi lại dữ liệu và render lại
-        web.getData(web.Table).then((value) => {          
+        web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
           web.resetInputValue();
 
@@ -1087,7 +1284,7 @@ const web = {
   // Hàm xóa 1 bản ghi
   deleteRow: (tableName = web.Table, id, key) => {
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "./Php/delete_row.php");
+    xmlhttp.open("POST", "./api/delete_row.php");
     xmlhttp.setRequestHeader(
       "Content-type",
       "application/x-www-form-urlencoded"
@@ -1096,11 +1293,11 @@ const web = {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         //gọi lại dữ liệu và render lại
-        web.getData(web.Table).then((value) => {          
+        web.getData(web.Table).then((value) => {
           //xử lí chuyển bảng
           web.handleChangeTable(value);
           //tắt alert box
-          $(".alert-container").classList.add("close");          
+          $(".alert-container").classList.add("close");
         });
       }
     };
@@ -1139,95 +1336,140 @@ const web = {
     input.value = input.value.trim();
 
     //Lý do để Promise bên ngoài là vì, hàm lấy cột trả về Promise nếu ko để mọi t/hop trong .then() thì sẽ xảy ra bất đồng bộ
-    web
-      .getCol(input.dataset.table ? input.dataset.table : "", input.name)
-      .then((colData) => {
-        for (let type of types) {
-          switch (type) {
-            case "id": {
-              for (let row of web.DataArr[web.Table]) {
-                if (row[input.name] == undefined) break;
+    for (let type of types) {
+      switch (type) {
+        case "id": {
+          for (let row of web.DataArr[web.Table]) {
+            if (row[input.name] == undefined) break;
 
-                if (input.value === row[input.name]) {
-                  errorMsg = "Id đã tồn tại";
-                  isValidate = false;
-                  break;
-                }
-              }
-              break;
-            }
-            case "subid": {
-              errorMsg = "Sub ID không tồn tại";
+            if (input.value === row[input.name]) {
+              errorMsg = "Id đã tồn tại";
               isValidate = false;
+              break;
+            }
+          }
+          break;
+        }
 
-              for (let val of colData) {
-                if (input.value === val[0]) {
-                  errorMsg = "";
-                  isValidate = true;
-                  break;
-                }
-              }
-              break;
-            }
+        case "ids":
+          {
+            errorMsg = "";
+            isValidate = true;
 
-            case "phone": {
-              let regex = /^(0|\+84)\d{9}$/;
-              if (!input.value.match(regex)) {
-                errorMsg = "Số điện thoại không hợp lệ!";
-                isValidate = false;
+            let inputs = input
+              .closest(".config-form")
+              .querySelectorAll('input[name*="_ID"]');
+            let obj = {};
+
+            for (let input of inputs) obj[input.name] = input.value;
+
+            for (let row of web.DataArr[web.Table]) {
+              if (row[input.name] == undefined)
+                // Bang kco du lieu thi break
+                break;
+
+              let flag = false; // xac dinh trang thai ban dau la bi trung` PK
+
+              for (let key in obj) {
+                if (obj[key] !== row[key]) flag = true; // ko bi trung` PK
               }
-              break;
-            }
-            case "email": {
-              let regex =
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-              if (!input.value.toLowerCase().match(regex)) {
-                errorMsg = "Email không hợp lệ!";
-                isValidate = false;
-              }
-              break;
-            }
-            case "required": {
-              if (input.value.trim() == "") {
-                errorMsg = "Dữ liệu này không được để trống";
+
+              if (!flag) {
+                // Neu bi trung` thi break
+                errorMsg = "Id da ton tai";
                 isValidate = false;
                 break;
               }
+            }
+          }
+          break;
+
+        case "subid": {
+          errorMsg = "Sub ID không tồn tại";
+          isValidate = false;
+
+          if (web.DataArr[input.dataset.table])
+            for (let row of web.DataArr[input.dataset.table]) {
+              if (
+                row[input.name] != undefined &&
+                input.value === row[input.name]
+              ) {
+                errorMsg = "";
+                isValidate = true;
+                break;
+              }
+            }
+          break;
+        }
+
+        case "phone": {
+          let regex = /^(0|\+84)\d{9}$/;
+          if (!input.value.match(regex)) {
+            errorMsg = "Số điện thoại không hợp lệ!";
+            isValidate = false;
+          }
+          break;
+        }
+        case "email": {
+          let regex =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!input.value.toLowerCase().match(regex)) {
+            errorMsg = "Email không hợp lệ!";
+            isValidate = false;
+          }
+          break;
+        }
+        case "required": {
+          if (input.value.trim() == "") {
+            errorMsg = "Dữ liệu này không được để trống";
+            isValidate = false;
+            break;
+          }
+          break;
+        }
+        case "noSpecialChar": {
+          let specialChar = "!@#$%^&*()+=-[]\\';,./{}|\":<>?";
+          for (let ch of input.value) {
+            if (specialChar.indexOf(ch) != -1) {
+              errorMsg = "Không được phép nhập ký tự đặc biệt";
+              isValidate = false;
               break;
             }
-            case "noSpecialChar": {
-              let specialChar = "!@#$%^&*()+=-[]\\';,./{}|\":<>?";
-              for (let ch of input.value) {
-                if (specialChar.indexOf(ch) != -1) {
-                  errorMsg = "Không được phép nhập ký tự đặc biệt";
-                  isValidate = false;
-                  break;
-                }
-              }
+          }
+          break;
+        }
+        case "noNumber": {
+          for (let ch of input.value) {
+            if (!isNaN(Number(ch)) && ch != " ") {
+              errorMsg = "Không được phép nhập ký tự số";
+              isValidate = false;
               break;
-            }
-            case "noNumber": {
-              for (let ch of input.value) {
-                if (!isNaN(Number(ch)) && ch != " ") {
-                  errorMsg = "Không được phép nhập ký tự số";
-                  isValidate = false;
-                  break;
-                }
-              }
             }
           }
         }
+      }
 
-        if (!isValidate) {
-          inputField
-            .querySelector("span.message:not(.error)")
-            .classList.add("close");
-          input.classList.add("error");
-          errorElm.innerText = errorMsg;
-        } else web.resetError(input);
+      if (!isValidate)
+        //neu sai roi thi ko can xet cac constraint khac nua
+        break;
+    }
 
-        return isValidate;
-      });
+    if (!isValidate) {
+      inputField
+        .querySelector("span.message:not(.error)")
+        .classList.add("close");
+      input.classList.add("error");
+      errorElm.innerText = errorMsg;
+    } else {
+      if (input.dataset.constraint.includes("ids")) {
+        let inputs = input
+          .closest(".config-form")
+          .querySelectorAll('input[name*="_ID"]');
+        for (let input of inputs) web.resetError(input);
+      } else web.resetError(input);
+    }
+
+    return isValidate;
   },
   // Hàm lấy value từ input đang tồn tại (tiền xử lí dữ liệu)
   getInputData: () => {
@@ -1295,19 +1537,18 @@ const web = {
           let key = Object.keys(web.DataArr[web.Table][0]).find((item) =>
             item.includes("ID")
           ); //lấy ra key name của ID
-          web.inputObj = {[key]:id};
-          web.ConfigState = 'delete'
+          web.inputObj = { [key]: id };
+          web.ConfigState = "delete";
           web.renderConfirmAlert();
-          
         } else {
-          for(let item of row.children)
-            web.inputObj[item.getAttribute('name')] = item.innerText 
+          for (let item of row.children)
+            web.inputObj[item.getAttribute("name")] = item.innerText;
           // Đưa dữ liệu ban đầu (trước khi update) vào Input Obj để bên config modal có thể đưa
           // những dữ liệu này hiển thị bên update modal
 
-          web.ConfigState = 'update';
-          web.renderInputForm();          
-          $('.config-modal-container').classList.remove('close')
+          web.ConfigState = "update";
+          web.renderInputForm();
+          $(".config-modal-container").classList.remove("close");
         }
       });
     }
@@ -1325,17 +1566,15 @@ const web = {
     yes.addEventListener("click", function (e) {
       if (web.ConfigState == "add") web.addRow();
       else if (web.ConfigState == "update") web.updateRow();
-      else
-      {
-        let key = Object.keys(web.inputObj)[0];        
-        web.deleteRow(web.Table,web.inputObj[key],key);    
-      }    
+      else {
+        let key = Object.keys(web.inputObj)[0];
+        web.deleteRow(web.Table, web.inputObj[key], key);
+      }
     });
   },
 
   // Xử lí submit form
-  handleSubmitForm: () => 
-  {
+  handleSubmitForm: () => {
     $("#config-btn").addEventListener("click", function (e) {
       let inputList = $$(`form .input-field input`); //danh sach input tuong ung voi config-state
       e.preventDefault();
@@ -1353,19 +1592,17 @@ const web = {
     });
   },
 
-  handleOrder: () =>
-  {
-    for (let item of $$(".order-option i")) {      
+  handleOrder: () => {
+    for (let item of $$(".order-option i")) {
       item.addEventListener("click", function (e) {
-        if(item.classList.contains('active')) //Nếu click order option đang active (hủy sort)
-        {
-          item.classList.remove('active');
+        if (item.classList.contains("active")) {
+          //Nếu click order option đang active (hủy sort)
+          item.classList.remove("active");
           //render lại theo mảng gốc ban đầu
-          web.render(web.DataArr[web.tableName],web.Table);
-        }
-        else 
-        {
-          for (let item of $$(".order-option i")) item.classList.remove("active");
+          web.render(web.DataArr[web.Table], web.Table);
+        } else {
+          for (let item of $$(".order-option i"))
+            item.classList.remove("active");
 
           let col = item.closest(".table-title");
 
@@ -1383,32 +1620,66 @@ const web = {
     }
   },
 
-  //Xử lí việc lấy dữ liệu từ db khi chuyển bảng hoặc mới load trang
-  handleChangeTable: (value) =>
-  {
+  //Xử lí việc lấy dữ liệu từ db khi chuyển bảng hoặc mới load trang và xử lí bảng kco bản ghi
+  handleChangeTable: (
+    value,
+    table = web.Table,
+    isRender = true // tham số t2 cho chọn render lại bảng hay ko, hay chỉ là xử lí mảng kco bản ghi nào
+  ) => {
     //Neu Bang chua co dong du lieu nao
     if (Object.getOwnPropertyNames(value[0])[0] == "COLUMN_NAME") {
       //Neu key cua dong tien la column_name => bang kco du lieu nao
       let obj = {};
       for (let item of value) obj[Object.values(item)[0]] = undefined;
-      web.DataArr[web.Table] = [obj];
-    } else web.DataArr[web.Table] = value;
+      web.DataArr[table] = [obj];
+    } else web.DataArr[table] = value;
 
-    web.render(web.DataArr[web.Table], web.Table);
-    web.RenderArr = web.DataArr[web.Table];
-    web.renderSearchingOptions();
+    if (isRender) {
+      web.render(web.DataArr[web.Table], web.Table);
+      web.RenderArr = web.DataArr[web.Table];
+      web.renderSearchingOptions();
+    }
   },
 
-  restartHandleEvents: () =>
-  {
-    if(!web.IsTitleRendered)
-      web.handleOrder();
+  handleValidInput: () => {
+    //Kiểm tra value ở input có valid hay ko --> tach ham`
+    for (let input of $$(`form.config-form .input-field input`)) {
+      input.addEventListener(
+        "focusout",
+        function (
+          e //blur
+        ) {
+          web.IsValidate = web.validate(input, input.dataset.constraint);
+        }
+      );
+
+      //khi đang tdoi du lieu trong input thì sẽ phải cài về như trc khi có lỗi
+      input.addEventListener(
+        "keydown",
+        function (
+          e //blur
+        ) {
+          web.resetError(input);
+        }
+      );
+
+      input.addEventListener(
+        "focusin",
+        function (
+          e //blur
+        ) {
+          web.resetError(input);
+        }
+      );
+    }
+  },
+
+  restartHandleEvents: () => {
     web.handleConfigRow();
-    web.handleSubmitForm();
   },
 
   handleEvents: () => {
-    //Bien dung chung    
+    //Bien dung chung
 
     // Xử lí tắt modal
     $(".config-modal-container").addEventListener("click", function (e) {
@@ -1430,55 +1701,10 @@ const web = {
 
     // Mở add modal
     $("#table-config").addEventListener("click", function (e) {
-      web.ConfigState = 'add';
+      web.ConfigState = "add";
       web.renderInputForm();
       $(".config-modal-container").classList.remove("close");
     });
-
-    // render danh sách những lựa chọn theo key để tìm kiếm
-    for (let selectInput of $$(".select-input")) {
-      let colData = [];
-      selectInput.addEventListener("focus", function (e) {
-        //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
-        if (
-          selectInput.dataset.table == web.Table ||
-          selectInput.dataset.table == undefined
-        ) {
-          colData = web.DataArr[web.Table].map((row) => {
-            return row[selectInput.name];
-          });
-          web.renderOptionLists(colData, selectInput);
-        } else {
-          web
-            .getCol(selectInput.dataset.table, selectInput.name)
-            .then((value) => {
-              web.renderOptionLists(value, selectInput);
-            });
-        }
-      });
-    }
-
-    //Kiểm tra value ở input có valid hay ko
-    for (let input of $$(`form.config-form .input-field input`)) {
-      input.addEventListener(
-        "focusout",
-        function (
-          e //blur
-        ) {
-          web.IsValidate = web.validate(input, input.dataset.constraint);
-        }
-      );
-
-      //khi đang tdoi du lieu trong input thì sẽ phải cài về như trc khi có lỗi
-      input.addEventListener(
-        "keydown",
-        function (
-          e //blur
-        ) {
-          web.resetError(input);
-        }
-      );
-    }
 
     //Xử lí tìm kiếm dữ liệu trên searching bar
     $(".searching-input").addEventListener("keyup", function (e) {
@@ -1500,14 +1726,15 @@ const web = {
             //Nếu bảng này chưa đc gửi request bao giờ thì gửi request
             web.getData(web.Table).then((value) => {
               //Neu Bang chua co dong du lieu nao
-              web.handleChangeTable(value)
+              web.handleChangeTable(value);
 
               //Kích hoạt active cho table-nav vừa mới click
               $(".list-sidebar.active").classList.remove("active");
               item.classList.add("active");
             });
           //do bat dong bo nen phai lap code
-          else { // Bảng đã có -> Không cần gửi request lại
+          else {
+            // Bảng đã có -> Không cần gửi request lại
             $(".list-sidebar.active").classList.remove("active");
             item.classList.add("active");
 
@@ -1517,7 +1744,7 @@ const web = {
           }
         }
       });
-    }    
+    }
 
     let menu = $(".icon-menu");
     let sidebar = $(".sidebar");

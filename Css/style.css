@@ -9,6 +9,7 @@ html {
   user-select: none;
 }
 body{
+  position: relative;
   background-color: var(--bg-content-color);
 }
 /* Ma color */
@@ -912,4 +913,38 @@ ul{
 {
   color: red;
   border-color: red;
+}
+
+/* LOADING EFFECT */
+.loading-container
+{
+  background-color: rgba(1, 1, 1, 0.3);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.loading
+{
+  animation: rotate linear 6s infinite;
+  transform: rotate(0deg);
+}
+
+.loading i
+{
+  font-size: 8rem;
+  font-weight: 900;
+}
+
+@keyframes rotate {
+  from
+  {
+    transform: rotate(0deg);
+  }
+  to
+  {
+    transform: rotate(360deg);
+  }
 }

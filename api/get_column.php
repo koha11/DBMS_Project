@@ -21,7 +21,7 @@
   }
 
   $outdata = array();
-  while($row = sqlsrv_fetch_array($stmt_qu,SQLSRV_FETCH_NUMERIC))
+  while($row = sqlsrv_fetch_array($stmt_qu,SQLSRV_FETCH_ASSOC))
   {
     array_push($outdata,$row);
   }
