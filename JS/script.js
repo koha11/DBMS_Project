@@ -1523,6 +1523,13 @@ const web = {
     let sidebar = $(".sidebar");
     let lists = $(".content-sidebar");
     let name_sidebar = $(".name-sidebar");
+    let setting = $(".icon-arrow-down");
+    let formSetting = $(".log-out");
+     // Click setting log out
+     setting.addEventListener("click", function () {
+      formSetting.classList.toggle("close");
+    });
+
 
     // Thay đổi icon menu sidebar
     sidebar

@@ -519,6 +519,7 @@ html {
 }
 .user-password{
   margin-top: 24px;
+  position: relative;
 }
 .btn-form{
   margin-top: 40px;
@@ -543,6 +544,18 @@ html {
 }
 .submit:hover{
   opacity: 0.8;
+  cursor: pointer;
+}
+/* show hide password */
+/* icon show hide password */
+#toggle-password{
+  position: absolute;
+  bottom: 2%;
+  right: 0%;
+  color: var(--desc-color);
+  font-size: 2rem;
+}
+#toggle-password:hover{
   cursor: pointer;
 }
 
