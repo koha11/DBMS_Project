@@ -9,6 +9,15 @@ const web = {
   ConfigState: "add", // Trạng thái hiện tại của config modal
   IsValidate: true,
   IsTitleRendered: false,
+  Role: "",
+  setRole: (role) =>
+  {
+    switch (role) {
+      case "admin":
+        web.Role = "admin";  
+        break;       
+    }
+  },
   // Hàm render bảng (ndung chính của trang web)
   render: (DataArr, option) => {
     let htmls = "";
@@ -1049,7 +1058,7 @@ const web = {
           break;
       }
       
-      if(web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM")) //mấy cái col này ko thuộc bảng timetable
+      if (web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM")) //mấy cái col này ko thuộc bảng timetable
         continue; 
 
       if (constraint.includes("subid")) {
@@ -1057,7 +1066,7 @@ const web = {
         addConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
             <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="A-${key}" name="${key}" list="list-${key}" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
+            <input id="A-${key}" name="${key}" list="list-${key}" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
           0,
           key.length - 3
         )}">
@@ -1072,7 +1081,7 @@ const web = {
             <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
             <input id="U-${key}" name="${key}" list="list-${key}" value="${
           web.inputObj[key]
-        }" type="text" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
+        }" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
           0,
           key.length - 3
         )}">
@@ -1081,36 +1090,54 @@ const web = {
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
-      } //kco datalist
-      else {
+      } 
+      else if (key.includes('GENDER'))
+      {
         addConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
             <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="A-${key}" name="${key}" type="text" class="fl-2" data-constraint="${constraint}">
+            <div class="radio-input-field flex-box fl-2">
+              <input id="r1-${key}" name="${key}" type="radio" value="Nam" class="fl-2" checked>
+              <label for="r1-${key}">Nam</label>
+              <input id="r2-${key}" name="${key}" type="radio" value="Nữ" class="fl-2">
+              <label for="r2-${key}">Nữ</label>
+              <input id="r3-${key}" name="${key}" type="radio" value="Khác" class="fl-2">
+              <label for="r3-${key}">Khác</label>
+            </div>            
           </div>
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
 
-        if (key.includes("ID"))
-          //ID update thì set readonly
-          updateConfig += `<div class="input-field flex-box">                      
-            <div class="flex-box input-container">
-              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-              <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="" class="select-input" data-table="HOCSINH" readonly>
-            </div>
-            <span class="message "message>Hãy chọn id hợp lệ</span>
-            <span class="message error"></span>
-          </div>`;
-        else
-          updateConfig += `<div class="input-field flex-box">                      
-            <div class="flex-box input-container">
-              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-              <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="${constraint}">
-            </div>
-            <span class="message ">${message}</span>
-            <span class="message error"></span>
-          </div>`;
+        //ID update thì set readonly
+        updateConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2" data-constraint="${constraint}" ${key.includes("ID")?"readonly": ""}>
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
+      }
+      else {//kco datalist
+        addConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="A-${key}" name="${key}" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2" data-constraint="${constraint}">
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
+
+        //ID update thì set readonly
+        updateConfig += `<div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2" data-constraint="${key.includes("ID") ? "" : constraint}" ${key.includes("ID") ? "readonly" : ""}>
+          </div>
+          <span class="message ">${message}</span>
+          <span class="message error"></span>
+        </div>`;
       }
     }
     addConfig += `</form>`;
@@ -1165,6 +1192,14 @@ const web = {
     $(".alert-container").classList.remove("close");
     web.handleAlertChoose();
   },
+  //Hàm render username
+  renderUserName: () =>
+  {
+    let usernameText = $$('.username-text')
+
+    for(let text of usernameText)
+      text.innerText = sessionStorage.getItem("name");
+  },
   //Hàm lấy tất cả bản ghi của 1 bảng từ db
   getData: async (
     tableName,
@@ -1176,15 +1211,12 @@ const web = {
       xmlhttp.onreadystatechange = function () {
         //bat dong bo, onload se cham hon so voi cac code khac
         if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText)
           let dataArr = JSON.parse(this.responseText);
           dataArr.forEach((obj) => {
             for (let key in obj)
               if (key.includes("DATE"))
-                obj[key] = obj[key].date
-                  .slice(0, 10)
-                  .split("-")
-                  .reverse()
-                  .join("-"); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
+                obj[key] = obj[key].date.slice(0, 10); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
           });
 
           resolve(dataArr);
@@ -1237,6 +1269,7 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        console.log(this.responseText)
         web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
           web.resetInputValue();
@@ -1272,10 +1305,6 @@ const web = {
     };
 
     let dataObj = web.getInputData();
-
-    for (let col in dataObj) {
-      if (dataObj.col == "") delete dataObj.col;
-    }
 
     dataObj.tableName = web.Table;
 
@@ -1328,6 +1357,8 @@ const web = {
   },
   // Hàm validate dữ liệu của input
   validate: (input, types) => {
+    if(input.getAttribute("type") == "radio") //radio thì ko cần validate
+      return;
     types = types.split(","); // tách các type thành mảng
     let inputField = input.closest(".input-field");
     let isValidate = true;
@@ -1477,7 +1508,13 @@ const web = {
 
     let inputList = $$(`form.config-form .input-field input`); //danh sach input tuong ung voi config-state
 
-    for (let input of inputList) dataObj[input.name] = input.value.trim();
+    for (let input of inputList) 
+    {
+      if(input.getAttribute("type") == "radio")
+        dataObj[input.name] = input.checked ? input.value : dataObj[input.name];
+      else 
+        dataObj[input.name] = input.value.trim();
+    }
 
     return dataObj;
   },
@@ -1576,7 +1613,7 @@ const web = {
   // Xử lí submit form
   handleSubmitForm: () => {
     $("#config-btn").addEventListener("click", function (e) {
-      let inputList = $$(`form .input-field input`); //danh sach input tuong ung voi config-state
+      let inputList = $$(`form .input-field input[data-constraint]`); //danh sach input tuong ung voi config-state
       e.preventDefault();
 
       for (let input of inputList) {
@@ -1643,7 +1680,7 @@ const web = {
 
   handleValidInput: () => {
     //Kiểm tra value ở input có valid hay ko --> tach ham`
-    for (let input of $$(`form.config-form .input-field input`)) {
+    for (let input of $$(`form.config-form .input-field input[data-constraint]`)) {
       input.addEventListener(
         "focusout",
         function (
@@ -1750,13 +1787,34 @@ const web = {
     let sidebar = $(".sidebar");
     let lists = $(".content-sidebar");
     let name_sidebar = $(".name-sidebar");
-    let setting = $(".icon-arrow-down");
-    let formSetting = $(".log-out");
-     // Click setting log out
-     setting.addEventListener("click", function () {
-      formSetting.classList.toggle("close");
+    let settingBtn = $(".icon-arrow-down");
+    let settingModal = $(".setting-modal");
+
+    //Mo logout modal
+    settingBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      settingModal.classList.toggle("close");
     });
 
+    // bam vo modal ko tat
+    settingModal.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+
+    //Bam ra ngoai modal thi tat modal
+    $('.view').addEventListener("click", function(e) {
+      if(!settingModal.classList.contains("close"))
+        settingModal.classList.add("close");
+    })
+
+    //infor
+
+    //logout
+    $('.logout-btn').addEventListener("click", function(e)
+    {
+      window.sessionStorage.clear();
+      window.location.href = "http://localhost/demo_SQL_mini_project/";
+    })
 
     // Thay đổi icon menu sidebar
     sidebar
@@ -1775,6 +1833,8 @@ const web = {
     });
   },
   start: () => {
+    web.setRole(window.sessionStorage.role);
+    web.renderUserName();
     web.getData(web.Table).then((value) => {
       web.handleChangeTable(value);
       web.handleEvents();

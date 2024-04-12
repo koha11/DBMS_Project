@@ -291,7 +291,6 @@ html {
   background-color: blue;
 }
 
-
 /*MODAL*/
 .config-modal-container
 {
@@ -335,6 +334,12 @@ html {
 {
   align-self: flex-end;
 }
+
+.config-modal input[type=radio]
+{
+  margin-right: 8px;
+}
+
 /* ICON NAV */
 .icon-nav{
   padding-right: 4px;
@@ -504,7 +509,7 @@ html {
   color: rgb(118, 113, 113);
 }
 .form-login-user{
-  padding-top: 76px;
+  padding-top: 64px;
 }
 .user-tittle{
   font-size: 1.3rem;
@@ -547,14 +552,34 @@ html {
   opacity: 0.8;
   cursor: pointer;
 }
+
+.form-message.error {
+  color: red;
+  font-size: 1.2rem;
+  margin-top: 12px;
+}
+
+.form-login.error input
+{
+  color: red!important;
+  border-bottom: 2px solid #e30000;
+  transform: translateY(10px);
+  transition: transform .5s;
+}
+
+.form-login.error label 
+{
+  color: red;
+}
 /* show hide password */
 /* icon show hide password */
 #toggle-password{
   position: absolute;
-  bottom: 2%;
-  right: 0%;
+  transform: translateY(100%);
+  bottom: 50%;
+  right: 0;
   color: var(--desc-color);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 #toggle-password:hover{
   cursor: pointer;
@@ -643,6 +668,7 @@ html {
   align-items: center;
   width: 30%;
   height: 100%;
+  position: relative;
 }
 .name-user-text{
   font-size: 1.8rem;
@@ -656,13 +682,12 @@ html {
   border-radius: 25px;
   background-color: var(--bg-content-color);
   color: #718EBF;
-  position: relative;
   user-select: none;
 }
 .icon-arrow-down:hover{
   cursor: pointer;
 }
-.log-out:hover{
+.setting-modal:hover{
   cursor: pointer; 
 }
 .arrow-up:hover{
@@ -674,27 +699,23 @@ ul{
 
 }
 
-.log-out{
+.setting-modal{
   width: 200px;
   height: 150px;
   position: absolute;
   top: 65px;
-  left: -7px;
+  left: 0;
   background-color: white;
   border-radius: 10px;
   box-shadow: rgba(100, 100, 111, 0.3) 2px 4px 11px 6px;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0;
   z-index: 10;
-
- 
 }
-.log-out i{
+
+.setting-modal i{
   font-size: 2.8rem;
 }
+
 .item-drop-menu{
   display: flex;
   align-items: center;
@@ -717,7 +738,7 @@ ul{
   font-size: 1rem;
   color: var(--menu-color);
 }
-.text-log-out{
+.setting-item{
   padding-left: 15px;
   font-size: 1.5rem;
   height: 100%;

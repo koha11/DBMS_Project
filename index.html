@@ -32,9 +32,9 @@
           <div class="form-login-desc">Please login to your account</div>
           <form class="form-login-user">
             <div class="user-email">
-              <label for="name" class="user-tittle">Username or Email</label>
+              <label for="username" class="user-tittle">Username or Email</label>
 
-              <input type="text" name="name" id="name" class="username" />
+              <input type="text" name="name" id="username" class="username" />
             </div>
 
             <div class="user-password">
@@ -52,25 +52,15 @@
                 style="color: #bebebe"
               ></i>
             </div>
+            <div class="form-message error">
+            </div>
             <div class="btn-form">
-              <button class="submit">Login</button>
+              <button id="submit-btn" class="submit">Login</button>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <script>
-      const $ = document.querySelector.bind(document);
-      const $$ = document.querySelectorAll.bind(document);
-      const inputPass = $("#pass");
-      const togglePassword = $("#toggle-password");
-      // Show hide password
-      togglePassword.addEventListener("click", function () {
-        const typePass =
-          inputPass.getAttribute("type") === "password" ? "text" : "password";
-        inputPass.setAttribute("type", typePass);
-        this.classList.toggle("fa-eye");
-      });
-    </script>
+    <script src="./JS/login.js"></script>
   </body>
 </html>

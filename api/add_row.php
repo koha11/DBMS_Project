@@ -15,7 +15,6 @@
 
   $keys = " ";
   $vals = " ";
-
   foreach($data as $key => $val)
   {
     if($key != "tableName")
