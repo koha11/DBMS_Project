@@ -774,6 +774,7 @@ const web = {
       htmls += `<option value="${col}">${col}</option>`;
     $(".searching-option").innerHTML = htmls;
   },
+  //Hàm render input form
   renderInputForm: () => {
     let dataArr = web.DataArr[web.Table];
 
@@ -1148,7 +1149,7 @@ const web = {
         htmls +
         addConfig +
         `<div class="modal-footer flex-box">
-          <button id="config-btn" class="form-btn btn" data-handle="">
+          <button id="config-btn" class="form-btn btn">
             <i class="icon-footer fa-solid fa-check"></i>
               Save
           </button>
@@ -1165,7 +1166,77 @@ const web = {
         </div>`;
 
     $(".config-modal").innerHTML = htmls;
+    $(".config-modal-container:not(.small)").classList.remove("close");
 
+    web.handleSubmitForm();
+    web.renderOptionLists();
+    web.handleValidInput();
+  },
+  //Hàm render small input form
+  renderSmallInputForm: () =>
+  {
+    let htmls = `<form class="modal-body flex-box config-form" data-config="add">`
+    if(web.Table == 'BILL')
+    {
+      htmls += `
+        <div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="A-st_id" name="configInputLabel" class="fl-1">Student ID</label>
+            <input id="A-st_id" list="list-Bill" name="STUDENT_ID" type="text" class="fl-2 select-input" data-constraint="subid,required" data-table = "STUDENT">
+            <datalist id="list-Bill"></datalist>
+          </div>
+          <span class="message "></span>
+          <span class="message error"></span>
+        </div>
+
+        <div class="input-field flex-box">                      
+          <div class="flex-box input-container">
+            <label for="" name="configInputLabel" class="fl-1">Method Payment</label>
+            <div class="radio-input-field flex-box fl-2">
+              <input id="r1" name="METHOD_P" type="radio" value="1" class="fl-2" checked>
+              <label for="r1">Banking</label>
+              <input id="r2" name="METHOD_P" type="radio" value="0" class="fl-2">
+              <label for="r2">Cash</label>                      
+            </div>                                
+          </div>
+          <span class="message "></span>
+          <span class="message error"></span>
+        </div>
+      </form>`
+    }
+    else
+    {
+      htmls += `<div class="input-field flex-box">                      
+      <div class="flex-box input-container">
+        <label for="A-st_id_res" name="configInputLabel" class="fl-1">Student ID</label>
+        <input id="A-st_id_res" list="list-result-st" name="STUDENT_ID" type="text" class="fl-2 select-input" data-constraint="ids,subid,required" data-table = "STUDENT">
+        <datalist id="list-result-st"></datalist>
+      </div>
+      <span class="message"></span>
+      <span class="message error"></span>
+    </div>
+
+    <div class="input-field flex-box">                      
+      <div class="flex-box input-container">
+        <label for="A-cl_id" name="configInputLabel" class="fl-1">Class ID</label>
+        <input id="A-cl_id" list="list-result-cl" name="CLASS_ID" type="text" class="fl-2 select-input" data-constraint="ids,subid,required" data-table = "CLASS">                    
+        <datalist id="list-result-cl"></datalist>
+      </div>
+      <span class="message "></span>
+      <span class="message error"></span>
+    </div></form>`
+    }
+
+    htmls += `
+      <div class="modal-footer flex-box">
+        <button id="config-btn" class="form-btn btn" data-handle="">
+          <i class="icon-footer fa-solid fa-check"></i>
+          Save
+        </button>
+      </div>`
+
+    $('.config-modal-container.small .config-modal').innerHTML = htmls;
+    $(".config-modal-container.small").classList.remove("close");
     web.handleSubmitForm();
     web.renderOptionLists();
     web.handleValidInput();
@@ -1275,7 +1346,8 @@ const web = {
           web.resetInputValue();
 
           $(".alert-container").classList.add("close");
-          $(".config-modal-container").classList.add("close");
+          for(let container of $$(".config-modal-container"))
+            container.classList.add("close");  
         });
       }
     };
@@ -1299,7 +1371,7 @@ const web = {
 
           // Đóng form và alert box
           $(".alert-container").classList.add("close");
-          $(".config-modal-container").classList.add("close");
+          $(".config-modal-container:not(.small)").classList.add("close");
         });
       }
     };
@@ -1506,7 +1578,7 @@ const web = {
   getInputData: () => {
     let dataObj = {};
 
-    let inputList = $$(`form.config-form .input-field input`); //danh sach input tuong ung voi config-state
+    let inputList = $$(`.config-modal-container:not(.close) form.config-form .input-field input`); //danh sach input tuong ung voi config-state
 
     for (let input of inputList) 
     {
@@ -1585,7 +1657,7 @@ const web = {
 
           web.ConfigState = "update";
           web.renderInputForm();
-          $(".config-modal-container").classList.remove("close");
+          $(".config-modal-container:not(.small)").classList.remove("close");
         }
       });
     }
@@ -1613,7 +1685,7 @@ const web = {
   // Xử lí submit form
   handleSubmitForm: () => {
     $("#config-btn").addEventListener("click", function (e) {
-      let inputList = $$(`form .input-field input[data-constraint]`); //danh sach input tuong ung voi config-state
+      let inputList = $$(`.config-modal-container:not(.close) form .input-field input[data-constraint]`); //danh sach input tuong ung voi config-state
       e.preventDefault();
 
       for (let input of inputList) {
@@ -1678,9 +1750,11 @@ const web = {
     }
   },
 
-  handleValidInput: () => {
+  // Hàm chạy event kiểm tra validate cho input
+  handleValidInput: () => {    
     //Kiểm tra value ở input có valid hay ko --> tach ham`
-    for (let input of $$(`form.config-form .input-field input[data-constraint]`)) {
+    for (let input of $$(`.config-modal-container:not(.close) form.config-form .input-field input[data-constraint]`)) {
+      console.log(input);
       input.addEventListener(
         "focusout",
         function (
@@ -1719,16 +1793,17 @@ const web = {
     //Bien dung chung
 
     // Xử lí tắt modal
-    $(".config-modal-container").addEventListener("click", function (e) {
-      e.stopPropagation();
-      e.target.classList.add("close");
+    for(let container of $$(".config-modal-container"))
+      container.addEventListener("click", function (e) {
+        e.stopPropagation();
+        e.target.classList.add("close");
 
-      let inputList = $$(`form .input-field input`);
-      for (let input of inputList) web.resetError(input);
+        let inputList = $$(`form .input-field input`);
+        for (let input of inputList) web.resetError(input);
 
-      //web.setConfigState($(".nav-item.add-config"));
-      web.resetInputValue();
-    });
+        //web.setConfigState($(".nav-item.add-config"));
+        web.resetInputValue();
+      });
 
     for (let modal of $$(".modal")) {
       modal.addEventListener("click", function (e) {
@@ -1739,8 +1814,14 @@ const web = {
     // Mở add modal
     $("#table-config").addEventListener("click", function (e) {
       web.ConfigState = "add";
-      web.renderInputForm();
-      $(".config-modal-container").classList.remove("close");
+      if(web.Table == 'BILL' || web.Table == 'RESULT')
+      {
+        web.renderSmallInputForm()
+      }
+      else 
+      {
+        web.renderInputForm();
+      }
     });
 
     //Xử lí tìm kiếm dữ liệu trên searching bar

@@ -969,3 +969,30 @@ ul{
     transform: rotate(360deg);
   }
 }
+
+/***************SMALL MODAL************/
+.container.small .config-modal {
+  height: 30%;
+  width: 50%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.container.small .config-form {
+  flex-direction: column;
+  width: 100%;
+}
+
+.container.small .input-field {
+  width: 100%;
+}
+
+.container.small .modal-footer {
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.container.small button#config-btn {
+  margin: 0;
+}

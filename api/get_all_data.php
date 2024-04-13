@@ -11,72 +11,72 @@
   $sql_query = "";
 
   // truong hop getdata cua timetable (lay them 2 thuoc tinh cua bang khac nua)
-  if($tableName == "TIMETABLE") //table duy nhat khac, cong thuc get data: TR: class join any, ST: result join any (except course)
-  {
-    if($_COOKIE['ROLE'] == "student")
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM TIMETABLE A
-        join CLASS B on A.CLASS_ID = B.CLASS_ID
-        join RESULT C on B.CLASS_ID = C.CLASS_ID";
-    else   
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM TIMETABLE A
-        join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
-  }
+   if($tableName == "TIMETABLE") //table duy nhat khac, cong thuc get data: TR: class join any, ST: result join any (except course)
+  // {
+  //   if($_COOKIE['ROLE'] == "student")
+  //     $sql_query = "
+  //       SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+  //       FROM TIMETABLE A
+  //       join CLASS B on A.CLASS_ID = B.CLASS_ID
+  //       join RESULT C on B.CLASS_ID = C.CLASS_ID";
+  //   else   
+       $sql_query = "
+         SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+         FROM TIMETABLE A
+         join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
+  // }
 
-  if($tableName == "CLASS") //done
-  {
-    if($_COOKIE['ROLE'] == "student")
-      $sql_query = "
-        SELECT *
-        FROM CLASS A 
-        join RESULT B on A.CLASS_ID = B.CLASS_ID";
-  }
+  // if($tableName == "CLASS") //done
+  // {
+  //   if($_COOKIE['ROLE'] == "student")
+  //     $sql_query = "
+  //       SELECT *
+  //       FROM CLASS A 
+  //       join RESULT B on A.CLASS_ID = B.CLASS_ID";
+  // }
 
-  if($tableName == "COURSE")
-  {
-    if($_COOKIE['ROLE'] == "student")
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM COURSE A
-        join CLASS B on A.CLASS_ID = B.CLASS_ID
-        join RESULT C on B.CLASS_ID = C.CLASS_ID";
-    else   
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM TIMETABLE A
-        join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
-  }
+  // if($tableName == "COURSE")
+  // {
+  //   if($_COOKIE['ROLE'] == "student")
+  //     $sql_query = "
+  //       SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+  //       FROM COURSE A
+  //       join CLASS B on A.CLASS_ID = B.CLASS_ID
+  //       join RESULT C on B.CLASS_ID = C.CLASS_ID";
+  //   else   
+  //     $sql_query = "
+  //       SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+  //       FROM TIMETABLE A
+  //       join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
+  // }
 
-  if($tableName == "CLASS_DETAIL")
-  {
-    if($_COOKIE['ROLE'] == "student")
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM CLASS_DETAIL A
-        join RESULT B on A.CLASS_ID = B.CLASS_ID";
-    else   
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM TIMETABLE A
-        join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
-  }
+  // if($tableName == "CLASS_DETAIL")
+  // {
+  //   if($_COOKIE['ROLE'] == "student")
+  //     $sql_query = "
+  //       SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+  //       FROM CLASS_DETAIL A
+  //       join RESULT B on A.CLASS_ID = B.CLASS_ID";
+  //   else   
+  //     $sql_query = "
+  //       SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+  //       FROM TIMETABLE A
+  //       join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
+  // }
 
-  if($tableName == "CLASS_DETAIL")
-  {
-    if($_COOKIE['ROLE'] == "student")
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM CLASS_DETAIL A
-        join RESULT B on A.CLASS_ID = B.CLASS_ID";
-    else   
-      $sql_query = "
-        SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
-        FROM TIMETABLE A
-        join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
-  }
+  // if($tableName == "CLASS_DETAIL")
+  // {
+  //   if($_COOKIE['ROLE'] == "student")
+  //     $sql_query = "
+  //       SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+  //       FROM CLASS_DETAIL A
+  //       join RESULT B on A.CLASS_ID = B.CLASS_ID";
+  //   else   
+  //     $sql_query = "
+  //       SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+  //       FROM TIMETABLE A
+  //       join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
+  // }
 
   if($sql_query == "")
     $sql_query = "

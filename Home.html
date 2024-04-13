@@ -24,7 +24,7 @@
     <script type="text/javascript">
       (function() {
         if(!sessionStorage.getItem("role")) //Ngăn chặn sự xâm nhập vào page khi chưa login
-          window.location.href = "http://localhost/demo_SQL_mini_project/"
+          window.location.href = window.location.href.replace("Home.html","")
       })();
     </script>
     <div class="view">
@@ -139,6 +139,13 @@
           ></div>
 
           <div class="config-modal-container close container flex-box">
+            <div
+              class="config-modal flex-box modal add-config"
+              data-config="add-config"
+            ></div>
+          </div>
+
+          <div class="config-modal-container close container flex-box small">
             <div
               class="config-modal flex-box modal add-config"
               data-config="add-config"
