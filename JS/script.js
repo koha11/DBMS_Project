@@ -968,15 +968,17 @@ const web = {
             if (key.includes("CLASS_ID")) {
               title = `Class ID`;
               message = `Example: "CL0, CL1, ..."`;
-              constraint = "id,subid,required,noSpecialChar";
+              constraint = "ids,subid,required,noSpecialChar";
             }
             if (key.includes("WEEKLYDAY")) {
               title = `Weeklyday`;
               message = `Example: "2, 3, ..."`;
+              constraint = "ids,required";
             }
             if (key.includes("DAYPERIOD")) {
               title = `Dayperiod`;
               message = `Example: "1, 2, ..."`;
+              constraint = "ids,required";
             }
           }
           break;
@@ -1478,7 +1480,7 @@ const web = {
 
             let inputs = input
               .closest(".config-form")
-              .querySelectorAll('input[name*="_ID"]');
+              .querySelectorAll('input[data-constraint*="ids"]');
             let obj = {};
 
             for (let input of inputs) obj[input.name] = input.value;
@@ -1489,9 +1491,10 @@ const web = {
                 break;
 
               let flag = false; // xac dinh trang thai ban dau la bi trung` PK
-
               for (let key in obj) {
-                if (obj[key] !== row[key]) flag = true; // ko bi trung` PK
+                if(obj[key] == "")
+                  return;
+                if (obj[key] != row[key]) flag = true; // ko bi trung` PK
               }
 
               if (!flag) {
