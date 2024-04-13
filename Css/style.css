@@ -253,7 +253,7 @@ html {
 {
   padding: 15px 5px;
   border-radius: 10px;
-  width: 12%;
+  width: 45%;
   text-align: center;
   cursor: pointer;
   font-size: 1.5rem;
@@ -289,6 +289,10 @@ html {
 
 .config-btn-container i.bxs-edit-alt{
   background-color: blue;
+}
+
+.config-area {
+  width: 30%;
 }
 
 /*MODAL*/

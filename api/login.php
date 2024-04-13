@@ -13,7 +13,7 @@
     //die(print_r(sqlsrv_errors(), true));
   else 
   {
-    //Nên dùng token nhma mình khum bit :')
+    //Nên dùng token nhma mình khum bit
     setcookie("UID",$account["uid"],time() + 86400 * 1, "/");
     setcookie("PWD",$account["pwd"],time() + 86400 * 1, "/");
     $sql_query = "";

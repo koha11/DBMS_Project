@@ -23,7 +23,15 @@ const web = {
     let htmls = "";
     let flag = web.IsTitleRendered;
 
+   //Ẩn check btn nếu ko phải bảng bill
+    if(web.Table == "BILL")
+    {
+      $('#sub-config').classList.add('close');
+    }
+
     if (web.Table != $("#content-table").dataset.table) {
+      if($("#content-table").dataset.table == "BILL")
+        $('#sub-config').classList.add('close')
       $("#content-table").dataset.table = web.Table;
       flag = false;
       web.IsTitleRendered = false; //reset lai trang thai da render title hay chua
@@ -449,7 +457,6 @@ const web = {
         DataArr.forEach((obj) => {
           if (obj != undefined && Object.values(obj)[0] != undefined) {
             let keyArr = Object.keys(obj);
-            console.log(keyArr)
             htmls += `<div class="table-row">
                 <div class="content-table-head table-col fl-2" name="${
                   keyArr[0]
@@ -461,10 +468,10 @@ const web = {
                   keyArr[2]
                 }">${obj[keyArr[2]]}</div>
                 <div class="content-table-head table-col fl-2" name="${
-                  keyArr[0]
+                  keyArr[3]
                 }">${obj[keyArr[3]]}</div>
                 <div class="content-table-head table-col fl-2" name="${
-                  keyArr[0]
+                  keyArr[4]
                 }">${obj[keyArr[4]]}</div>
                 <div class="config-btn-container">
                   <i class='bx bxs-edit-alt'data-config="update"></i>
@@ -694,14 +701,10 @@ const web = {
               }">${obj[keyArr[2]]}</div>
               <div class="content-table-head table-col fl-2" name="${
                 keyArr[3]
-              }">${obj[keyArr[3]]}</div>
+              }">${obj[keyArr[3]] ? "Banking" : "Cash"}</div>
               <div class="content-table-head table-col fl-2" name="${
                 keyArr[4]
               }">${obj[keyArr[4]]}</div>
-              <div class="config-btn-container">
-                <i class='bx bxs-edit-alt'data-config="update"></i>
-                <i class='bx bx-x' data-config="delete"></i>
-              </div>
             </div>`;
           }
         });
@@ -965,6 +968,7 @@ const web = {
             if (key.includes("CLASS_ID")) {
               title = `Class ID`;
               message = `Example: "CL0, CL1, ..."`;
+              constraint = "id,subid,required,noSpecialChar";
             }
             if (key.includes("WEEKLYDAY")) {
               title = `Weeklyday`;
@@ -1098,27 +1102,35 @@ const web = {
           <div class="flex-box input-container">
             <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
             <div class="radio-input-field flex-box fl-2">
-              <input id="r1-${key}" name="${key}" type="radio" value="Nam" class="fl-2" checked>
-              <label for="r1-${key}">Nam</label>
-              <input id="r2-${key}" name="${key}" type="radio" value="Nữ" class="fl-2">
-              <label for="r2-${key}">Nữ</label>
-              <input id="r3-${key}" name="${key}" type="radio" value="Khác" class="fl-2">
-              <label for="r3-${key}">Khác</label>
+              <input id="r1-${key}" name="${key}" type="radio" value="Male" class="fl-2" checked>
+              <label for="r1-${key}">Male</label>
+              <input id="r2-${key}" name="${key}" type="radio" value="Female" class="fl-2">
+              <label for="r2-${key}">Female</label>
+              <input id="r3-${key}" name="${key}" type="radio" value="Other" class="fl-2">
+              <label for="r3-${key}">Other</label>
             </div>            
           </div>
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
 
-        //ID update thì set readonly
         updateConfig += `<div class="input-field flex-box">                      
           <div class="flex-box input-container">
-            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2" data-constraint="${constraint}" ${key.includes("ID")?"readonly": ""}>
+            <label for="A-${key}" name="configInputLabel" class="fl-1">${title}</label>
+            <div class="radio-input-field flex-box fl-2">
+              <input id="r1-${key}" name="${key}" type="radio" value="Male" class="fl-2" checked>
+              <label for="r1-${key}">Male</label>
+              <input id="r2-${key}" name="${key}" type="radio" value="Female" class="fl-2">
+              <label for="r2-${key}">Female</label>
+              <input id="r3-${key}" name="${key}" type="radio" value="Other" class="fl-2">
+              <label for="r3-${key}">Other</label>
+            </div>            
           </div>
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
+
+
       }
       else {//kco datalist
         addConfig += `<div class="input-field flex-box">                      
@@ -1271,6 +1283,12 @@ const web = {
     for(let text of usernameText)
       text.innerText = sessionStorage.getItem("name");
   },
+  //Hàm render ra bảng check student
+  renderCheckBillList: () =>
+  {
+    let htmls;
+    
+  },
   //Hàm lấy tất cả bản ghi của 1 bảng từ db
   getData: async (
     tableName,
@@ -1282,7 +1300,6 @@ const web = {
       xmlhttp.onreadystatechange = function () {
         //bat dong bo, onload se cham hon so voi cac code khac
         if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText)
           let dataArr = JSON.parse(this.responseText);
           dataArr.forEach((obj) => {
             for (let key in obj)
@@ -1338,9 +1355,9 @@ const web = {
       "application/x-www-form-urlencoded"
     );
     xmlhttp.onreadystatechange = function () {
+      console.log(this.responseText)
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        console.log(this.responseText)
         web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
           web.resetInputValue();
@@ -1584,8 +1601,10 @@ const web = {
     {
       if(input.getAttribute("type") == "radio")
         dataObj[input.name] = input.checked ? input.value : dataObj[input.name];
-      else 
-        dataObj[input.name] = input.value.trim();
+      else  
+      {
+        dataObj[input.name] = input.value.trim();       
+      }
     }
 
     return dataObj;
@@ -1649,9 +1668,22 @@ const web = {
           web.inputObj = { [key]: id };
           web.ConfigState = "delete";
           web.renderConfirmAlert();
-        } else {
+        } else {                
           for (let item of row.children)
-            web.inputObj[item.getAttribute("name")] = item.innerText;
+          {            
+            web.inputObj[item.getAttribute("name")] = item.innerText; 
+            switch(web.inputObj[item.getAttribute("name")])
+            {
+              case "Offline":
+              case "Banking":
+                web.inputObj[item.getAttribute("name")] = 1;
+                break;
+              case "Online":
+              case "Cash":
+                web.inputObj[item.getAttribute("name")] = 0;
+                break;
+            }
+          }
           // Đưa dữ liệu ban đầu (trước khi update) vào Input Obj để bên config modal có thể đưa
           // những dữ liệu này hiển thị bên update modal
 
@@ -1754,7 +1786,6 @@ const web = {
   handleValidInput: () => {    
     //Kiểm tra value ở input có valid hay ko --> tach ham`
     for (let input of $$(`.config-modal-container:not(.close) form.config-form .input-field input[data-constraint]`)) {
-      console.log(input);
       input.addEventListener(
         "focusout",
         function (
@@ -1783,6 +1814,12 @@ const web = {
         }
       );
     }
+  },
+
+  // Hàm xử lý event check HS nợ học phí hoặc xóa những HS đó
+  handleCheckBill: () =>
+  {
+
   },
 
   restartHandleEvents: () => {

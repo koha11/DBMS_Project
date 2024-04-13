@@ -19,15 +19,15 @@
   foreach($data as $key => $val)
   {
     if($key != "tableName")
-    {      
-      $val = is_numeric($val) ? $val : "N'$val'"; //Ktra số nguyên hay string để biết đường thêm N''
+    {           
+      $val = (is_numeric($val) && $val[0] != '0') ? $val : "N'$val'"; //Ktra số nguyên hay string để biết đường thêm N''
       $keys = $keys . ($keys == "" ? "" : ",") . $key; //Cột đầu thì ko cần dấu thêm dấu , ở trc
       $vals = $vals . ($vals == "" ? "" : ",") . $val;
     }
   }
 
   if($table == "BILL")
-    $query_add = "PR_BILL_INSERT $vals";
+    $query_add = "EXEC PR_BILL_INSERT $vals";
   else
     $query_add = "insert into $table($keys) values($vals)";
 
