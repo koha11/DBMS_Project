@@ -8,6 +8,7 @@
     die(print_r(sqlsrv_errors(), true));
 
   $tableName = $_GET['table'];
+  $id = $_GET['id'];
   $sql_query = "";
 
   // truong hop getdata cua timetable (lay them 2 thuoc tinh cua bang khac nua)
@@ -77,6 +78,9 @@
   //       FROM TIMETABLE A
   //       join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
   // }
+  
+  if($tableName == "CHECK_BILL")
+    $sql_query = "PR_BILL_CHECK $id";
 
   if($sql_query == "")
     $sql_query = "

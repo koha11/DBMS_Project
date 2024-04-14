@@ -26,7 +26,7 @@ const web = {
    //Ẩn check btn nếu ko phải bảng bill
     if(web.Table == "BILL")
     {
-      $('#sub-config').classList.add('close');
+      $('#sub-config').classList.remove('close');
     }
 
     if (web.Table != $("#content-table").dataset.table) {
@@ -701,7 +701,7 @@ const web = {
               }">${obj[keyArr[2]]}</div>
               <div class="content-table-head table-col fl-2" name="${
                 keyArr[3]
-              }">${obj[keyArr[3]] ? "Banking" : "Cash"}</div>
+              }">${obj[keyArr[3]] == 1 ? "Banking" : "Cash"}</div>
               <div class="content-table-head table-col fl-2" name="${
                 keyArr[4]
               }">${obj[keyArr[4]]}</div>
@@ -725,6 +725,7 @@ const web = {
     if (flag != web.IsTitleRendered) web.handleOrder();
 
     web.handleConfigRow();
+    web.renderCountText(); //đếm
 
     web.IsTitleRendered = flag; // set lại trạng thái đã render title hay chưa
     //set lại chiều cao của sidebar để fit với bảng
@@ -1011,10 +1012,6 @@ const web = {
               title = `Writing`;
               message = `Example: "1, 2, ..."`;
             }
-            if (key.includes("OVERALL")) {
-              title = `Overall`;
-              message = `Example: "1, 2, ..."`;
-            }
           }
           break;
 
@@ -1065,7 +1062,8 @@ const web = {
           break;
       }
       
-      if (web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM")) //mấy cái col này ko thuộc bảng timetable
+      if ((web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM")) //mấy cái col này ko thuộc bảng timetable
+        || (web.Table == "RESULT" && key == "OVERALL")) 
         continue; 
 
       if (constraint.includes("subid")) {
@@ -1083,20 +1081,30 @@ const web = {
           <span class="message error"></span>
         </div>`;
 
-        updateConfig += `<div class="input-field flex-box">                      
-          <div class="flex-box input-container">
-            <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
-            <input id="U-${key}" name="${key}" list="list-${key}" value="${
-          web.inputObj[key]
-        }" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
-          0,
-          key.length - 3
-        )}">
-            <datalist id="list-${key}"></datalist>
-          </div>
-          <span class="message ">${message}</span>
-          <span class="message error"></span>
-        </div>`;
+        if(key.includes("ID"))
+          updateConfig += `<div class="input-field flex-box">                      
+            <div class="flex-box input-container">
+              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+              <input id="U-${key}" name="${key}" value="${web.inputObj[key]}" type="text" class="fl-2" data-constraint="" readonly>
+            </div>
+            <span class="message ">${message}</span>
+            <span class="message error"></span>
+          </div>`;
+        else
+          updateConfig += `<div class="input-field flex-box">                      
+            <div class="flex-box input-container">
+              <label for="U-${key}" name="configInputLabel" class="fl-1">${title}</label>
+              <input id="U-${key}" name="${key}" list="list-${key}" value="${
+            web.inputObj[key]
+          }" type="${key.includes("DATE") ? "date" : "text"}" class="fl-2 select-input" data-constraint="${constraint}" data-table="${key.slice(
+            0,
+            key.length - 3
+          )}">
+              <datalist id="list-${key}"></datalist>
+            </div>
+            <span class="message ">${message}</span>
+            <span class="message error"></span>
+          </div>`;
       } 
       else if (key.includes('GENDER'))
       {
@@ -1131,8 +1139,6 @@ const web = {
           <span class="message ">${message}</span>
           <span class="message error"></span>
         </div>`;
-
-
       }
       else {//kco datalist
         addConfig += `<div class="input-field flex-box">                      
@@ -1285,11 +1291,197 @@ const web = {
     for(let text of usernameText)
       text.innerText = sessionStorage.getItem("name");
   },
-  //Hàm render ra bảng check student
-  renderCheckBillList: () =>
+  //Hàm render ra bảng check student (0 là in ra bảng đang nợ, 1 là in ra bảng đã nợ hơn 7 ngày và có muốn xóa ko)
+  renderCheckBillList: (dataObj,option = 0) =>
   {
-    let htmls;
-    
+    let htmls = "";
+    if(option == 0)
+    {
+      $('.config-modal-container:not(.small)').classList.add('check');
+
+      htmls = `<div class="check-header">CHECK BILL</div>
+      <div class="check-body">
+        <div class="table-row title-row">
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="STUDENT_ID">
+            <div class="name-col">ID</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_NAME">
+            <div class="name-col">Name</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
+            <div class="name-col">Class ID</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_ID">
+            <div class="name-col">Course ID</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_FEE">
+            <div class="name-col">Course Fee</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="DATE_START">
+            <div class="name-col">Date Start</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>                
+        </div>`
+      let keyArr = Object.keys(dataObj[0])
+      for(let obj of dataObj)
+      {
+        if(obj[keyArr[0]] != undefined)
+          htmls += `<div class="table-row">
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[0]
+            }">${obj[keyArr[0]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[1]
+            }">${obj[keyArr[1]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[2]
+            }">${obj[keyArr[2]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[3]
+            }">${obj[keyArr[3]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[4]
+            }">${obj[keyArr[4]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[5]
+            }">${obj[keyArr[5]]}</div>              
+          </div>`
+      }
+
+      htmls += `</div><div class="check-footer btn">
+        Remove Student over 7 Day out the class
+      </div>`
+      $('.config-modal-container.check .config-modal').innerHTML = htmls;    
+      $('.config-modal-container.check').classList.remove('close');
+      web.handleClickDBill();
+    }
+    else 
+    {
+      htmls = `<div class="check-header">CHECK BILL</div>
+      <div class="check-body">
+        <div class="table-row title-row">
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="STUDENT_ID">
+            <div class="name-col">ID</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="ST_NAME">
+            <div class="name-col">Name</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASS_ID">
+            <div class="name-col">Class ID</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_ID">
+            <div class="name-col">Course ID</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="COURSE_FEE">
+            <div class="name-col">Course Fee</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="DATE_START">
+            <div class="name-col">Date Start</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div> 
+          <div class="content-table-head table-col table-title fl-2 flex-box" name="TODAY">
+            <div class="name-col">Today</div>
+            <div class="order-option flex-box">
+              <i class='bx bxs-up-arrow' data-order='asc'></i>
+              <i class='bx bxs-down-arrow' data-order='desc'></i>
+            </div>
+          </div>                 
+        </div>`
+      let keyArr = Object.keys(dataObj[0])
+      for(let obj of dataObj)
+      {
+        if(obj[keyArr[0]] != undefined)
+          htmls += `<div class="table-row">
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[0]
+            }">${obj[keyArr[0]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[1]
+            }">${obj[keyArr[1]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[2]
+            }">${obj[keyArr[2]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[3]
+            }">${obj[keyArr[3]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[4]
+            }">${obj[keyArr[4]]}</div>
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[5]
+            }">${obj[keyArr[5]]}</div>     
+            <div class="content-table-head table-col fl-2" name="${
+              keyArr[5]
+            }">${obj[keyArr[6]]}</div>           
+          </div>`
+      }
+      
+      htmls += `</div><div class="check-footer">
+        Thông tin những học sinh đã xóa
+      </div>`
+      $('.config-modal-container.check .config-modal').innerHTML = htmls;    
+    }
+
+
+  },
+  //Hàm render ra thống kê số lượng bản ghi
+  renderCountText: () =>
+  {
+    let total = web.DataArr[web.Table].length;
+    let now = 0;
+    web.RenderArr.forEach(row => {
+      if(row != undefined)
+        now++;
+    });
+
+    let htmls = `Table Overview <span class="table-sub-text">(${now} of ${total})</span>`;
+    $('.overview').innerHTML = htmls;
   },
   //Hàm lấy tất cả bản ghi của 1 bảng từ db
   getData: async (
@@ -1383,6 +1575,7 @@ const web = {
     xmlhttp.onreadystatechange = function () {
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        console.log(this.responseText)
         //gọi lại dữ liệu và render lại
         web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
@@ -1708,7 +1901,8 @@ const web = {
     });
 
     yes.addEventListener("click", function (e) {
-      if (web.ConfigState == "add") web.addRow();
+      if($('.check')) web.handleCheckBill(0);
+      else if (web.ConfigState == "add") web.addRow();
       else if (web.ConfigState == "update") web.updateRow();
       else {
         let key = Object.keys(web.inputObj)[0];
@@ -1779,8 +1973,8 @@ const web = {
     } else web.DataArr[table] = value;
 
     if (isRender) {
-      web.render(web.DataArr[web.Table], web.Table);
       web.RenderArr = web.DataArr[web.Table];
+      web.render(web.DataArr[web.Table], web.Table);
       web.renderSearchingOptions();
     }
   },
@@ -1820,9 +2014,47 @@ const web = {
   },
 
   // Hàm xử lý event check HS nợ học phí hoặc xóa những HS đó
-  handleCheckBill: () =>
+  handleCheckBill: (option = 1) =>
   {
+    if(!web.DataArr.CHECK_BILL)
+      web.getData('CHECK_BILL',option).then((value)=>
+      {
+        let dataObj = (value.length == 0) ? [{}] : value;
+        if(option == 1)
+        {
+          web.DataArr.CHECK_BILL = dataObj;
+          web.renderCheckBillList(dataObj)
+        }
+        else //Xóa
+        {
+          $(".alert-container").classList.add("close");
+          web.renderCheckBillList(dataObj,1)
+        }
+      })
+    else 
+    {
+      let value = web.DataArr.CHECK_BILL.length == 0 ? [{}] : web.DataArr.CHECK_BILL;
+      if(option == 1)
+        {
+          web.DataArr.CHECK_BILL = value;
+          web.renderCheckBillList(value)
+        }
+        else //Xóa
+        {
+          $(".alert-container").classList.add("close");
+          web.renderCheckBillList(value,1)
+        }
+    }
+  },
 
+  //Hàm xử lí khi click xóa học sinh
+  handleClickDBill: () =>
+  {
+    $('.check-footer.btn').addEventListener("click",function(e)
+    {
+      if(web.DataArr.CHECK_BILL[0].STUDENT_ID)
+        web.renderConfirmAlert();
+    })
   },
 
   restartHandleEvents: () => {
@@ -1837,6 +2069,7 @@ const web = {
       container.addEventListener("click", function (e) {
         e.stopPropagation();
         e.target.classList.add("close");
+        e.target.classList.remove("check");
 
         let inputList = $$(`form .input-field input`);
         for (let input of inputList) web.resetError(input);
@@ -1904,6 +2137,12 @@ const web = {
       });
     }
 
+    // Bam btn check bill
+    $('#sub-config').addEventListener("click",function(e)
+    {
+      web.handleCheckBill();
+    })
+
     let menu = $(".icon-menu");
     let sidebar = $(".sidebar");
     let lists = $(".content-sidebar");
@@ -1960,42 +2199,6 @@ const web = {
       web.handleChangeTable(value);
       web.handleEvents();
     });
-  },
-};
-
-const noneTables = {
-  handleEvents: () => {
-    let menu = $(".icon-menu");
-    let sidebar = $(".sidebar");
-    let lists = $(".content-sidebar");
-    let name_sidebar = $(".name-sidebar");
-    let setting = $(".icon-arrow-down");
-    let formSetting = $(".log-out");
-    // Click setting log out
-    setting.addEventListener("click", function () {
-      formSetting.classList.toggle("close");
-    });
-
-    // Thay đổi icon menu sidebar
-    sidebar
-      .querySelector(".sidebar-menu i")
-      .addEventListener("click", function (e) {
-        setTimeout(() => {
-          e.target.classList.toggle("fa-times");
-        }, 10000);
-      });
-
-    menu.addEventListener("click", function () {
-      sidebar.classList.toggle("sidebar-width");
-      let delayTime = lists.classList.contains("close") ? 200 : 250;
-      setTimeout(() => {
-        name_sidebar.classList.toggle("close");
-        lists.classList.toggle("close");
-      }, delayTime);
-    });
-  },
-  start: () => {
-    noneTables.handleEvents();
   },
 };
 

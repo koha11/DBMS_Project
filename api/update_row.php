@@ -16,25 +16,40 @@
   $id = " ";
   $update_string = " ";
 
-  foreach($data as $key => $val)
+  if($table == "RESULT")
   {
-    if($key != "tableName")
-    {
-      $val = is_int($val) ? $val : "N'$val'";
-      
-      if($id == " ")
-        $id = $key . " = " . $val;
-      else
+    $query_update = "PR_RESULT_UPDATE ";
+    foreach($data as $key => $val)
+      if($key != "tableName")
       {
-        $update_string = $update_string . ($update_string == " " ? " " : ",") . " " . $key. " = " . $val; //Neu la col dau tien thi ko can them dau ,
+        if(strpos($key,"ID"))
+          $query_update = ($query_update == "PR_RESULT_UPDATE " ? $query_update : $query_update . ",") . "'" . $val . "'"; //Col ddaauf tien thi pahi co dau ,
+        else 
+          $query_update = $query_update . "," . $val;
       }
-        
-    }
+  }
+  else
+  {
+    foreach($data as $key => $val)
+      if($key != "tableName")
+      {
+        $val = is_numeric($val) ? $val : "N'$val'";
+
+        if($id == " ")
+          $id = $key . " = " . $val;
+        else
+        {
+          $update_string = $update_string . ($update_string == " " ? " " : ",") . " " . $key. " = " . $val; //Neu la col dau tien thi ko can them dau ,
+        }
+      }
+      $query_update = "update $table set $update_string where $id";
   }
 
-  $query_update = "update $table set $update_string where $id";
 
-  echo $table . " " . $update_string . " ..." . $id;
+  
+
+
+  echo $query_update ;
   $stmt_qu = sqlsrv_query($conn,$query_update);
 
   if($stmt_qu === false) {
