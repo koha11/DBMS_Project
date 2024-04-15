@@ -6,8 +6,7 @@
   $conn_array["UID"] = $account["uid"];
   $conn_array["PWD"] = $account["pwd"];
   $conn = sqlsrv_connect($conn_user, $conn_array);
-  if ($conn === false)
-    die(print_r(sqlsrv_errors(), true));
+
   if ($conn === false)
     echo 0;
     //die(print_r(sqlsrv_errors(), true));

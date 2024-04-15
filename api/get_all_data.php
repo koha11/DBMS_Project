@@ -22,9 +22,10 @@
   //       join RESULT C on B.CLASS_ID = C.CLASS_ID";
   //   else   
        $sql_query = "
-         SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM
+         SELECT A.CLASS_ID,COURSE_ID,WEEKLYDAY,DAYPERIOD,CLASSROOM, MONTH(DATE_START) CLASS_MONTH, YEAR(DATE_START) CLASS_YEAR
          FROM TIMETABLE A
-         join CLASS B on A.CLASS_ID = B.CLASS_ID"; 
+         join CLASS B on A.CLASS_ID = B.CLASS_ID
+         join CLASS_DETAIL C on B.CLASS_ID = C.CLASS_ID"; 
   // }
 
   // if($tableName == "CLASS") //done

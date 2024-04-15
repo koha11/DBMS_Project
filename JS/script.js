@@ -23,15 +23,20 @@ const web = {
     let htmls = "";
     let flag = web.IsTitleRendered;
 
-   //Ẩn check btn nếu ko phải bảng bill
-    if(web.Table == "BILL")
-    {
+
+    if(web.Table == "BILL") //Bỏ ẩn check btn của bill
       $('#sub-config').classList.remove('close');
-    }
+    
+    if(web.Table == "TIMETABLE") // Bỏ ẩn tìm kiếm theo tháng + năm của timetable
+      $('.date-option-container').classList.remove('close');
 
     if (web.Table != $("#content-table").dataset.table) {
       if($("#content-table").dataset.table == "BILL")
         $('#sub-config').classList.add('close')
+
+      if($("#content-table").dataset.table ==  "TIMETABLE")
+        $('.date-option-container').classList.add('close');
+
       $("#content-table").dataset.table = web.Table;
       flag = false;
       web.IsTitleRendered = false; //reset lai trang thai da render title hay chua
@@ -441,6 +446,19 @@ const web = {
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
+              <div class="period-detail">
+                ?
+                <div class="period-detail-modal">
+                  <ul>
+                    <li>Period 1: 7h30 -> 9h00</li>
+                    <li>Period 2: 9h30 -> 11h00</li>
+                    <li>Period 3: 13h00 -> 14h30</li>
+                    <li>Period 4: 15h00 -> 16h30</li>
+                    <li>Period 5: 17h30 -> 19h00</li>
+                    <li>Period 6: 19h30 -> 21h00</li>
+                  </ul>
+                </div>
+              </div>
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="CLASSROOM">
               <div class="">Classroom</div>
@@ -502,13 +520,6 @@ const web = {
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
               </div>
             </div>
-            <div class="content-table-head table-col table-title fl-2 flex-box" name="SPEAKING">
-              <div class="">Speaking</div>
-              <div class="order-option flex-box">
-                <i class='bx bxs-up-arrow' data-order='asc'></i>
-                <i class='bx bxs-down-arrow' data-order='desc'></i>
-              </div>
-            </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="LISTENING">
               <div class="">Listening</div>
               <div class="order-option flex-box">
@@ -525,6 +536,13 @@ const web = {
             </div>
             <div class="content-table-head table-col table-title fl-2 flex-box" name="WRITING">
               <div class="">Writing</div>
+              <div class="order-option flex-box">
+                <i class='bx bxs-up-arrow' data-order='asc'></i>
+                <i class='bx bxs-down-arrow' data-order='desc'></i>
+              </div>
+            </div>
+            <div class="content-table-head table-col table-title fl-2 flex-box" name="SPEAKING">
+              <div class="">Speaking</div>
               <div class="order-option flex-box">
                 <i class='bx bxs-up-arrow' data-order='asc'></i>
                 <i class='bx bxs-down-arrow' data-order='desc'></i>
@@ -739,15 +757,27 @@ const web = {
       selectInput.addEventListener("focus", function (e) {
         let htmls = "";
         let table = selectInput.dataset.table;
+        let distinctArr = [];
 
         //Nếu dữ liệu cột nằm trong bảng của page thì ko cần gọi dữ liệu từ database
         if (web.DataArr[table]) {
           // Bảng đã có dữ liệu thì ko cần gửi request cho db
           web.DataArr[table].forEach((row) => {
-            if (row[selectInput.name] != undefined)
-              // Nếu nó chưa có dữ nào thì đừng render
-              htmls += `<option value="${row[selectInput.name]}"></option>`;
+            if (row[selectInput.name] != undefined)  // Nếu nó chưa có dữ nào thì đừng render
+              if(!selectInput.name.includes("ID")) //case datalist tháng năm của timetable
+              {
+                let isSame = distinctArr.find((data) => data == row[selectInput.name]);
+
+                if(!isSame) //Nếu ko bị trùng thì render ra html và bỏ vào mảng 
+                {
+                  distinctArr.push(row[selectInput.name]);
+                  htmls += `<option value="${row[selectInput.name]}"></option>`;
+                }
+              }
+              else
+                htmls += `<option value="${row[selectInput.name]}"></option>`;
           });
+
           selectInput
             .closest(".input-field")
             .querySelector("datalist").innerHTML = htmls;
@@ -1483,6 +1513,19 @@ const web = {
     let htmls = `Table Overview <span class="table-sub-text">(${now} of ${total})</span>`;
     $('.overview').innerHTML = htmls;
   },
+  //Hàm render loading bg
+  renderLoading: (signal) =>
+  {
+    let container = $('.loading-container')
+    if(signal)
+    {
+      container.classList.add('close');
+    }
+    else 
+    {
+      container.classList.remove('close');
+    }
+  },
   //Hàm lấy tất cả bản ghi của 1 bảng từ db
   getData: async (
     tableName,
@@ -1493,7 +1536,12 @@ const web = {
       let xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
       xmlhttp.onreadystatechange = function () {
         //bat dong bo, onload se cham hon so voi cac code khac
+        if(this.readyState != 4)
+        {
+          web.renderLoading(0);
+        }
         if (this.readyState == 4 && this.status == 200) {
+          web.renderLoading(1);
           let dataArr = JSON.parse(this.responseText);
           dataArr.forEach((obj) => {
             for (let key in obj)
@@ -1550,8 +1598,11 @@ const web = {
     );
     xmlhttp.onreadystatechange = function () {
       console.log(this.responseText)
+      if(this.readyState != 4)
+        web.renderLoading(0);
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        web.renderLoading(1);
         web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
           web.resetInputValue();
@@ -1573,8 +1624,11 @@ const web = {
       "application/x-www-form-urlencoded"
     );
     xmlhttp.onreadystatechange = function () {
+      if(this.readyState != 4)
+        web.renderLoading(0);
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        web.renderLoading(1);
         console.log(this.responseText)
         //gọi lại dữ liệu và render lại
         web.getData(web.Table).then((value) => {
@@ -1603,8 +1657,11 @@ const web = {
       "application/x-www-form-urlencoded"
     );
     xmlhttp.onreadystatechange = function () {
+      if(this.readyState != 4)
+        web.renderLoading(0);
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        web.renderLoading(1);
         //gọi lại dữ liệu và render lại
         web.getData(web.Table).then((value) => {
           //xử lí chuyển bảng
@@ -1813,7 +1870,7 @@ const web = {
 
     foundDataArr = foundDataArr.map((row) => {
       //duyệt qua mảng dữ liệu chính
-      if (row[option].toLowerCase().startsWith(condition))
+      if (row[option] != undefined && row[option].toLowerCase().startsWith(condition))
         //lấy ra giá trị của key tương ứng và so sánh với giá trị đang tìm
         return row;
     });
@@ -1973,6 +2030,7 @@ const web = {
     } else web.DataArr[table] = value;
 
     if (isRender) {
+      $('input[name=main_searching]').value = "";
       web.RenderArr = web.DataArr[web.Table];
       web.render(web.DataArr[web.Table], web.Table);
       web.renderSearchingOptions();
@@ -2057,6 +2115,40 @@ const web = {
     })
   },
 
+  //Hàm tìm TKB theo tháng/năm
+  handleFindTB: () =>
+  {
+    let month = $(".date-option-container input[name=CLASS_MONTH]").value;
+    let year = $(".date-option-container input[name=CLASS_YEAR]").value;
+
+    let dataArr = web.DataArr.TIMETABLE;
+
+    let foundArr = dataArr.map((row) =>
+    {
+      if(month == "" && year == "")
+      {
+        return row;
+      }
+      if(month == "")
+      {
+        if(row.CLASS_YEAR == year)
+          return row;
+      }
+      else if(year == "")
+      {
+        if(row.CLASS_MONTH == month)
+          return row;
+      }
+      else
+        if(row.CLASS_MONTH == month && row.CLASS_YEAR == year)
+          return row;
+    })
+
+    web.RenderArr = foundArr;
+
+    web.render(web.RenderArr,"TIMETABLE");
+  },
+
   restartHandleEvents: () => {
     web.handleConfigRow();
   },
@@ -2098,9 +2190,16 @@ const web = {
     });
 
     //Xử lí tìm kiếm dữ liệu trên searching bar
-    $(".searching-input").addEventListener("keyup", function (e) {
+    $(".searching-input[name=main_searching]").addEventListener("keyup", function (e) {
       web.findData();
     });
+
+    //Xử lí tìm kiếm thei tháng + năm của TB
+    $('.date-search-btn').addEventListener("click",function(e)
+    {
+      web.handleFindTB();
+    })
+
 
     //Ngăn chặn hvi mđịnh từ alert-container
     $(".alert-box").addEventListener("click", function (e) {
@@ -2142,6 +2241,15 @@ const web = {
     {
       web.handleCheckBill();
     })
+    
+    // Xử lí click refresh
+    $('.refresh-btn .btn').addEventListener("click",function(e)
+    {
+      web.getData(web.Table).then((value)=>
+      {
+        web.handleChangeTable(value);
+      })
+    })
 
     let menu = $(".icon-menu");
     let sidebar = $(".sidebar");
@@ -2173,7 +2281,7 @@ const web = {
     $('.logout-btn').addEventListener("click", function(e)
     {
       window.sessionStorage.clear();
-      window.location.href = "http://localhost/demo_SQL_mini_project/";
+      window.location.href = window.location.href.replace("Home.html","")
     })
 
     // Thay đổi icon menu sidebar
@@ -2198,6 +2306,7 @@ const web = {
     web.getData(web.Table).then((value) => {
       web.handleChangeTable(value);
       web.handleEvents();
+      web.renderOptionLists();
     });
   },
 };

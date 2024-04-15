@@ -118,13 +118,45 @@
               <div class="searching-bar flex-box">
                 <select name="" id="" class="fl-2 searching-option"></select>
                 <input
-                  name=""
+                  name="main_searching"
                   type="text"
                   placeholder="Search for something...."
                   class="fl-4 searching-input"
                 />
                 <i class="bx bx-search"></i>
               </div>
+              <div class="another-tool-bar flex-box">
+                <div class="refresh-btn fl-2 flex-box">
+                  <i class="btn">Re</i>
+                </div>
+                <div class="date-option-container fl-4 flex-box close">
+                  <div class="input-field">
+                    <input
+                      name="CLASS_MONTH"
+                      type="text"
+                      placeholder="Month"
+                      class="searching-input select-input"
+                      list = "class-month_list"
+                      data-table="TIMETABLE"
+                    />
+                    <datalist id="class-month_list"></datalist>
+                  </div>
+                  <div class="input-field">
+                    <input
+                      name="CLASS_YEAR"
+                      type="text"
+                      placeholder="Year"
+                      class="searching-input select-input"
+                      list = "class-year_list"
+                      data-table="TIMETABLE"
+                    />
+                    <datalist id="class-year_list"></datalist>
+                  </div>
+                  <div class="date-search-btn btn">
+                    FIND
+                  </div>
+                </div>
+              </div>             
             </div>
             <div class="config-area flex-box">
               <div id="sub-config" class="table-config close" data-config="">
