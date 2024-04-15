@@ -33,7 +33,7 @@
     foreach($data as $key => $val)
       if($key != "tableName")
       {
-        $val = is_numeric($val) ? $val : "N'$val'";
+        $val = is_numeric($val) && $val[0] != '0' ? $val : "N'$val'";
 
         if($id == " ")
           $id = $key . " = " . $val;

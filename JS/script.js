@@ -23,19 +23,27 @@ const web = {
     let htmls = "";
     let flag = web.IsTitleRendered;
 
+    web.renderCountText(); //đếm
+    web.renderNoteText();
 
     if(web.Table == "BILL") //Bỏ ẩn check btn của bill
       $('#sub-config').classList.remove('close');
     
     if(web.Table == "TIMETABLE") // Bỏ ẩn tìm kiếm theo tháng + năm của timetable
+    {
       $('.date-option-container').classList.remove('close');
+      $('.valid-TB-btn').classList.remove('close');
+    }
 
     if (web.Table != $("#content-table").dataset.table) {
       if($("#content-table").dataset.table == "BILL")
         $('#sub-config').classList.add('close')
 
       if($("#content-table").dataset.table ==  "TIMETABLE")
+      {
         $('.date-option-container').classList.add('close');
+        $('.valid-TB-btn').classList.add('close');
+      }
 
       $("#content-table").dataset.table = web.Table;
       flag = false;
@@ -743,7 +751,6 @@ const web = {
     if (flag != web.IsTitleRendered) web.handleOrder();
 
     web.handleConfigRow();
-    web.renderCountText(); //đếm
 
     web.IsTitleRendered = flag; // set lại trạng thái đã render title hay chưa
     //set lại chiều cao của sidebar để fit với bảng
@@ -804,8 +811,11 @@ const web = {
   renderSearchingOptions: () => {
     //render danh sách option của thanh tìm kiếm
     let htmls = "";
+
     for (let col in web.DataArr[web.Table][0])
-      htmls += `<option value="${col}">${col}</option>`;
+      if(col != "CLASS_MONTH" && col != "CLASS_YEAR")
+        htmls += `<option value="${col}">${col}</option>`;
+
     $(".searching-option").innerHTML = htmls;
   },
   //Hàm render input form
@@ -1092,7 +1102,7 @@ const web = {
           break;
       }
       
-      if ((web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM")) //mấy cái col này ko thuộc bảng timetable
+      if ((web.Table == "TIMETABLE" && (key == "COURSE_ID" || key == "CLASSROOM" || key == "CLASS_MONTH" || key == "CLASS_YEAR")) //mấy cái col này ko thuộc bảng timetable
         || (web.Table == "RESULT" && key == "OVERALL")) 
         continue; 
 
@@ -1526,6 +1536,32 @@ const web = {
       container.classList.remove('close');
     }
   },
+  renderNoteText: () =>
+  {
+    let objects = $$(".note_obj");
+    let note = "";
+    for(let object of objects)
+    {
+      object.addEventListener("mouseover",function(e)
+      {
+        let classStr = object.classList.value;
+        if(classStr.includes("valid-TB-btn"))
+          note = "Nút này dùng để in ra thời khóa biểu của những lớp chưa kết thúc";
+      
+        let htmls = `
+          <div class="object-note-text">
+            ${note}
+          </div>`;
+
+          object.innerHTML = htmls;
+      })
+
+      object.addEventListener("mouseout",function(e)
+      {
+        object.innerHTML = "";
+      })      
+    }
+  },
   //Hàm lấy tất cả bản ghi của 1 bảng từ db
   getData: async (
     tableName,
@@ -1545,8 +1581,12 @@ const web = {
           let dataArr = JSON.parse(this.responseText);
           dataArr.forEach((obj) => {
             for (let key in obj)
+            {
               if (key.includes("DATE"))
                 obj[key] = obj[key].date.slice(0, 10); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
+              if (key.includes("PHONE") && obj[key][0] != '0') //Thêm dấu + cho sđt +84...
+                obj[key] = "+" + obj[key];
+            }
           });
 
           resolve(dataArr);
@@ -1561,29 +1601,29 @@ const web = {
 
     return await myPromise; //trả về Promise có result là mảng nhận đc từ database
   },
-  //Hàm lấy tất cả bản ghi của 1 cột trong bảng từ db
-  getCol: async (tableName = "", colName = "") => {
-    let myPromise = new Promise((resolve) => {
-      if (tableName == "" || colName == "") resolve([[""]]);
-      else {
-        const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
+  // //Hàm lấy tất cả bản ghi của 1 cột trong bảng từ db
+  // getCol: async (tableName = "", colName = "") => {
+  //   let myPromise = new Promise((resolve) => {
+  //     if (tableName == "" || colName == "") resolve([[""]]);
+  //     else {
+  //       const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
 
-        xmlhttp.onreadystatechange = function () {
-          //bat dong bo, onload se cham hon so voi cac code khac
-          if (this.readyState == 4 && this.status == 200)
-            resolve(JSON.parse(this.responseText)); //responeText: JSON ma server tra ve
-        };
+  //       xmlhttp.onreadystatechange = function () {
+  //         //bat dong bo, onload se cham hon so voi cac code khac
+  //         if (this.readyState == 4 && this.status == 200)
+  //           resolve(JSON.parse(this.responseText)); //responeText: JSON ma server tra ve
+  //       };
 
-        xmlhttp.open(
-          "GET",
-          `./api/get_column.php?table=${tableName}&col=${colName}`
-        ); //trhop lay DL thi dung get
-        xmlhttp.send();
-      }
-    });
+  //       xmlhttp.open(
+  //         "GET",
+  //         `./api/get_column.php?table=${tableName}&col=${colName}`
+  //       ); //trhop lay DL thi dung get
+  //       xmlhttp.send();
+  //     }
+  //   });
 
-    return await myPromise;
-  },
+  //   return await myPromise;
+  // },
   // Hàm thêm bản ghi vào bảng
   addRow: () => {
     let dataObj = web.inputObj;
@@ -1646,6 +1686,7 @@ const web = {
 
     dataObj.tableName = web.Table;
 
+    console.log(JSON.stringify(dataObj))
     xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
   },
   // Hàm xóa 1 bản ghi
@@ -2145,7 +2186,6 @@ const web = {
     })
 
     web.RenderArr = foundArr;
-
     web.render(web.RenderArr,"TIMETABLE");
   },
 
@@ -2228,8 +2268,8 @@ const web = {
             $(".list-sidebar.active").classList.remove("active");
             item.classList.add("active");
 
-            web.render(web.DataArr[web.Table], web.Table);
             web.RenderArr = web.DataArr[web.Table];
+            web.render(web.RenderArr, web.Table);
             web.renderSearchingOptions();
           }
         }
@@ -2243,9 +2283,9 @@ const web = {
     })
     
     // Xử lí click refresh
-    $('.refresh-btn .btn').addEventListener("click",function(e)
+    $('.sub-btn-container .refresh-btn').addEventListener("click",function(e)
     {
-      web.getData(web.Table).then((value)=>
+      web.getData(web.Table).then((value) =>
       {
         web.handleChangeTable(value);
       })
