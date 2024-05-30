@@ -1559,12 +1559,9 @@ const web = {
     }
   },
   //Hàm lấy tất cả bản ghi của 1 bảng từ db
-  getData: async (
-    tableName,
-    id = '',
-    val = '' //async function return Promise => dùng then() để xử lí
-  ) => {
-    let myPromise = new Promise(function (resolve) {
+  //async function return Promise => dùng then() để xử lí
+  getData: async (tableName) =>
+    await new Promise((resolve) => {
       let xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
       xmlhttp.onreadystatechange = function () {
         //bat dong bo, onload se cham hon so voi cac code khac
@@ -1573,66 +1570,54 @@ const web = {
         }
         if (this.readyState == 4 && this.status == 200) {
           web.renderLoading(1);
-          let dataArr = JSON.parse(this.responseText);
-          dataArr.forEach((obj) => {
-            for (let key in obj) {
-              if (key.includes('DATE')) obj[key] = obj[key].date.slice(0, 10); //Lấy 10 chữ đầu(yyyy/mm/dd) -> đảo ngược -> dd/mm/yyyy
-              if (key.includes('PHONE') && obj[key][0] != '0')
-                //Thêm dấu + cho sđt +84...
-                obj[key] = '+' + obj[key];
-            }
-          });
-
-          resolve(dataArr);
+          console.log(this.responseText);
+          let data = JSON.parse(this.responseText);
+          if (data.length == 0)
+            web.getKeys(tableName).then((keys) => resolve(keys));
+          else resolve(data);
         }
       };
       xmlhttp.open(
         'GET',
-        `./api/get_all_data.php?table=${tableName}&id=${id}&val=${val}`
+        `https://qlttta-api-server.onrender.com/${tableName}`
       ); //trhop lay DL thi dung get
       xmlhttp.send();
-    });
+    }),
 
-    return await myPromise; //trả về Promise có result là mảng nhận đc từ database
-  },
-  // //Hàm lấy tất cả bản ghi của 1 cột trong bảng từ db
-  // getCol: async (tableName = "", colName = "") => {
-  //   let myPromise = new Promise((resolve) => {
-  //     if (tableName == "" || colName == "") resolve([[""]]);
-  //     else {
-  //       const xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
-
-  //       xmlhttp.onreadystatechange = function () {
-  //         //bat dong bo, onload se cham hon so voi cac code khac
-  //         if (this.readyState == 4 && this.status == 200)
-  //           resolve(JSON.parse(this.responseText)); //responeText: JSON ma server tra ve
-  //       };
-
-  //       xmlhttp.open(
-  //         "GET",
-  //         `./api/get_column.php?table=${tableName}&col=${colName}`
-  //       ); //trhop lay DL thi dung get
-  //       xmlhttp.send();
-  //     }
-  //   });
-
-  //   return await myPromise;
-  // },
+  getKeys: async (tableName) =>
+    await new Promise((resolve) => {
+      let xmlhttp = new XMLHttpRequest(); // khoi tao xmlhttp
+      xmlhttp.onreadystatechange = function () {
+        //bat dong bo, onload se cham hon so voi cac code khac
+        if (this.readyState != 4) {
+          web.renderLoading(0);
+        }
+        if (this.readyState == 4 && this.status == 200) {
+          web.renderLoading(1);
+          console.log(this.responseText);
+          resolve(JSON.parse(this.responseText));
+        }
+      };
+      xmlhttp.open(
+        'GET',
+        `https://qlttta-api-server.onrender.com/${tableName}/keys`
+      ); //trhop lay DL thi dung get
+      xmlhttp.send();
+    }),
   // Hàm thêm bản ghi vào bảng
   addRow: () => {
+    web.renderLoading(0);
     let dataObj = web.inputObj;
 
-    dataObj.tableName = web.Table;
-
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('POST', './api/add_row.php');
-    xmlhttp.setRequestHeader(
-      'Content-type',
-      'application/x-www-form-urlencoded'
+    xmlhttp.open(
+      'POST',
+      `https://qlttta-api-server.onrender.com/${web.Table}/create`
     );
+
+    xmlhttp.setRequestHeader('Content-type', 'application/json');
+
     xmlhttp.onreadystatechange = function () {
-      console.log(this.responseText);
-      if (this.readyState != 4) web.renderLoading(0);
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         web.renderLoading(1);
@@ -1646,22 +1631,23 @@ const web = {
         });
       }
     };
-    xmlhttp.send(`add=${JSON.stringify(dataObj)}`);
+    xmlhttp.send(JSON.stringify(dataObj));
   },
   // Hàm cập nhật lại nội dung của bản ghi
-  updateRow: () => {
+  updateRow: async () => {
+    web.renderLoading(0);
+    let dataObj = web.getInputData();
+
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('POST', './api/update_row.php');
-    xmlhttp.setRequestHeader(
-      'Content-type',
-      'application/x-www-form-urlencoded'
+    xmlhttp.open(
+      'POST',
+      `https://qlttta-api-server.onrender.com/${web.Table}/update`
     );
+    xmlhttp.setRequestHeader('Content-type', 'application/json');
     xmlhttp.onreadystatechange = function () {
-      if (this.readyState != 4) web.renderLoading(0);
       //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         web.renderLoading(1);
-        console.log(this.responseText);
         //gọi lại dữ liệu và render lại
         web.getData(web.Table).then((value) => {
           web.handleChangeTable(value);
@@ -1673,27 +1659,22 @@ const web = {
         });
       }
     };
-
-    let dataObj = web.getInputData();
-
-    dataObj.tableName = web.Table;
-
-    console.log(JSON.stringify(dataObj));
-    xmlhttp.send(`update=${JSON.stringify(dataObj)}`);
+    xmlhttp.send(`${JSON.stringify(dataObj)}`);
   },
   // Hàm xóa 1 bản ghi
-  deleteRow: (tableName = web.Table, id, key) => {
+  deleteRow: (dataObj) => {
+    web.renderLoading(0);
+
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('POST', './api/delete_row.php');
-    xmlhttp.setRequestHeader(
-      'Content-type',
-      'application/x-www-form-urlencoded'
+    xmlhttp.open(
+      'POST',
+      `https://qlttta-api-server.onrender.com/${web.Table}/delete`
     );
+    xmlhttp.setRequestHeader('Content-type', 'application/json');
     xmlhttp.onreadystatechange = function () {
-      if (this.readyState != 4) web.renderLoading(0);
-      //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         web.renderLoading(1);
+        //Call a function when the state changes.
         //gọi lại dữ liệu và render lại
         web.getData(web.Table).then((value) => {
           //xử lí chuyển bảng
@@ -1704,11 +1685,7 @@ const web = {
       }
     };
 
-    let dataObj = { tableName: tableName };
-
-    dataObj[key] = id;
-
-    xmlhttp.send(`delete=${JSON.stringify(dataObj)}`);
+    xmlhttp.send(JSON.stringify(dataObj));
   },
   getCountryData: () => {
     let data = fetch('https://restcountries.com/v3.1/all');
@@ -2001,14 +1978,22 @@ const web = {
       else if (web.ConfigState == 'add') web.addRow();
       else if (web.ConfigState == 'update') web.updateRow();
       else {
-        let key = Object.keys(web.inputObj)[0];
-        web.deleteRow(web.Table, web.inputObj[key], key);
+        let dataObj = {};
+
+        let keys = Object.keys(web.inputObj).filter(
+          (col) => col.includes('ID') // lay ids de xoa hang
+        );
+
+        keys.forEach((key) => (dataObj[key] = web.inputObj[key]));
+
+        web.deleteRow(dataObj);
       }
     });
   },
   // Xử lí submit form
   handleSubmitForm: () => {
     $('#config-btn').addEventListener('click', function (e) {
+      console.log('1');
       let inputList = $$(
         `.config-modal-container:not(.close) form .input-field input[data-constraint]`
       ); //danh sach input tuong ung voi config-state
@@ -2059,14 +2044,18 @@ const web = {
     table = web.Table,
     isRender = true // tham số t2 cho chọn render lại bảng hay ko, hay chỉ là xử lí mảng kco bản ghi nào
   ) => {
-    //Neu Bang chua co dong du lieu nao
-    if (Object.getOwnPropertyNames(value[0])[0] == 'COLUMN_NAME') {
-      //Neu key cua dong tien la column_name => bang kco du lieu nao
-      let obj = {};
-      for (let item of value) obj[Object.values(item)[0]] = undefined;
-      web.DataArr[table] = [obj];
-    } else web.DataArr[table] = value;
+    console.log(value);
+    web.DataArr[table] = value.map((rawRow) => {
+      console.log(rawRow);
+      let finishRow = rawRow;
+      if (typeof finishRow == 'object')
+        for (let key in finishRow) {
+          if (key.toLowerCase().includes('date'))
+            finishRow[key] = finishRow[key].slice(0, 10);
+        }
 
+      return finishRow;
+    });
     if (isRender) {
       $('input[name=main_searching]').value = '';
       web.RenderArr = web.DataArr[web.Table];
@@ -2315,6 +2304,7 @@ const web = {
     web.setRole(window.sessionStorage.role);
     web.renderUserName();
     web.getData(web.Table).then((value) => {
+      console.log(value);
       web.handleChangeTable(value);
       web.handleEvents();
       web.renderOptionLists();

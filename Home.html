@@ -18,13 +18,13 @@
     <link rel="stylesheet" href="./Css/style.css" />
     <title>Home</title>
   </head>
-  
 
   <body>
     <script type="text/javascript">
-      (function() {
-        if(!sessionStorage.getItem("role")) //Ngăn chặn sự xâm nhập vào page khi chưa login
-          window.location.href = window.location.href.replace("Home.html","")
+      (function () {
+        if (!sessionStorage.getItem('role'))
+          //Ngăn chặn sự xâm nhập vào page khi chưa login
+          window.location.href = window.location.href.replace('home.html', '');
       })();
     </script>
     <div class="view">
@@ -52,11 +52,11 @@
               <ul class="setting-modal flex-box close">
                 <li class="item-drop-menu">
                   <i class="icon-drop-menu bx bxs-info-circle"></i>
-                  <div class="setting-item infor-btn"> Info </div>
+                  <div class="setting-item infor-btn">Info</div>
                 </li>
                 <li class="item-drop-menu item-drop-menu-last">
                   <i class="icon-drop-menu bx bx bx-log-out"></i>
-                  <div class="setting-item logout-btn"> Log out </div>
+                  <div class="setting-item logout-btn">Log out</div>
                 </li>
               </ul>
             </i>
@@ -129,7 +129,6 @@
                 <div class="sub-btn-container fl-2 flex-box">
                   <i class="btn refresh-btn">Re</i>
                   <i class="btn valid-TB-btn close note_obj"></i>
-                  
                 </div>
                 <div class="date-option-container fl-4 flex-box close">
                   <div class="input-field">
@@ -138,7 +137,7 @@
                       type="text"
                       placeholder="Month"
                       class="searching-input select-input"
-                      list = "class-month_list"
+                      list="class-month_list"
                       data-table="TIMETABLE"
                     />
                     <datalist id="class-month_list"></datalist>
@@ -149,16 +148,14 @@
                       type="text"
                       placeholder="Year"
                       class="searching-input select-input"
-                      list = "class-year_list"
+                      list="class-year_list"
                       data-table="TIMETABLE"
                     />
                     <datalist id="class-year_list"></datalist>
                   </div>
-                  <div class="date-search-btn btn">
-                    FIND
-                  </div>
+                  <div class="date-search-btn btn">FIND</div>
                 </div>
-              </div>             
+              </div>
             </div>
             <div class="config-area flex-box">
               <div id="sub-config" class="table-config close" data-config="">
@@ -181,8 +178,7 @@
             <div
               class="config-modal flex-box modal add-config"
               data-config="add-config"
-            >             
-            </div>
+            ></div>
           </div>
 
           <div class="config-modal-container close container flex-box small">
