@@ -2101,7 +2101,7 @@ const web = {
   // Hàm xử lý event check HS nợ học phí hoặc xóa những HS đó
   handleCheckBill: (option = 1) => {
     if (!web.DataArr.CHECK_BILL)
-      web.getData('CHECK_BILL', option).then((value) => {
+      web.getData('bill/check', option).then((value) => {
         let dataObj = value.length == 0 ? [{}] : value;
         if (option == 1) {
           web.DataArr.CHECK_BILL = dataObj;
@@ -2281,7 +2281,7 @@ const web = {
     //logout
     $('.logout-btn').addEventListener('click', function (e) {
       window.sessionStorage.clear();
-      window.location.href = window.location.href.replace('Home.html', '');
+      window.location.href = 'https://qlttta.onrender.com/';
     });
 
     // Thay đổi icon menu sidebar

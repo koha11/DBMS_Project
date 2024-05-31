@@ -12,7 +12,7 @@ const web = {
     } //Dang nhap thanh cong
     else {
       for (let key in obj) sessionStorage.setItem(key, obj[key]);
-      window.location.href += 'Home.html'; //Chuyen den Home
+      window.location.href = 'https://qlttta.onrender.com/Dashboard.html'; //Chuyen den Home
     }
   },
   handleEvent: () => {
