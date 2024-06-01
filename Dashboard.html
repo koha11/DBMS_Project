@@ -1,209 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./Css/style.css" />
-    <title>Dashboard</title>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <link
+            href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="./Css/style.css"
+        />
+        <title>Dashboard</title>
+    </head>
 
-  <body>
-    <script type="text/javascript">
-      (function () {
-        if (!sessionStorage.getItem('role'))
-          //Ngăn chặn sự xâm nhập vào page khi chưa login
-          window.location.href = 'https://qlttta.onrender.com/';
-      })();
-    </script>
-    <div class="view">
-      <!-- header -->
-      <div class="header">
-        <div class="header-left">
-          <div class="logo">
-            <img src="./Assets/Image/logo.png" alt="" class="img-logo" />
-          </div>
-          <div class="name-group">
-            <div class="name-text">Student Management System</div>
-          </div>
-        </div>
-        <div class="header-right">
-          <div class="avatar-user">
-            <img
-              src="./Assets/Image/avatar-template.jpg"
-              alt=""
-              class="img-avatar"
-            />
-          </div>
-          <div class="name-user">
-            <div class="name-user-text username-text"></div>
-            <i class="icon-arrow-down bx bx-cog">
-              <ul class="setting-modal flex-box close">
-                <li class="item-drop-menu">
-                  <i class="icon-drop-menu bx bxs-info-circle"></i>
-                  <div class="setting-item infor-btn">Info</div>
-                </li>
-                <li class="item-drop-menu item-drop-menu-last">
-                  <i class="icon-drop-menu bx bx bx-log-out"></i>
-                  <div class="setting-item logout-btn">Log out</div>
-                </li>
-              </ul>
-            </i>
-          </div>
-
-          <div class="notifi">
-            <i class="icon-notifi bx bx-bell"></i>
-          </div>
-        </div>
-      </div>
-      <!-- main -->
-      <div class="main flex-box">
-        <!-- sidebar -->
-        <div class="sidebar flex-box">
-          <div class="head-sidebar flex-box">
-            <div class="name-sidebar close flex-box username-text"></div>
-            <div class="sidebar-menu">
-              <i class="icon-menu flex-box fa-solid fa-bars"></i>
-            </div>
-          </div>
-          <div class="content-sidebar close">
-            <div class="list-sidebar active" data-table="STUDENT">
-              <i class="icon-sidebar bx bxs-group"></i>
-              <span class="name-sidebar-items"> Student </span>
-            </div>
-            <div class="list-sidebar" data-table="TEACHER">
-              <i class="icon-sidebar fa-solid fa-chalkboard-user"></i>
-              <span class="name-sidebar-items">Teacher</span>
-            </div>
-            <div class="list-sidebar" data-table="TIMETABLE">
-              <i class="icon-sidebar bx bxs-time"></i>
-              <span class="name-sidebar-items">Time</span>
-            </div>
-            <div class="list-sidebar" data-table="RESULT">
-              <i class="icon-sidebar bx bx-bar-chart"></i>
-              <span class="name-sidebar-items"> Result </span>
-            </div>
-            <div class="list-sidebar" data-table="COURSE">
-              <i class="icon-sidebar bx bxs-briefcase"></i>
-              <span class="name-sidebar-items"> Courses </span>
-            </div>
-            <div class="list-sidebar" data-table="CLASS">
-              <i class="icon-sidebar fa-solid fa-users"></i>
-              <span class="name-sidebar-items"> Class </span>
-            </div>
-            <div class="list-sidebar" data-table="CLASS_DETAIL">
-              <i class="icon-sidebar fa-solid fa-users"></i>
-              <span class="name-sidebar-items"> Class Details </span>
-            </div>
-            <div class="list-sidebar" data-table="BILL">
-              <i class="icon-sidebar bx bxs-credit-card"></i>
-              <span class="name-sidebar-items"> Bill </span>
-            </div>
-          </div>
-        </div>
-        <div class="main-content">
-          <div class="head-main-content">
-            <div class="tool-container flex-box">
-              <div class="searching-bar flex-box">
-                <select name="" id="" class="fl-2 searching-option"></select>
-                <input
-                  name="main_searching"
-                  type="text"
-                  placeholder="Search for something...."
-                  class="fl-4 searching-input"
-                />
-                <i class="bx bx-search"></i>
-              </div>
-              <div class="another-tool-bar flex-box">
-                <div class="sub-btn-container fl-2 flex-box">
-                  <i class="btn refresh-btn">Re</i>
-                  <i class="btn valid-TB-btn close note_obj"></i>
+    <body>
+        <script type="text/javascript">
+            (function () {
+                if (!sessionStorage.getItem("role"))
+                    //Ngăn chặn sự xâm nhập vào page khi chưa login
+                    window.location.href = "https://qlttta.onrender.com/";
+            })();
+        </script>
+        <div class="view">
+            <!-- header -->
+            <div class="header">
+                <div class="header-left">
+                    <div class="logo flex-box">
+                        <img
+                            src="./Assets/Image/IF_logo.png"
+                            alt=""
+                            class="img-logo"
+                        />
+                    </div>
+                    <div class="name-group">
+                        <div class="name-text">Student Management System</div>
+                    </div>
                 </div>
-                <div class="date-option-container fl-4 flex-box close">
-                  <div class="input-field">
-                    <input
-                      name="CLASS_MONTH"
-                      type="text"
-                      placeholder="Month"
-                      class="searching-input select-input"
-                      list="class-month_list"
-                      data-table="TIMETABLE"
-                    />
-                    <datalist id="class-month_list"></datalist>
-                  </div>
-                  <div class="input-field">
-                    <input
-                      name="CLASS_YEAR"
-                      type="text"
-                      placeholder="Year"
-                      class="searching-input select-input"
-                      list="class-year_list"
-                      data-table="TIMETABLE"
-                    />
-                    <datalist id="class-year_list"></datalist>
-                  </div>
-                  <div class="date-search-btn btn">FIND</div>
+                <div class="header-right">
+                    <div class="avatar-user">
+                        <img
+                            src="./Assets/Image/avatar.png"
+                            alt=""
+                            class="img-avatar"
+                        />
+                    </div>
+                    <div class="name-user">
+                        <div class="name-user-text username-text"></div>
+                        <i class="icon-arrow-down bx bx-cog">
+                            <ul class="setting-modal flex-box close">
+                                <li class="item-drop-menu">
+                                    <i
+                                        class="icon-drop-menu bx bxs-info-circle"
+                                    ></i>
+                                    <div class="setting-item infor-btn">
+                                        Info
+                                    </div>
+                                </li>
+                                <li class="item-drop-menu item-drop-menu-last">
+                                    <i
+                                        class="icon-drop-menu bx bx bx-log-out"
+                                    ></i>
+                                    <div class="setting-item logout-btn">
+                                        Log out
+                                    </div>
+                                </li>
+                            </ul>
+                        </i>
+                    </div>
+
+                    <div class="notifi">
+                        <i class="icon-notifi bx bx-bell"></i>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="config-area flex-box">
-              <div id="sub-config" class="table-config close" data-config="">
-                Check
-              </div>
-              <div id="table-config" class="table-config" data-config="add">
-                Configure Data
-              </div>
+            <!-- main -->
+            <div class="main flex-box">
+                <!-- sidebar -->
+                <div class="sidebar flex-box">
+                    <div class="head-sidebar flex-box">
+                        <div
+                            class="name-sidebar close flex-box username-text"
+                        ></div>
+                        <div class="sidebar-menu">
+                            <i class="icon-menu flex-box fa-solid fa-bars"></i>
+                        </div>
+                    </div>
+                    <div class="content-sidebar close">
+                        <div
+                            class="list-sidebar active"
+                            data-table="STUDENT"
+                        >
+                            <i class="icon-sidebar bx bxs-group"></i>
+                            <span class="name-sidebar-items"> Student </span>
+                        </div>
+                        <div
+                            class="list-sidebar"
+                            data-table="TEACHER"
+                        >
+                            <i
+                                class="icon-sidebar fa-solid fa-chalkboard-user"
+                            ></i>
+                            <span class="name-sidebar-items">Teacher</span>
+                        </div>
+                        <div
+                            class="list-sidebar"
+                            data-table="TIMETABLE"
+                        >
+                            <i class="icon-sidebar bx bxs-time"></i>
+                            <span class="name-sidebar-items">Time</span>
+                        </div>
+                        <div
+                            class="list-sidebar"
+                            data-table="RESULT"
+                        >
+                            <i class="icon-sidebar bx bx-bar-chart"></i>
+                            <span class="name-sidebar-items"> Result </span>
+                        </div>
+                        <div
+                            class="list-sidebar"
+                            data-table="COURSE"
+                        >
+                            <i class="icon-sidebar bx bxs-briefcase"></i>
+                            <span class="name-sidebar-items"> Courses </span>
+                        </div>
+                        <div
+                            class="list-sidebar"
+                            data-table="CLASS"
+                        >
+                            <i class="icon-sidebar fa-solid fa-users"></i>
+                            <span class="name-sidebar-items"> Class </span>
+                        </div>
+                        <div
+                            class="list-sidebar"
+                            data-table="CLASS_DETAIL"
+                        >
+                            <i class="icon-sidebar fa-solid fa-users"></i>
+                            <span class="name-sidebar-items">
+                                Class Details
+                            </span>
+                        </div>
+                        <div
+                            class="list-sidebar"
+                            data-table="BILL"
+                        >
+                            <i class="icon-sidebar bx bxs-credit-card"></i>
+                            <span class="name-sidebar-items"> Bill </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content">
+                    <div class="head-main-content">
+                        <div class="tool-container flex-box">
+                            <div class="searching-bar flex-box">
+                                <select
+                                    name=""
+                                    id=""
+                                    class="fl-2 searching-option"
+                                ></select>
+                                <input
+                                    name="main_searching"
+                                    type="text"
+                                    placeholder="Search for something...."
+                                    class="fl-4 searching-input"
+                                />
+                                <i class="bx bx-search"></i>
+                            </div>
+                            <div class="another-tool-bar flex-box">
+                                <div class="sub-btn-container fl-2 flex-box">
+                                    <i class='bx bx-refresh btn refresh-btn'></i>
+                                    <i
+                                        class="btn valid-TB-btn close note_obj"
+                                    ></i>
+                                </div>
+                                <div
+                                    class="date-option-container fl-4 flex-box close"
+                                >
+                                    <div class="input-field">
+                                        <input
+                                            name="CLASS_MONTH"
+                                            type="text"
+                                            placeholder="Month"
+                                            class="searching-input select-input"
+                                            list="class-month_list"
+                                            data-table="TIMETABLE"
+                                        />
+                                        <datalist
+                                            id="class-month_list"
+                                        ></datalist>
+                                    </div>
+                                    <div class="input-field">
+                                        <input
+                                            name="CLASS_YEAR"
+                                            type="text"
+                                            placeholder="Year"
+                                            class="searching-input select-input"
+                                            list="class-year_list"
+                                            data-table="TIMETABLE"
+                                        />
+                                        <datalist
+                                            id="class-year_list"
+                                        ></datalist>
+                                    </div>
+                                    <div class="date-search-btn btn">FIND</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-area flex-box">
+                            <div
+                                id="sub-config"
+                                class="table-config close"
+                                data-config=""
+                            >
+                                Check
+                            </div>
+                            <div
+                                id="table-config"
+                                class="table-config"
+                                data-config="add"
+                            >
+                                Configure Data
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview"></div>
+                    <div
+                        id="content-table"
+                        class="content-table"
+                        data-table="STUDENT"
+                    ></div>
+
+                    <div
+                        class="config-modal-container container flex-box close"
+                    >
+                        <div
+                            class="config-modal flex-box modal add-config"
+                            data-config="add-config"
+                        ></div>
+                    </div>
+
+                    <div
+                        class="config-modal-container close container flex-box small"
+                    >
+                        <div
+                            class="config-modal flex-box modal add-config"
+                            data-config="add-config"
+                        ></div>
+                    </div>
+
+                    <div class="alert-container container flex-box close">
+                        <div class="alert-box flex-box">
+                            <div class="alert-message">TEST</div>
+                            <div class="alert-btn btn">CLOSE</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div class="overview"></div>
-          <div
-            id="content-table"
-            class="content-table"
-            data-table="STUDENT"
-          ></div>
-
-          <div class="config-modal-container container flex-box close">
-            <div
-              class="config-modal flex-box modal add-config"
-              data-config="add-config"
-            ></div>
-          </div>
-
-          <div class="config-modal-container close container flex-box small">
-            <div
-              class="config-modal flex-box modal add-config"
-              data-config="add-config"
-            ></div>
-          </div>
-
-          <div class="alert-container container flex-box close">
-            <div class="alert-box flex-box">
-              <div class="alert-message">TEST</div>
-              <div class="alert-btn btn">CLOSE</div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="loading-container flex-box close">
-      <div class="loading">
-        <i class="bx bx-loader-circle"></i>
-      </div>
-    </div>
+        <div class="loading-container flex-box close">
+            <div class="loading">
+                <i class="bx bx-loader-circle"></i>
+            </div>
+        </div>
 
-    <script src="./JS/script.js"></script>
-  </body>
+        <script src="./JS/script.js"></script>
+    </body>
 </html>
